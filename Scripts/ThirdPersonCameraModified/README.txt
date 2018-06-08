@@ -1,0 +1,2 @@
+This tool is designed to utilize a player, an object that moves along a player (child of player), called the anchor. A cameraFocusPoint, and a Camera. 
+Utilize these and the scripts within the folder to get a Third Person perspective rotating camera, reverse engineered with the GearsOfWar camera system in mind
