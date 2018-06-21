@@ -85,6 +85,8 @@ public class PlayerCharacterController : MonoBehaviour
 
     void HandleActionInput()
     {
+        playerAnimationState = animationState.Idling; //default state, only modified if some other action happens
+
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
             playerAnimationState = animationState.Jogging;
@@ -100,18 +102,28 @@ public class PlayerCharacterController : MonoBehaviour
         {
             isAnimationLocked = true;
             playerAnimationState = animationState.Rolling;
-            
+
             //TODO:
             //Corroutine here to wait for rolling to finish, then when done set isAnimationLocked = false; Encapsulate Handle Action
             //Inputs inside of another check for isAnimationLocked, that way any prior engaged animations are messed with until co
             //routine finishes.
-            //StartCoroutine(RollingWait());
+
+            StartCoroutine(WaitForAnimation("DS roll fwd"));
+
+
+
         }
         //test case for animation locks
         if (Input.GetKey(KeyCode.E))
             isAnimationLocked = true;
         if (Input.GetKey(KeyCode.R))
             isAnimationLocked = false;
+    }
+
+    IEnumerator WaitForAnimation(string animationName)
+    {
+        
+        yield return null;
     }
 
 }

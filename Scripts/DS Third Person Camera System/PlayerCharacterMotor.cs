@@ -10,16 +10,13 @@ public class PlayerCharacterMotor : MonoBehaviour
 
     public float WalkSpeed = 2f;
     public float JogSpeed = 4f;
-    public float RunSpeed = 6f;
+    public float RunSpeed = 6.5f;
     public float SlideSpeed = 3f;
     public float jumpSpeed = 6f;
     public float Gravity = 21f;
     public float terminalVelocity = 20f;
     public float slideThreshold = 0.6f;
     public float maxControllableSlideMagnitude = 0.4f;
-
-
-    private Vector3 slideDirection;
 
 
     public Vector3 MoveVector { get; set; }
@@ -59,9 +56,6 @@ public class PlayerCharacterMotor : MonoBehaviour
         if (MoveVector.magnitude > 1)
             MoveVector = Vector3.Normalize(MoveVector);
 
-        //apply slide, if needed (checks if we will slide, or not then does if so)
-        applySlide();
-
         //Multiply MoveVector by MoveSpeed (units per frame)
         MoveVector = MoveVector * MoveSpeed();
 
@@ -97,28 +91,6 @@ public class PlayerCharacterMotor : MonoBehaviour
         }
     }
 
-    void applySlide()
-    {
-        if (!PlayerCharacterController.CharacterController.isGrounded)
-            return; //cant slide in the air
-        slideDirection = Vector3.zero;
-
-        RaycastHit hitInfo;
-
-        if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out hitInfo))   //raycast from the character postion + 1 unti upwards., and shoot downwards, save the info into HitInfo
-        {
-            if (hitInfo.normal.y < slideThreshold) //if the y axis is at a steeper angle than our slide threshold
-                slideDirection = new Vector3(hitInfo.normal.x, -hitInfo.normal.y, hitInfo.normal.z); //inverted y as we want to go downward
-        }
-
-        if (slideDirection.magnitude < maxControllableSlideMagnitude)
-            MoveVector += slideDirection;
-        else
-        {
-            MoveVector = slideDirection;
-        }
-    }
-
     public void Jump()
     {
         if (PlayerCharacterController.CharacterController.isGrounded)
@@ -132,10 +104,9 @@ public class PlayerCharacterMotor : MonoBehaviour
         float moveSpeed = 0;
 
         moveSpeed = JogSpeed;
-        //HERE, is where we can check if sprinting or walking
-
-        if (slideDirection.magnitude > 0)
-            moveSpeed = SlideSpeed;
+      
+        if (PlayerCharacterController.Instance.playerAnimationState == PlayerCharacterController.animationState.Running)
+            moveSpeed = RunSpeed;
 
         return moveSpeed;
     }
