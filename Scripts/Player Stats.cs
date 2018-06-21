@@ -6,27 +6,22 @@ public class PlayerStats : UnitStats {
 
     private UnitStats player;
 
-    protected float Vigor;
-    protected float Endurance;
-    protected float Vitality;
-    protected float Strength;
-    protected float Dexterity;
-    protected float Intellect;
-    protected float Faith;
+    protected int Vigor;
+    protected int Endurance;
+    protected int Vitality;
+    protected int Strength;
+    protected int Dexterity;
+    protected int Intellect;
+    protected int Faith;
 
-    // run on game load
+    // run on game load, initialize with default values
     void Awake ()
     {
         player = new UnitStats();
-        this.setStats(0,0,0,0,0,0,0,0,0,0);
+        this.setStats(1,1,1,1,1,1,1,1,1,1);
 	}
 
-    //method to be called when loading a game state, takes in the players saved stats
-    public void setStats(float HP, float stam, float mana, float Vig, float End, float Vit, float Str, float Dex, float Int, float Fai)
-    {
-
-    }
-
+    //method to check if player is dead. returns true for dead, and false for alive.
     public bool checkIfDead()
     {
         if (this.player.getHP() > 0)
@@ -34,5 +29,79 @@ public class PlayerStats : UnitStats {
         else
             return true;
     }
-	
+
+    //method to be called when loading a game state, takes in the players saved stats
+    public void setStats(float HP, float stam, float mana, int Vig, int End, int Vit, int Str, int Dex, int Int, int Fai)
+    {
+        //TODO: Finish adding rest of stats to load, including max HP, max Stam, and Max Mana
+        player.setHP(HP);
+    }
+
+
+
+
+    //Getters and Setters for Player Stats Class
+    public int getVigor()
+    {
+        return this.Vigor;
+    }
+    public void setVigor(int toSet)
+    {
+        this.Vigor = toSet;
+    }
+
+    public int getEndurance()
+    {
+        return this.Endurance;
+    }
+    public void setEndurance(int toSet)
+    {
+        this.Endurance = toSet;
+    }
+
+    public int getVitality()
+    {
+        return this.Vitality;
+    }
+    public void setVitality(int toSet)
+    {
+        this.Vitality = toSet;
+    }
+
+    public int getStrength()
+    {
+        return this.Strength;
+    }
+    public void setStrength(int toSet)
+    {
+        this.Strength = toSet;
+    }
+
+    public int getDexterity()
+    {
+        return this.Dexterity;
+    }
+    public void setDexterity(int toSet)
+    {
+        this.Dexterity = toSet;
+    }
+
+    public int getIntellect()
+    {
+        return this.Intellect;
+    }
+    public void setItellect(int toSet)
+    {
+        this.Intellect = toSet;
+    }
+
+    public int getFaith()
+    {
+        return this.Faith;
+    }
+    public void setFaith(int toSet)
+    {
+        this.Faith = toSet;
+    }
+
 }
