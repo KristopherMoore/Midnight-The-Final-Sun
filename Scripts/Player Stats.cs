@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerStats : UnitStats {
 
-    private UnitStats player;
-
     protected int Vigor;
     protected int Endurance;
     protected int Vitality;
@@ -17,26 +15,26 @@ public class PlayerStats : UnitStats {
     // run on game load, initialize with default values
     void Awake ()
     {
-        player = new UnitStats();
         this.setStats(1,1,1,1,1,1,1,1,1,1);
 	}
-
-    //method to check if player is dead. returns true for dead, and false for alive.
-    public bool checkIfDead()
-    {
-        if (this.player.getHP() > 0)
-            return false;
-        else
-            return true;
-    }
 
     //method to be called when loading a game state, takes in the players saved stats
     public void setStats(float HP, float stam, float mana, int Vig, int End, int Vit, int Str, int Dex, int Int, int Fai)
     {
         //TODO: Finish adding rest of stats to load, including max HP, max Stam, and Max Mana
-        player.setHP(HP);
+        this.setHP(HP);
     }
 
+    //method to check if player is dead. returns true for dead, and false for alive.
+    public bool checkIfDead()
+    {
+        if (this.getHP() > 0)
+            return false;
+        else
+            return true;
+    }
+
+   
 
 
 
