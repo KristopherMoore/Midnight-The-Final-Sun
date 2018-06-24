@@ -8,9 +8,9 @@ public class PlayerCharacterMotor : MonoBehaviour
 
     public static PlayerCharacterMotor Instance; //hold reference to instance of itself  
 
-    public float WalkSpeed = 2f;
-    public float JogSpeed = 4f;
-    public float RunSpeed = 6.5f;
+    public float WalkSpeed = 1.75f;
+    public float JogSpeed = 3.75f;
+    public float RunSpeed = 6.0f;
     public float SlideSpeed = 3f;
     public float jumpSpeed = 6f;
     public float Gravity = 21f;
@@ -47,14 +47,13 @@ public class PlayerCharacterMotor : MonoBehaviour
                 //Transform MoveVector to WorldSpace relative to our characters location
                 //MoveVector = transform.TransformDirection(MoveVector);
 
-        //Kris -- Modify MoveVector relative to our cameras rotation
+        //Modify MoveVector relative to our cameras rotation
         Vector3 cameraDirection = Camera.main.transform.TransformDirection(MoveVector.x, MoveVector.y, MoveVector.z);
         cameraDirection.y = 0.0f;
         MoveVector = cameraDirection;
 
-        //Normalize MoveVector if Magnitude > 1
-        if (MoveVector.magnitude > 1)
-            MoveVector = Vector3.Normalize(MoveVector);
+        //Normalize MoveVector, which is now relative to cam rotation
+        MoveVector = Vector3.Normalize(MoveVector);
 
         //Multiply MoveVector by MoveSpeed (units per frame)
         MoveVector = MoveVector * MoveSpeed();
@@ -101,9 +100,10 @@ public class PlayerCharacterMotor : MonoBehaviour
 
     float MoveSpeed()
     {
-        float moveSpeed = 0;
+        float moveSpeed = JogSpeed;
 
-        moveSpeed = JogSpeed;
+        if (PlayerCharacterController.Instance.playerAnimationState == PlayerCharacterController.animationState.Walking)
+            moveSpeed = WalkSpeed;
       
         if (PlayerCharacterController.Instance.playerAnimationState == PlayerCharacterController.animationState.Running)
             moveSpeed = RunSpeed;

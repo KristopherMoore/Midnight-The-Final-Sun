@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitStats : MonoBehaviour {
+public class UnitStats {
 
     //This class will serve as a base for all unit types in the game.
 
@@ -71,7 +71,7 @@ public class UnitStats : MonoBehaviour {
     //only to be used within constructors for initialization. Saving repeatable code.
     private void DefaultValues()
     {
-        setHP(100f);
+        setHP(90f);
         setMaxHP(100f);
         setStamina(10f);
         setMaxStamina(10f);
