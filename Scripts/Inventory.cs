@@ -12,6 +12,8 @@ public class Inventory {
     private static List<Item> inventory;
     private string owner; //owner name, mostly for debugging purposes
 
+    private float totalWeight = 0.0f;
+
     //constructor with owner name
     public Inventory(string nameOfOwner)
     {
@@ -21,11 +23,13 @@ public class Inventory {
     public void addItem(Item itemToAdd)
     {
         inventory.Add(itemToAdd);
+        totalWeight += itemToAdd.getWeight();
     }
 
     public void removeItem(Item itemToRemove)
     {
         inventory.Remove(itemToRemove);
+        totalWeight -= itemToRemove.getWeight();
     }
 
     public void sortInventory()
@@ -36,5 +40,6 @@ public class Inventory {
     public void removeAll()
     {
         inventory.Clear();
+        totalWeight = 0.0f;
     }
 }

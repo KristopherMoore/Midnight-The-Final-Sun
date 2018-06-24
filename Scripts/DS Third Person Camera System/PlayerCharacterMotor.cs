@@ -78,6 +78,12 @@ public class PlayerCharacterMotor : MonoBehaviour
         }
     }
 
+    //method for rolling, will propel the character in their rolled direction, over a set duration.
+    public void Roll()
+    {
+
+    }
+
     void applyGravity()
     {
         if (MoveVector.y > -terminalVelocity)

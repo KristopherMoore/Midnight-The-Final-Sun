@@ -85,6 +85,16 @@ public class PlayerCharacterController : MonoBehaviour
 
     void HandleActionInput()
     {
+        //ESCAPE sequence, allows us to modify animationLocks manually for avoid errors
+        if (Input.GetKey(KeyCode.R))
+            isAnimationLocked = false;
+        if (Input.GetKey(KeyCode.E))
+            isAnimationLocked = true;
+
+        //if we are anim locked, leave this function. no Actions can happen until we are no longer locked
+        if (isAnimationLocked == true)
+            return;
+
         playerAnimationState = animationState.Idling; //default state, only modified if some other action happens
 
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
@@ -110,14 +120,19 @@ public class PlayerCharacterController : MonoBehaviour
 
             StartCoroutine(WaitForAnimation("DS roll fwd"));
 
+            //wait for animation, and send roll movement command to Motor
+            StartCoroutine(WaitXSeconds(1f));
 
 
         }
-        //test case for animation locks
-        if (Input.GetKey(KeyCode.E))
-            isAnimationLocked = true;
-        if (Input.GetKey(KeyCode.R))
-            isAnimationLocked = false;
+    }
+
+    IEnumerator WaitXSeconds(float waitTime)
+    {
+        print(Time.time);
+        yield return new WaitForSeconds(waitTime);
+        print(Time.time);
+        isAnimationLocked = false;
     }
 
     IEnumerator WaitForAnimation(string animationName)

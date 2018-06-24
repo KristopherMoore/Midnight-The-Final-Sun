@@ -11,7 +11,7 @@ public class PlayerObject : MonoBehaviour {
     private PlayerStats playerStats;
     private Inventory inventory;
 
-    
+    private Item itemReference; //so we can utilize item methods
 
 	// Game load
 	void Awake ()
@@ -20,5 +20,12 @@ public class PlayerObject : MonoBehaviour {
         playerStats = new PlayerStats();
         inventory = new Inventory("Player Object");
 	}
+
+    public void addItemToPlayer(string itemName)
+    {
+        //adds item to our inventory, gets item by calling to the itemFactory, which will construct our item to add.
+        //this allows us to add items, by only knowing their name, it will be populated.
+        inventory.addItem(itemReference.itemFactory("itemName"));
+    }
 
 }
