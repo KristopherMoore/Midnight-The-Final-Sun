@@ -77,4 +77,12 @@ public static class HelperK
         }
         return null;
     }
+
+    //helper function to remove child, specifically only removes child on one level not searching through all children
+    public static void removeChild(Transform parent, string childToRemove)
+    {
+        Transform temp = parent.transform.Find(childToRemove);
+        Debug.Log(temp.name);
+        GameObject.Destroy(temp.gameObject);
+    }
 }

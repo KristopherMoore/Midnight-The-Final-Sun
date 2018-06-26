@@ -10,6 +10,13 @@ public class PlayerObject : MonoBehaviour {
 
     private PlayerStats playerStats;
     private Inventory inventory;
+    private Weapon rightHandEquipped;
+    private Weapon leftHandEquipped;
+    private Armor armorHead;
+    private Armor armorBody;
+    private Armor armorLegs;
+    private Armor armorArms;
+    private Item itemEquipped;
 
     private Item itemReference; //so we can utilize item methods
 
@@ -18,14 +25,79 @@ public class PlayerObject : MonoBehaviour {
     {
         Instance = this;
         playerStats = new PlayerStats();
-        inventory = new Inventory("Player Object");
+        inventory = new Inventory("Player Object"); //sending Player Object as owner name
 	}
+
+    //Equip player with given weapon
+    public void equipPlayer(Weapon toEquip, bool isRightHand)
+    {
+        if (isRightHand == true)
+            rightHandEquipped = toEquip;
+        else
+            leftHandEquipped = toEquip;
+
+    }
+
+    public void equipPlayer(Armor toEquip, int armorSlot)
+    {
+        //check which armorSlot based on our given value, 0: Head, 1: Body, 2:Legs, 3:Arms
+        switch(armorSlot)
+        {
+            case 0:
+                armorHead = toEquip;
+                break;
+            case 1:
+                armorBody = toEquip;
+                break;
+            case 2:
+                armorLegs = toEquip;
+                break;
+            case 3:
+                armorArms = toEquip;
+                break;
+            default:
+                break;
+        }
+    }
 
     public void addItemToPlayer(string itemName)
     {
         //adds item to our inventory, gets item by calling to the itemFactory, which will construct our item to add.
         //this allows us to add items, by only knowing their name, it will be populated.
         inventory.addItem(itemReference.itemFactory("itemName"));
+    }
+
+
+
+    /////////////////////////////////////Getter methods for equipped Gear//////////////////////////////////////////////
+    public Weapon getRightHandWeapon()
+    {
+        return rightHandEquipped;
+    }
+
+    public Weapon getLeftHandWeapon()
+    {
+        return leftHandEquipped;
+    }
+
+    public Armor getArmorHead()
+    {
+        return armorHead;
+    }
+
+    public Armor getArmorBody()
+    {
+        return armorBody;
+    }
+
+    public Armor getArmorLegs()
+    {
+        return armorLegs;
+    }
+
+    public Armor getArmorArms()
+    {
+        return armorArms;
     }
 
 }

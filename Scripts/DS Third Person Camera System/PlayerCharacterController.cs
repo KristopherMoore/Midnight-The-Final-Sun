@@ -159,9 +159,17 @@ public class PlayerCharacterController : MonoBehaviour
         }
 
         //Equip item action
-        if(Input.GetKey(KeyCode.Y))
+        if(Input.GetKeyDown(KeyCode.Y))
         {
-            attachWeaponToRightHand("Bastard Sword");
+            //create object from resources, instantiate it on the player (this script runs on the players base transform)
+            GameObject itemToAdd = (GameObject) Resources.Load("Prefabs/Bastard Sword");
+            Instantiate(itemToAdd, this.transform);
+
+            //attach the weapon to the proper hand, adding in clone to compensate for Unity adding clone to prefabs on awake
+            attachWeaponToRightHand("Bastard Sword" + "(Clone)");
+
+            //remove excess copies
+            HelperK.removeChild(this.transform, "Bastard Sword" + "(Clone)");
         }
     }
 

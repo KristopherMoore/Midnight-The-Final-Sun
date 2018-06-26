@@ -56,7 +56,7 @@ public class Item {
         else if (itemListTypes[indexOf] == "Armor")
             return toReturn = new Armor(itemListNames[indexOf], itemListWeights[indexOf], itemListPrices[indexOf]);
 
-        return toReturn = new Item(); //satify compiler, we should never get here
+        return toReturn = new Item(); //satisfy compiler, we should never get here
     }
 
     public void populateItemLists()
