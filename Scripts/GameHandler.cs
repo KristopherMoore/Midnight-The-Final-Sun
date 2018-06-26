@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class GameHandler : MonoBehaviour {
 
-    //class to handle actions of the game
+    //class to handle the game state, holding key game details like save states, a masterList of all items. Etc.
 
-	//when loading in
-	void Awake ()
+    //Public itemMasterList, so other methods can utilize the single instance of the MasterList
+    public static ItemsMasterList itemsMasterList = new ItemsMasterList();
+
+    //when loading in
+    void Awake ()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        lockCursor();
 	}
 	
 	// Update is called once per frame
@@ -23,4 +25,10 @@ public class GameHandler : MonoBehaviour {
             Cursor.lockState = CursorLockMode.None;
         }
 	}
+
+    private void lockCursor()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 }

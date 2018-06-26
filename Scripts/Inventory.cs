@@ -42,4 +42,5 @@ public class Inventory {
         inventory.Clear();
         totalWeight = 0.0f;
     }
+
 }

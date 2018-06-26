@@ -29,7 +29,8 @@ public class PlayerObject : MonoBehaviour {
         itemReference = new Item();
 
         //test add item
-        addItemToPlayer("Bastard Sword");
+        addItemToPlayer("Bastard Sword", GameHandler.itemsMasterList);
+
 	}
 
     //Equip player with given weapon
@@ -64,11 +65,11 @@ public class PlayerObject : MonoBehaviour {
         }
     }
 
-    public void addItemToPlayer(string itemName)
+    public void addItemToPlayer(string itemName, ItemsMasterList itemsMasterList)
     {
         //adds item to our inventory, gets item by calling to the itemFactory, which will construct our item to add.
         //this allows us to add items, by only knowing their name, it will be populated.
-        inventory.addItem(itemReference.itemFactory(itemName));
+        inventory.addItem(itemReference.itemFactory(itemName, itemsMasterList));
     }
 
 

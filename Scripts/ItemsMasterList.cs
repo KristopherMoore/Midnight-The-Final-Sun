@@ -14,7 +14,6 @@ public class ItemsMasterList {
 
     public ItemsMasterList()
     {
-        Debug.Log("Test of Master List Populate");
         populateItemLists();
     }
 

@@ -13,9 +13,6 @@ public class Item {
     private float weight;
     private float price;
 
-    //Pull from ItemsMasterList, will need to access which items we can generate in our factory
-    private ItemsMasterList itemMasterList = new ItemsMasterList();
-
     void Awake()
     {
         
@@ -30,7 +27,7 @@ public class Item {
     }
 
     //class responsible for constructing an item from the name sent, can be Weapon, Armor, or Consumable
-    public Item itemFactory(string itemName)
+    public Item itemFactory(string itemName, ItemsMasterList itemMasterList)
     {
         Item toReturn;
 
@@ -42,6 +39,11 @@ public class Item {
             Debug.Log("ITEM.itemFactory, item was not found in list");
             return null;
         }
+
+        Debug.Log(itemMasterList);
+        Debug.Log(itemMasterList.itemListNames[0]);
+        Debug.Log(itemMasterList.itemListNames[1]);
+        Debug.Log(indexOf);
 
         //if our item is a Weapon, construct weapon class
         if (itemMasterList.itemListTypes[indexOf] == "Weapon")
