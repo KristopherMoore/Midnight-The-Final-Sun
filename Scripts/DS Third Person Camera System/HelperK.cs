@@ -5,6 +5,8 @@ using UnityEngine;
 public static class HelperK
 {
 
+    //Class to hold all our Helper functions
+
     public struct ClipPlanePoints
     {
         public Vector3 UpperLeft;
@@ -13,6 +15,7 @@ public static class HelperK
         public Vector3 LowerRight;
     }
 
+    //Helper function to Clamp Angles, returns the float clamped. Given angle, min, and max values
     public static float ClampAngle(float angle, float min, float max)
     {
         do
@@ -28,7 +31,8 @@ public static class HelperK
         return Mathf.Clamp(angle, min, max);
     }
 
-    public static ClipPlanePoints ClipPlaneAtNear(Vector3 pos) //find the 4 points of the nearClipPlane and returns them
+    //method to find the 4 points of the nearClipPlane and returns them
+    public static ClipPlanePoints ClipPlaneAtNear(Vector3 pos)
     {
         ClipPlanePoints clipPlanePoints = new ClipPlanePoints();
 
@@ -60,5 +64,17 @@ public static class HelperK
 
 
         return clipPlanePoints;
+    }
+
+    //helper function that searches all children of the parent object and sees if an GameObject exists within it, if so returns it
+    public static Transform FindSearchAllChildren(Transform parent, string nameOfObject)
+    {
+        if (parent.name.Equals(nameOfObject)) return parent;
+        foreach (Transform child in parent)
+        {
+            Transform result = FindSearchAllChildren(child, nameOfObject);
+            if (result != null) return result;
+        }
+        return null;
     }
 }

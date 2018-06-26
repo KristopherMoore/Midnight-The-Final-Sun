@@ -10,9 +10,12 @@ public class PlayerCharacterController : MonoBehaviour
 
     public enum animationState
     {
-        Idling, Walking, Jogging, Running, Rolling, Stagger, Stunned
+        Idling, Walking, Jogging, Running, Rolling, Stagger, Stunned, L1Attack, L1AttackC2
     }
     public animationState playerAnimationState { get; set; }
+
+    private int currentAttackChain = 0;
+    private int maxAttackChain = 3;
 
     public enum direction
     {
@@ -107,6 +110,7 @@ public class PlayerCharacterController : MonoBehaviour
         }
         else
             playerAnimationState = animationState.Idling;
+
         //rolling action
         if (Input.GetKey(KeyCode.Space))
         {
@@ -125,6 +129,40 @@ public class PlayerCharacterController : MonoBehaviour
 
 
         }
+
+        //L1 attack action, with left click
+        if(Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            switch(currentAttackChain)
+            {
+                case 0:
+                    isAnimationLocked = true;
+                    playerAnimationState = animationState.L1Attack;
+                    currentAttackChain += 1;
+                    StartCoroutine(WaitXSeconds(1f));
+                    break;
+                case 1:
+                    isAnimationLocked = true;
+                    playerAnimationState = animationState.L1AttackC2;
+                    currentAttackChain += 1;
+                    StartCoroutine(WaitXSeconds(1f));
+                    break;
+                case 2:
+                    isAnimationLocked = true;
+                    playerAnimationState = animationState.L1Attack;
+                    currentAttackChain += 1;
+                    StartCoroutine(WaitXSeconds(1f));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        //Equip item action
+        if(Input.GetKey(KeyCode.Y))
+        {
+            attachWeaponToRightHand("Bastard Sword");
+        }
     }
 
     IEnumerator WaitXSeconds(float waitTime)
@@ -133,12 +171,38 @@ public class PlayerCharacterController : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         print(Time.time);
         isAnimationLocked = false;
+        currentAttackChain = 0;
     }
 
     IEnumerator WaitForAnimation(string animationName)
     {
         
         yield return null;
+    }
+
+    //method that will attachWeapons to the player bone.
+    private void attachWeaponToRightHand(string weaponName)
+    {
+        //Find the weapon object on the Player Character
+        //Transform weapon = this.transform.Find(weaponName);
+        Transform weapon = HelperK.FindSearchAllChildren(this.transform, weaponName);
+
+        //Find the rWeaponBone of the player character. Searching through all children.
+        Transform rWeaponBone = HelperK.FindSearchAllChildren(this.transform, "R_Weapon");
+
+        try
+        {
+            //make the weapon a child of the rWeaponBone, that way it will follow it in all its animations. And place its transform at the handbone location
+            weapon.transform.parent = rWeaponBone;
+            weapon.transform.SetPositionAndRotation(rWeaponBone.position, rWeaponBone.rotation);
+
+            //compensating for our model rips base rotation being 180degrees off,
+            weapon.transform.Rotate(weapon.transform.rotation.x, weapon.transform.rotation.y, weapon.transform.rotation.z + 180); 
+        }
+        catch(MissingComponentException ex)
+        {
+            Debug.Log("Throwing Null Exception");
+        }
     }
 
 }

@@ -22,6 +22,7 @@ public class AnimateBodyParts : MonoBehaviour
         animator.SetBool("isRunning", false);
         animator.SetBool("isRolling", false);
         animator.SetBool("isIdling", false);
+        animator.SetBool("isL1Attack", false);
         animator.SetFloat("MotionState", 0);
 
 
@@ -48,6 +49,10 @@ public class AnimateBodyParts : MonoBehaviour
         if (pController.playerAnimationState == PlayerCharacterController.animationState.Rolling)
         {
             animator.SetBool("isRolling", true);
+        }
+        if (pController.playerAnimationState == PlayerCharacterController.animationState.L1Attack)
+        {
+            animator.SetBool("isL1Attack", true);
         }
 
     }
