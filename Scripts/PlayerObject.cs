@@ -26,6 +26,10 @@ public class PlayerObject : MonoBehaviour {
         Instance = this;
         playerStats = new PlayerStats();
         inventory = new Inventory("Player Object"); //sending Player Object as owner name
+        itemReference = new Item();
+
+        //test add item
+        addItemToPlayer("Bastard Sword");
 	}
 
     //Equip player with given weapon
@@ -64,7 +68,7 @@ public class PlayerObject : MonoBehaviour {
     {
         //adds item to our inventory, gets item by calling to the itemFactory, which will construct our item to add.
         //this allows us to add items, by only knowing their name, it will be populated.
-        inventory.addItem(itemReference.itemFactory("itemName"));
+        inventory.addItem(itemReference.itemFactory(itemName));
     }
 
 

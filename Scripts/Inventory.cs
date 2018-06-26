@@ -9,7 +9,7 @@ public class Inventory {
 
     //Can contain Items (Weapons, Armor, Consumables)
 
-    private static List<Item> inventory;
+    private static List<Item> inventory = new List<Item>();
     private string owner; //owner name, mostly for debugging purposes
 
     private float totalWeight = 0.0f;

@@ -13,19 +13,12 @@ public class Item {
     private float weight;
     private float price;
 
-    //These indexed lists will be used similarly to multiDimensionsal Arrays, but with these indexed lists
-    //The idea being that after these are populated on load, we can be given an Item's Name. Find its index, then
-    // have all other information available for our factory to create the apporiate item within the game.
-    private List<string> itemListNames;
-    private List<string> itemListTypes;
-    private List<float> itemListWeights;
-    private List<float> itemListPrices;
-
-    private Dictionary<int, string> itemDictionary;
+    //Pull from ItemsMasterList, will need to access which items we can generate in our factory
+    private ItemsMasterList itemMasterList = new ItemsMasterList();
 
     void Awake()
     {
-        populateItemLists();
+        
     }
 
     //base constructor, will intialization values
@@ -42,41 +35,27 @@ public class Item {
         Item toReturn;
 
         //find the index of our item by Name
-        int indexOf = itemListNames.IndexOf(itemName);
+        int indexOf = itemMasterList.itemListNames.IndexOf(itemName);
+
+        if(indexOf == -1)
+        {
+            Debug.Log("ITEM.itemFactory, item was not found in list");
+            return null;
+        }
 
         //if our item is a Weapon, construct weapon class
-        if (itemListTypes[indexOf] == "Weapon")
-            return toReturn = new Weapon(itemListNames[indexOf], itemListWeights[indexOf], itemListPrices[indexOf]);
+        if (itemMasterList.itemListTypes[indexOf] == "Weapon")
+            return toReturn = new Weapon(itemMasterList.itemListNames[indexOf], itemMasterList.itemListWeights[indexOf], itemMasterList.itemListPrices[indexOf]);
 
         //if our item is a Consumable
-        else if (itemListTypes[indexOf] == "Consumable")
-            return toReturn = new Consumable(itemListNames[indexOf], itemListWeights[indexOf], itemListPrices[indexOf]);
+        else if (itemMasterList.itemListTypes[indexOf] == "Consumable")
+            return toReturn = new Consumable(itemMasterList.itemListNames[indexOf], itemMasterList.itemListWeights[indexOf], itemMasterList.itemListPrices[indexOf]);
 
         //if our item is armor
-        else if (itemListTypes[indexOf] == "Armor")
-            return toReturn = new Armor(itemListNames[indexOf], itemListWeights[indexOf], itemListPrices[indexOf]);
+        else if (itemMasterList.itemListTypes[indexOf] == "Armor")
+            return toReturn = new Armor(itemMasterList.itemListNames[indexOf], itemMasterList.itemListWeights[indexOf], itemMasterList.itemListPrices[indexOf]);
 
         return toReturn = new Item(); //satisfy compiler, we should never get here
-    }
-
-    public void populateItemLists()
-    {
-        //instantiation of lists
-        itemListNames = new List<string>();
-        itemListTypes = new List<string>();
-        itemListWeights = new List<float>();
-        itemListPrices = new List<float>();
-
-        //now build up every item, for now it will be manual. TODO: Modify this to pull from a file containing the data, and have a coroutine loop fill
-        itemListNames.Add("Bastard Sword");
-        itemListTypes.Add("Weapon");
-        itemListWeights.Add(5.0f);
-        itemListPrices.Add(10000f);
-
-        itemListNames.Add("Katana");
-        itemListTypes.Add("Weapon");
-        itemListWeights.Add(2.0f);
-        itemListPrices.Add(8000f);
     }
 
     //Getters and Setters, encapsulation of private methods ///////////////////////////////////////////////
