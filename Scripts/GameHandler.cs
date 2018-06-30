@@ -12,8 +12,9 @@ public class GameHandler : MonoBehaviour {
     //when loading in
     void Awake ()
     {
-        lockCursor();
-	}
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -21,14 +22,25 @@ public class GameHandler : MonoBehaviour {
         //dev action
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            //toggleCursor();
+            GameMenu.Instance.changeMenuStatus();
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
 	}
 
-    private void lockCursor()
+    private void toggleCursor()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //invert the cursor visibility and from that decide to lock or unlock, since we cant invert enums
+        Cursor.visible = !Cursor.visible;
+
+        if (Cursor.visible == true)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 }
