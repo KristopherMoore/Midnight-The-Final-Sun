@@ -36,5 +36,10 @@ public class ItemsMasterList {
         itemListTypes.Add("Weapon");
         itemListWeights.Add(2.0f);
         itemListPrices.Add(8000f);
+
+        itemListNames.Add("Dagger");
+        itemListTypes.Add("Weapon");
+        itemListWeights.Add(0.5f);
+        itemListPrices.Add(2000f);
     }
 }

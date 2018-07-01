@@ -85,4 +85,16 @@ public static class HelperK
         Debug.Log(temp.name);
         GameObject.Destroy(temp.gameObject);
     }
+
+    //helper function to trim the first word out of a string
+    public static string trimStringOff(string original, string toTrimOff)
+    {
+        if (original.Length <= 0)
+            return original;
+
+        int index = original.IndexOf(toTrimOff);
+        original = original.Substring(0, index-1);
+        return original;
+
+    }
 }

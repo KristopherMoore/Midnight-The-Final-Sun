@@ -164,15 +164,7 @@ public class PlayerCharacterController : MonoBehaviour
         //Equip item action
         if(Input.GetKeyDown(KeyCode.Y))
         {
-            //create object from resources, instantiate it on the player (this script runs on the players base transform)
-            GameObject itemToAdd = (GameObject) Resources.Load("Prefabs/Bastard Sword");
-            Instantiate(itemToAdd, this.transform);
-
-            //attach the weapon to the proper hand, adding in clone to compensate for Unity adding clone to prefabs on awake
-            attachWeaponToRightHand("Bastard Sword" + "(Clone)");
-
-            //remove excess copies
-            HelperK.removeChild(this.transform, "Bastard Sword" + "(Clone)");
+            PlayerObject.Instance.equipPlayer("Katana");
         }
     }
 
@@ -189,31 +181,6 @@ public class PlayerCharacterController : MonoBehaviour
     {
         
         yield return null;
-    }
-
-    //method that will attachWeapons to the player bone.
-    private void attachWeaponToRightHand(string weaponName)
-    {
-        //Find the weapon object on the Player Character
-        //Transform weapon = this.transform.Find(weaponName);
-        Transform weapon = HelperK.FindSearchAllChildren(this.transform, weaponName);
-
-        //Find the rWeaponBone of the player character. Searching through all children.
-        Transform rWeaponBone = HelperK.FindSearchAllChildren(this.transform, "R_Weapon");
-
-        try
-        {
-            //make the weapon a child of the rWeaponBone, that way it will follow it in all its animations. And place its transform at the handbone location
-            weapon.transform.parent = rWeaponBone;
-            weapon.transform.SetPositionAndRotation(rWeaponBone.position, rWeaponBone.rotation);
-
-            //compensating for our model rips base rotation being 180degrees off,
-            weapon.transform.Rotate(weapon.transform.rotation.x, weapon.transform.rotation.y, weapon.transform.rotation.z + 180); 
-        }
-        catch(MissingComponentException ex)
-        {
-            Debug.Log("Throwing Null Exception");
-        }
     }
 
 }

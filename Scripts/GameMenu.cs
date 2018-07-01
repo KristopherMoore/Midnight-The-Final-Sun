@@ -48,6 +48,8 @@ public class GameMenu: MonoBehaviour {
         inventoryCategoriesPanel = panelGameObjects[1].transform.Find("InventoryCategoriesPanel").transform.gameObject;
 
         loadMenuPanel();
+
+        loadPlayerInventory();
     }
 
     //when called by the GameHandler, this will turn the menu ui on and off
@@ -56,12 +58,35 @@ public class GameMenu: MonoBehaviour {
         //invert our current status, and set the gameObjects active state to match
         status = !status;
         this.gameObject.SetActive(status);
+
     }
 
     //method to load an updated copy of the Player Object's inventory
     public void loadPlayerInventory()
     {
+        string iconsToAdd;
+        Transform childToDestroy;
+
         inventory = PlayerObject.Instance.getInventoryObject();
+
+        for (int i = 0; i < armorGrid.transform.childCount; i++)
+            Destroy(armorGrid.transform.GetChild(i).gameObject);
+    
+        //TODO: Have a loading check here that populates all items in the inventory, so we know what to load icons for
+        for (int i = 0; i < inventory.getLength(); i++)
+        {
+            Debug.Log("for loop in loadPlayerInventory: " + inventory.findItemAtIndex(i).getName());
+
+            //grab the name of the item at our current index of the inventory, then load it from our resources
+            iconsToAdd =  inventory.findItemAtIndex(i).getName();
+            Object toAdd = (Object)Resources.Load("Menu/Weapons/" + iconsToAdd + " Clickable");
+
+            //if the object is null, move on. Otherwsie instantiate it
+            if (toAdd == null)
+                continue;
+            Instantiate(toAdd, armorGrid.transform);
+        }
+
     }
 
     //method to trigger the menu to load the UI elements, will utilize the currentPanel int to determine which ui elements to turn on and off
@@ -131,7 +156,6 @@ public class GameMenu: MonoBehaviour {
     ////////////////InventoryPanel Sub-functions:////////////////////////////////
     public void onClickEquipItem(string itemName)
     {
-        Debug.Log(PlayerObject.Instance.getPlayerName());
         PlayerObject.Instance.equipPlayer(itemName);
     }
 

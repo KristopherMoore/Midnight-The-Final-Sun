@@ -28,10 +28,15 @@ public class Inventory {
 
     public Item findItem(string itemName)
     {
-        Item toReturn = inventory.Find(x => x.getName() == "Bastard Sword");
+        Item toReturn = inventory.Find(x => x.getName() == itemName);
 
         //return the results of our find. If it was null, still send it, as the equip function will deal with that case
         return toReturn;
+    }
+
+    public Item findItemAtIndex(int index)
+    {
+        return inventory[index];
     }
 
     public void removeItem(Item itemToRemove)
@@ -49,6 +54,11 @@ public class Inventory {
     {
         inventory.Clear();
         totalWeight = 0.0f;
+    }
+
+    public int getLength()
+    {
+        return inventory.Count;
     }
 
 }

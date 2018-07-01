@@ -30,16 +30,19 @@ public class PlayerObject : MonoBehaviour {
         inventory = new Inventory(playerName); //sending Player Object as owner name
         itemReference = new Item();
 
-        //test add item
+        //test add item // TODO: implement a load from save functionality for the Inventory
         addItemToPlayerInventory("Bastard Sword", GameHandler.itemsMasterList);
+        addItemToPlayerInventory("Katana", GameHandler.itemsMasterList);
+        addItemToPlayerInventory("Dagger", GameHandler.itemsMasterList);
 
-	}
+    }
+
+    //TODO: Clean up all these equip functions.
 
     //Equip Player with the item sent to us by name. DO NOT generate a new item here, check if in inventory and respond accordingly
     public void equipPlayer(string toEquip)
     {
         Item itemToEquip = inventory.findItem(toEquip);
-        Debug.Log(itemToEquip.getName());
 
         //if our item is null, therefore not in our inventory
         if (itemToEquip == null)
@@ -60,6 +63,7 @@ public class PlayerObject : MonoBehaviour {
     {
         rightHandEquipped = toEquip;
         Debug.Log(rightHandEquipped.getName() + " is Equipped");
+        equipWeaponOnPlayerModel(rightHandEquipped.getName());
     }
 
     private void equipPlayer(Armor toEquip, int armorSlot)
@@ -81,6 +85,48 @@ public class PlayerObject : MonoBehaviour {
                 break;
             default:
                 break;
+        }
+    }
+
+    private void equipWeaponOnPlayerModel(string toEquip)
+    {
+        //create object from resources, instantiate it on the player (this script runs on the players base transform)
+        GameObject itemToAdd = (GameObject)Resources.Load("Prefabs/" + toEquip);
+        Instantiate(itemToAdd, this.transform);
+
+        //attach the weapon to the proper hand, adding in clone to compensate for Unity adding clone to prefabs on awake
+        attachWeaponToRightHand(toEquip + "(Clone)");
+
+        //remove excess copies
+        HelperK.removeChild(this.transform, toEquip + "(Clone)");
+    }
+
+    //method that will attachWeapons to the player bone.
+    private void attachWeaponToRightHand(string weaponName)
+    {
+        //Find the weapon object on the Player Character
+        //Transform weapon = this.transform.Find(weaponName);
+        Transform weapon = HelperK.FindSearchAllChildren(this.transform, weaponName);
+
+        //Find the rWeaponBone of the player character. Searching through all children.
+        Transform rWeaponBone = HelperK.FindSearchAllChildren(this.transform, "R_Weapon");
+
+        //Remove any other children from this WeaponBone
+        for (int i = 0; i < rWeaponBone.childCount; i++)
+            Destroy(rWeaponBone.GetChild(i).gameObject);
+
+        try
+        {
+            //make the weapon a child of the rWeaponBone, that way it will follow it in all its animations. And place its transform at the handbone location
+            weapon.transform.parent = rWeaponBone;
+            weapon.transform.SetPositionAndRotation(rWeaponBone.position, rWeaponBone.rotation);
+
+            //compensating for our model rips base rotation being 180degrees off,
+            weapon.transform.Rotate(weapon.transform.rotation.x, weapon.transform.rotation.y, weapon.transform.rotation.z + 180);
+        }
+        catch (MissingComponentException ex)
+        {
+            Debug.Log("Throwing Null Exception");
         }
     }
 
