@@ -25,26 +25,44 @@ public class PlayerObject : MonoBehaviour {
 	void Awake ()
     {
         Instance = this;
+        playerName = "Player Object Awake Instance";
         playerStats = new PlayerStats();
-        inventory = new Inventory("Player Object"); //sending Player Object as owner name
+        inventory = new Inventory(playerName); //sending Player Object as owner name
         itemReference = new Item();
 
         //test add item
-        addItemToPlayer("Bastard Sword", GameHandler.itemsMasterList);
+        addItemToPlayerInventory("Bastard Sword", GameHandler.itemsMasterList);
 
 	}
 
-    //Equip player with given weapon
-    public void equipPlayer(Weapon toEquip, bool isRightHand)
+    //Equip Player with the item sent to us by name. DO NOT generate a new item here, check if in inventory and respond accordingly
+    public void equipPlayer(string toEquip)
     {
-        if (isRightHand == true)
-            rightHandEquipped = toEquip;
-        else
-            leftHandEquipped = toEquip;
+        Item itemToEquip = inventory.findItem(toEquip);
+        Debug.Log(itemToEquip.getName());
+
+        //if our item is null, therefore not in our inventory
+        if (itemToEquip == null)
+        {
+            Debug.Log("PlayerObject.equipPlayer() cant equip as our inventory doesnt contain it");
+            return;
+        }
+
+        //otherwise continue with equipping, also since we are finding the item, we will have its object type so can now
+        //utilize the methods made earlier, although I modified them to be privately accessable helper functions.
+        if (itemToEquip.GetType().Name == "Weapon")
+            equipPlayer((Weapon)itemToEquip);
 
     }
 
-    public void equipPlayer(Armor toEquip, int armorSlot)
+    //Equip player with given weapon
+    private void equipPlayer(Weapon toEquip)
+    {
+        rightHandEquipped = toEquip;
+        Debug.Log(rightHandEquipped.getName() + " is Equipped");
+    }
+
+    private void equipPlayer(Armor toEquip, int armorSlot)
     {
         //check which armorSlot based on our given value, 0: Head, 1: Body, 2:Legs, 3:Arms
         switch(armorSlot)
@@ -66,13 +84,18 @@ public class PlayerObject : MonoBehaviour {
         }
     }
 
-    public void addItemToPlayer(string itemName, ItemsMasterList itemsMasterList)
+    public void addItemToPlayerInventory(string itemName, ItemsMasterList itemsMasterList)
     {
         //adds item to our inventory, gets item by calling to the itemFactory, which will construct our item to add.
         //this allows us to add items, by only knowing their name, it will be populated.
         inventory.addItem(itemReference.itemFactory(itemName, itemsMasterList));
     }
 
+
+    public string getPlayerName()
+    {
+        return playerName;
+    }
 
     public Inventory getInventoryObject()
     {

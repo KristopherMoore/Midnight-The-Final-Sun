@@ -26,6 +26,14 @@ public class Inventory {
         totalWeight += itemToAdd.getWeight();
     }
 
+    public Item findItem(string itemName)
+    {
+        Item toReturn = inventory.Find(x => x.getName() == "Bastard Sword");
+
+        //return the results of our find. If it was null, still send it, as the equip function will deal with that case
+        return toReturn;
+    }
+
     public void removeItem(Item itemToRemove)
     {
         inventory.Remove(itemToRemove);
