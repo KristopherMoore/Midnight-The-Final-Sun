@@ -8,6 +8,7 @@ public class PlayerObject : MonoBehaviour {
     //but can be Utilized by such a class as it will hold the Instances of Player Stats, Inventories, and the like.
     public static PlayerObject Instance;
 
+    private string playerName;
     private PlayerStats playerStats;
     private Inventory inventory;
     private Weapon rightHandEquipped;
@@ -73,6 +74,10 @@ public class PlayerObject : MonoBehaviour {
     }
 
 
+    public Inventory getInventoryObject()
+    {
+        return inventory;
+    }
 
     /////////////////////////////////////Getter methods for equipped Gear//////////////////////////////////////////////
     public Weapon getRightHandWeapon()

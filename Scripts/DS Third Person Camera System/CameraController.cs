@@ -71,6 +71,9 @@ public class CameraController : MonoBehaviour
         if (cameraAnchorAround == null) //if we arent looking at anything
             return;
 
+        if (GameMenu.Instance.getMenuStatus() == true)
+            return;
+
         HandlePlayerInput();
 
         CheckCameraPoints(cameraAnchorAround.position, desiredPosition);

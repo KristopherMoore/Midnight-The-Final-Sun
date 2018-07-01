@@ -42,6 +42,9 @@ public class PlayerCharacterController : MonoBehaviour
         if (Camera.main == null) //check for camera, if no main camera, stop.
             return;
 
+        if (GameMenu.Instance.getMenuStatus() == true)
+            return;
+
         //handle actions before locomotion, since actions will at times lock the player into place
         HandleActionInput();
 

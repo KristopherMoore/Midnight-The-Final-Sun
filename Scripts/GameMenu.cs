@@ -6,6 +6,7 @@ public class GameMenu: MonoBehaviour {
 
     public static GameMenu Instance;
     private GameObject[] panelGameObjects;
+    private Inventory inventory;
 
     private bool status;
     private int currentPanel;
@@ -34,6 +35,12 @@ public class GameMenu: MonoBehaviour {
         this.gameObject.SetActive(status);
     }
 
+    //method to load an updated copy of the Player Object's inventory
+    public void loadPlayerInventory()
+    {
+        inventory = PlayerObject.Instance.getInventoryObject();
+    }
+
     //method to trigger the menu to load the UI elements, will utilize the currentPanel int to determine which ui elements to turn on and off
     public void loadMenuPanel()
     {
@@ -49,13 +56,28 @@ public class GameMenu: MonoBehaviour {
     //method to shift the panel focused on to the rightmost, if we are already at far right, then move across.
     public void moveMenuRight()
     {
+        if (currentPanel >= 2)
+            currentPanel = 0;
+        else
+            currentPanel++;
 
+        loadMenuPanel();
     }
 
     //method to shift the panel focused on to the leftmost, if we are already at far left, then move across.
     public void moveMenuLeft()
     {
+        if (currentPanel <= 0)
+            currentPanel = 2;
+        else
+            currentPanel--;
 
+        loadMenuPanel();
+    }
+
+    public bool getMenuStatus()
+    {
+        return status;
     }
 
     public void onClickStats()

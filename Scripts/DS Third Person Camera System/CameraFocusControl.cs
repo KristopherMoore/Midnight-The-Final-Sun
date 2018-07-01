@@ -56,10 +56,13 @@ public class CameraFocusControl : MonoBehaviour
         Reset();
     }
 
-    //after update frams
+    //after update frame
     void LateUpdate()
     {
         if (anchorAround == null) //if we arent anchoring around anything (for our focus point we will want to anchor around the player so we roate around them)
+            return;
+
+        if (GameMenu.Instance.getMenuStatus() == true)
             return;
 
         HandlePlayerInput();
