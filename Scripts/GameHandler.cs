@@ -27,6 +27,10 @@ public class GameHandler : MonoBehaviour {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
+
+        //testing for controller input
+        if (Input.GetKeyDown(KeyCode.Joystick1Button0))
+            Debug.Log("Controller input");
 	}
 
     private void toggleCursor()

@@ -42,6 +42,8 @@ public class CameraFocusControl : MonoBehaviour
     private Vector3 desiredPosition = Vector3.zero;
     private float desiredDistance = 0f;
 
+    private float deadZone = 0.19f;
+
     void Awake()
     {
         Instance = this;
@@ -78,6 +80,12 @@ public class CameraFocusControl : MonoBehaviour
         //get Axis input
         mouseX += Input.GetAxis("Mouse X") * X_MouseSensitivity;
         mouseY -= Input.GetAxis("Mouse Y") * Y_MouseSensitivity;
+
+        //check for controller input
+        if (Input.GetAxis("RightJoyHorizontal") > deadZone || Input.GetAxis("RightJoyHorizontal") < -deadZone)
+            mouseX += Input.GetAxis("RightJoyHorizontal") * X_MouseSensitivity;
+        if (Input.GetAxis("RightJoyVertical") > deadZone || Input.GetAxis("RightJoyVertical") < -deadZone)
+            mouseY -= Input.GetAxis("RightJoyVertical") * Y_MouseSensitivity;
 
         //Limit mouse Y rotation here
         mouseY = HelperK.ClampAngle(mouseY, Y_MinLimit, Y_MaxLimit);
