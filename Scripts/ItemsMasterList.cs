@@ -41,5 +41,20 @@ public class ItemsMasterList {
         itemListTypes.Add("Weapon");
         itemListWeights.Add(0.5f);
         itemListPrices.Add(2000f);
+
+        itemListNames.Add("Quiver");
+        itemListTypes.Add("Weapon");
+        itemListWeights.Add(0.0f);
+        itemListPrices.Add(200f);
+
+        itemListNames.Add("Shield");
+        itemListTypes.Add("Weapon");
+        itemListWeights.Add(4.0f);
+        itemListPrices.Add(5000f);
+
+        itemListNames.Add("Recurve Bow");
+        itemListTypes.Add("Weapon");
+        itemListWeights.Add(2.5f);
+        itemListPrices.Add(4000f);
     }
 }

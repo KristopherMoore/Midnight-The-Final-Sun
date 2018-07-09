@@ -40,10 +40,10 @@ public class Item {
             return null;
         }
 
-        Debug.Log(itemMasterList);
-        Debug.Log(itemMasterList.itemListNames[0]);
-        Debug.Log(itemMasterList.itemListNames[1]);
-        Debug.Log(indexOf);
+        //Debug.Log(itemMasterList);
+        //Debug.Log(itemMasterList.itemListNames[0]);
+        //Debug.Log(itemMasterList.itemListNames[1]);
+        //Debug.Log(indexOf);
 
         //if our item is a Weapon, construct weapon class
         if (itemMasterList.itemListTypes[indexOf] == "Weapon")

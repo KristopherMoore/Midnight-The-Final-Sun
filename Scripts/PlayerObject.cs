@@ -34,6 +34,9 @@ public class PlayerObject : MonoBehaviour {
         addItemToPlayerInventory("Bastard Sword", GameHandler.itemsMasterList);
         addItemToPlayerInventory("Katana", GameHandler.itemsMasterList);
         addItemToPlayerInventory("Dagger", GameHandler.itemsMasterList);
+        addItemToPlayerInventory("Quiver", GameHandler.itemsMasterList);
+        addItemToPlayerInventory("Shield", GameHandler.itemsMasterList);
+        addItemToPlayerInventory("Recurve Bow", GameHandler.itemsMasterList);
 
     }
 
@@ -54,16 +57,30 @@ public class PlayerObject : MonoBehaviour {
         //otherwise continue with equipping, also since we are finding the item, we will have its object type so can now
         //utilize the methods made earlier, although I modified them to be privately accessable helper functions.
         if (itemToEquip.GetType().Name == "Weapon")
-            equipPlayer((Weapon)itemToEquip);
+        {
+            if (itemToEquip.getName().Contains("Shield"))
+                equipPlayer((Weapon)itemToEquip, true);
+            else
+                equipPlayer((Weapon)itemToEquip, false);
+        }
 
     }
 
     //Equip player with given weapon
-    private void equipPlayer(Weapon toEquip)
+    private void equipPlayer(Weapon toEquip, bool isShield)
     {
-        rightHandEquipped = toEquip;
-        Debug.Log(rightHandEquipped.getName() + " is Equipped");
-        equipWeaponOnPlayerModel(rightHandEquipped.getName());
+        if (isShield == false)
+        {
+            rightHandEquipped = toEquip;
+            Debug.Log(rightHandEquipped.getName() + " is Equipped");
+            equipWeaponOnPlayerModel(rightHandEquipped.getName(), isShield);
+        }
+        else
+        {
+            leftHandEquipped = toEquip;
+            Debug.Log(leftHandEquipped.getName() + " is Equipped");
+            equipWeaponOnPlayerModel(leftHandEquipped.getName(), isShield);
+        }
     }
 
     private void equipPlayer(Armor toEquip, int armorSlot)
@@ -88,20 +105,23 @@ public class PlayerObject : MonoBehaviour {
         }
     }
 
-    private void equipWeaponOnPlayerModel(string toEquip)
+    private void equipWeaponOnPlayerModel(string toEquip, bool isShield)
     {
         //create object from resources, instantiate it on the player (this script runs on the players base transform)
         GameObject itemToAdd = (GameObject)Resources.Load("Prefabs/" + toEquip);
         Instantiate(itemToAdd, this.transform);
 
         //attach the weapon to the proper hand, adding in clone to compensate for Unity adding clone to prefabs on awake
-        attachWeaponToRightHand(toEquip + "(Clone)");
+        if(isShield == false)
+            attachWeaponToRightHand(toEquip + "(Clone)");
+        else
+            attachWeaponToLeftHand(toEquip + "(Clone)");
 
         //remove excess copies
         HelperK.removeChild(this.transform, toEquip + "(Clone)");
     }
 
-    //method that will attachWeapons to the player bone.
+    //method that will attachWeapons to the right hand player bone.
     private void attachWeaponToRightHand(string weaponName)
     {
         //Find the weapon object on the Player Character
@@ -123,6 +143,35 @@ public class PlayerObject : MonoBehaviour {
 
             //compensating for our model rips base rotation being 180degrees off,
             weapon.transform.Rotate(weapon.transform.rotation.x, weapon.transform.rotation.y, weapon.transform.rotation.z + 180);
+        }
+        catch (MissingComponentException ex)
+        {
+            Debug.Log("Throwing Null Exception");
+        }
+    }
+
+    //method that will attachWeapons to the left hand player bone.
+    private void attachWeaponToLeftHand(string weaponName)
+    {
+        //Find the weapon object on the Player Character
+        //Transform weapon = this.transform.Find(weaponName);
+        Transform weapon = HelperK.FindSearchAllChildren(this.transform, weaponName);
+
+        //Find the lWeaponBone of the player character. Searching through all children.
+        Transform lWeaponBone = HelperK.FindSearchAllChildren(this.transform, "L_Weapon");
+
+        //Remove any other children from this WeaponBone
+        for (int i = 0; i < lWeaponBone.childCount; i++)
+            Destroy(lWeaponBone.GetChild(i).gameObject);
+
+        try
+        {
+            //make the weapon a child of the lWeaponBone, that way it will follow it in all its animations. And place its transform at the handbone location
+            weapon.transform.parent = lWeaponBone;
+            weapon.transform.SetPositionAndRotation(lWeaponBone.position, lWeaponBone.rotation);
+
+            //compensating for our model rips base rotation being 180degrees off, which extra y rotation due to it being in the opposite of dominant hand
+            weapon.transform.Rotate(weapon.transform.rotation.x, weapon.transform.rotation.y + 180, weapon.transform.rotation.z + 180);
         }
         catch (MissingComponentException ex)
         {

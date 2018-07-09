@@ -75,7 +75,7 @@ public class GameMenu: MonoBehaviour {
         //TODO: Have a loading check here that populates all items in the inventory, so we know what to load icons for
         for (int i = 0; i < inventory.getLength(); i++)
         {
-            Debug.Log("for loop in loadPlayerInventory: " + inventory.findItemAtIndex(i).getName());
+            //Debug.Log("for loop in loadPlayerInventory: " + inventory.findItemAtIndex(i).getName());
 
             //grab the name of the item at our current index of the inventory, then load it from our resources
             iconsToAdd =  inventory.findItemAtIndex(i).getName();

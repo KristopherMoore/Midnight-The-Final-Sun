@@ -164,7 +164,8 @@ public class PlayerCharacterController : MonoBehaviour
         //Equip item action
         if(Input.GetKeyDown(KeyCode.Y))
         {
-            PlayerObject.Instance.equipPlayer("Katana");
+            PlayerObject.Instance.equipPlayer("Recurve Bow");
+            PlayerObject.Instance.equipPlayer("Shield");
         }
     }
 

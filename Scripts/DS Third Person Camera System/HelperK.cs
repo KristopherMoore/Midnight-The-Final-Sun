@@ -82,6 +82,10 @@ public static class HelperK
     public static void removeChild(Transform parent, string childToRemove)
     {
         Transform temp = parent.transform.Find(childToRemove);
+        
+        //if empty, return. do not attempt to destory
+        if (temp == null)
+            return;
         Debug.Log(temp.name);
         GameObject.Destroy(temp.gameObject);
     }
