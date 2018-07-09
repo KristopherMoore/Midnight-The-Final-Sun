@@ -10,7 +10,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     public enum animationState
     {
-        Idling, Walking, Jogging, Running, Rolling, Stagger, Stunned, L1Attack, L1AttackC2
+        Idling, Walking, Jogging, Running, Rolling, Stagger, Stunned, L1Attack, L1AttackC2, Jumping, Gliding
     }
     public animationState playerAnimationState { get; set; }
 
@@ -27,6 +27,8 @@ public class PlayerCharacterController : MonoBehaviour
 
     public bool isMoving;
     public bool isAnimationLocked;
+    public bool isJumping = false;
+    public bool isGliding = false;
 
     void Awake() //run on game load (before start)
     {
@@ -34,15 +36,13 @@ public class PlayerCharacterController : MonoBehaviour
         Instance = this;  
     }
 
-
-
-    //
+    
     void Update()
     {
-        if (Camera.main == null) //check for camera, if no main camera, stop.
+        if (Camera.main == null) //check for main camera, if none exists, exit.
             return;
 
-        if (GameMenu.Instance.getMenuStatus() == true)
+        if (GameMenu.Instance.getMenuStatus() == true) //if we are currently in a menu, remove control of character, by ending this update run
             return;
 
         //handle actions before locomotion, since actions will at times lock the player into place
@@ -54,6 +54,10 @@ public class PlayerCharacterController : MonoBehaviour
             GetLocomotionInput();
         }
 
+        //handling jumpstate after locomotion specifically. Unlike the other actions, this applies directly into the locomotion processes
+        //and if it came before it would be overrident by the verticalVelocity check in GetLocomotionInput
+        HandleJumpInput();
+
         //update the motor even if we didnt have locomotion, as the motor also calculates things like gravity.
         PlayerCharacterMotor.Instance.UpdateMotor();
 
@@ -64,6 +68,7 @@ public class PlayerCharacterController : MonoBehaviour
         Instance.isMoving = false;
         Instance.isAnimationLocked = false;
 
+        Debug.Log("CONTROLLER moveVector.y is " + PlayerCharacterMotor.Instance.MoveVector.y);
         PlayerCharacterMotor.Instance.verticalVelocity = PlayerCharacterMotor.Instance.MoveVector.y;
 
         PlayerCharacterMotor.Instance.MoveVector = Vector3.zero; //reclacuate, prevents it from being additive. Basically restart on every update
@@ -92,7 +97,7 @@ public class PlayerCharacterController : MonoBehaviour
     void HandleActionInput()
     {
         //ESCAPE sequence, allows us to modify animationLocks manually for avoid errors
-        if (Input.GetKey(KeyCode.R))
+        if (Input.GetKey(KeyCode.F))
             isAnimationLocked = false;
         if (Input.GetKey(KeyCode.E))
             isAnimationLocked = true;
@@ -115,7 +120,7 @@ public class PlayerCharacterController : MonoBehaviour
             playerAnimationState = animationState.Idling;
 
         //rolling action
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.R))
         {
             isAnimationLocked = true;
             playerAnimationState = animationState.Rolling;
@@ -166,6 +171,37 @@ public class PlayerCharacterController : MonoBehaviour
         {
             PlayerObject.Instance.equipPlayer("Recurve Bow");
             PlayerObject.Instance.equipPlayer("Shield");
+        }
+    }
+
+    void HandleJumpInput()
+    {
+        //when our character hits the ground, reset our states
+        if(CharacterController.isGrounded)
+        {
+            isJumping = false;
+            isGliding = false;
+        }
+
+        //jump action
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //if we are gliding, another space will cancel the glide
+            if (isGliding == true)
+                isGliding = false;
+
+            //if we arent already jumping
+            if(isJumping != true)
+            {
+                isJumping = true;
+                PlayerCharacterMotor.Instance.Jump();
+            }
+
+            //if we are still in jumping state, and space was triggered. We can glide
+            else
+            {
+                isGliding = true;
+            }
         }
     }
 

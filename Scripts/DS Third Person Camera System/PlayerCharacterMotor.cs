@@ -12,9 +12,10 @@ public class PlayerCharacterMotor : MonoBehaviour
     public float JogSpeed = 3.75f;
     public float RunSpeed = 6.0f;
     public float SlideSpeed = 3f;
-    public float jumpSpeed = 6f;
+    public float jumpSpeed = 8f;
     public float Gravity = 21f;
     public float terminalVelocity = 20f;
+    public float glidingModifier = 19f;
     public float slideThreshold = 0.6f;
     public float maxControllableSlideMagnitude = 0.4f;
 
@@ -60,9 +61,13 @@ public class PlayerCharacterMotor : MonoBehaviour
 
         //Reapply verticalVelocity
         MoveVector = new Vector3(MoveVector.x, verticalVelocity, MoveVector.z);
+        Debug.Log("MOTOR class, current vertical velocity: " + verticalVelocity);
 
-        //Apply Gravity
-        applyGravity();
+        //Apply Gravity / gliding Gravity depending on state
+        if (PlayerCharacterController.Instance.isGliding)
+            applyGravityGliding();
+        else
+            applyGravity();
 
         //Move the Character in World Space,if not animation locked
         if(!PlayerCharacterController.Instance.isAnimationLocked)
@@ -96,11 +101,29 @@ public class PlayerCharacterMotor : MonoBehaviour
         }
     }
 
+    //instead of messing with terminal velocity settings and changing grav and them, I decided the gravity for gliding would be cleaner
+    void applyGravityGliding()
+    {
+        //divide our terminal velocity check by our gliding modifier, we reach a much lower terminal velocity and stay there
+        //We could have removed a check entirely and just set our vector to just encorporate a fixed speed.
+        //But I feel this method is more safe from error
+        if (MoveVector.y > -(terminalVelocity / glidingModifier))
+        {
+            MoveVector = new Vector3(MoveVector.x, MoveVector.y - (Gravity * Time.deltaTime), MoveVector.z);
+        }
+
+        if (PlayerCharacterController.CharacterController.isGrounded && MoveVector.y < -1)
+        {
+            MoveVector = new Vector3(MoveVector.x, -1, MoveVector.z);
+        }
+    }
+
     public void Jump()
     {
         if (PlayerCharacterController.CharacterController.isGrounded)
         {
             verticalVelocity = jumpSpeed;
+            Debug.Log("JUMPED " + verticalVelocity + ", jump speed was " + jumpSpeed);
         }
     }
 
