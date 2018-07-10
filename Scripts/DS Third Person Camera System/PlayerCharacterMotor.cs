@@ -61,9 +61,9 @@ public class PlayerCharacterMotor : MonoBehaviour
 
         //Reapply verticalVelocity
         MoveVector = new Vector3(MoveVector.x, verticalVelocity, MoveVector.z);
-        Debug.Log("MOTOR class, current vertical velocity: " + verticalVelocity);
 
         //Apply Gravity / gliding Gravity depending on state
+        Debug.Log("MoveVector.y = " + MoveVector.y);
         if (PlayerCharacterController.Instance.isGliding)
             applyGravityGliding();
         else
@@ -104,6 +104,9 @@ public class PlayerCharacterMotor : MonoBehaviour
     //instead of messing with terminal velocity settings and changing grav and them, I decided the gravity for gliding would be cleaner
     void applyGravityGliding()
     {
+        if(MoveVector.y < -1)
+            MoveVector = new Vector3(MoveVector.x, -1, MoveVector.z);
+
         //divide our terminal velocity check by our gliding modifier, we reach a much lower terminal velocity and stay there
         //We could have removed a check entirely and just set our vector to just encorporate a fixed speed.
         //But I feel this method is more safe from error
@@ -123,7 +126,6 @@ public class PlayerCharacterMotor : MonoBehaviour
         if (PlayerCharacterController.CharacterController.isGrounded)
         {
             verticalVelocity = jumpSpeed;
-            Debug.Log("JUMPED " + verticalVelocity + ", jump speed was " + jumpSpeed);
         }
     }
 

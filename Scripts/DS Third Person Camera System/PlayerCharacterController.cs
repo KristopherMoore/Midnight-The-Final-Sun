@@ -68,7 +68,6 @@ public class PlayerCharacterController : MonoBehaviour
         Instance.isMoving = false;
         Instance.isAnimationLocked = false;
 
-        Debug.Log("CONTROLLER moveVector.y is " + PlayerCharacterMotor.Instance.MoveVector.y);
         PlayerCharacterMotor.Instance.verticalVelocity = PlayerCharacterMotor.Instance.MoveVector.y;
 
         PlayerCharacterMotor.Instance.MoveVector = Vector3.zero; //reclacuate, prevents it from being additive. Basically restart on every update
@@ -187,8 +186,11 @@ public class PlayerCharacterController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             //if we are gliding, another space will cancel the glide
-            if (isGliding == true)
+            if(isGliding)
+            {
                 isGliding = false;
+                return;
+            }
 
             //if we arent already jumping
             if(isJumping != true)
