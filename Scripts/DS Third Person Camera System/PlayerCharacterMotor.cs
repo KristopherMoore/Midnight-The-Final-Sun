@@ -63,7 +63,7 @@ public class PlayerCharacterMotor : MonoBehaviour
         MoveVector = new Vector3(MoveVector.x, verticalVelocity, MoveVector.z);
 
         //Apply Gravity / gliding Gravity depending on state
-        Debug.Log("MoveVector.y = " + MoveVector.y);
+       
         if (PlayerCharacterController.Instance.isGliding)
             applyGravityGliding();
         else

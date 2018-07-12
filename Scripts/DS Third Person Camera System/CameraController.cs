@@ -87,7 +87,59 @@ public class CameraController : MonoBehaviour
 
         UpdatePosition();
 
+        UpdateIfAiming();
 
+    }
+
+    private void UpdateIfAiming()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            transform.SetPositionAndRotation(transform.position + transform.right, transform.rotation);
+        }
+
+        //if (Input.GetMouseButton(1))
+        //{
+           // transform.SetPositionAndRotation(transform.position + transform.right, transform.rotation);
+        //}
+
+        //check if the player wants to zoom
+        if (Input.GetMouseButton(1) == true) //if holding RMB down
+        {
+            if (tValue < 1)
+            {
+                tValue += zoomSpeed; //increment t based and how fast we want to zoom, how quickly it can add up to 1
+                Camera.main.fieldOfView = Mathf.Lerp(90, 60, tValue); //go from 90 fov to 60 fov
+            }
+            
+            //Lerp values of camera position and to its right along the red axis.
+            float lerpX = Mathf.Lerp(transform.position.x, transform.position.x + transform.right.x, tValue);
+            float lerpY = Mathf.Lerp(transform.position.y, transform.position.y + transform.right.y, tValue);
+            float lerpZ = Mathf.Lerp(transform.position.z, transform.position.z + transform.right.z, tValue);
+            Vector3 newPosition = new Vector3(lerpX, lerpY, lerpZ);
+
+            //set our new position on the camera object
+            transform.SetPositionAndRotation(newPosition, transform.rotation);
+
+        }
+
+        else //if we let go of RMB
+        {
+            if (tValue > 0) //check if we have moved our t value at all , meaning we have zoomed in
+            {
+                tValue -= zoomSpeed; //increment t based and how fast we want to zoom, how quickly it can add up to 1
+                Camera.main.fieldOfView = Mathf.Lerp(90, 60, tValue);  //keep, order, the change in t going downward will account for us going from 60 to 90
+            }
+
+            //Lerp values of camera position and to its right along the red axis.
+            float lerpX = Mathf.Lerp(transform.position.x, transform.position.x + transform.right.x, tValue);
+            float lerpY = Mathf.Lerp(transform.position.y, transform.position.y + transform.right.y, tValue);
+            float lerpZ = Mathf.Lerp(transform.position.z, transform.position.z + transform.right.z, tValue);
+            Vector3 newPosition = new Vector3(lerpX, lerpY, lerpZ);
+          
+            //set our new position on the camera object
+            transform.SetPositionAndRotation(newPosition, transform.rotation);
+        }
     }
 
     void HandlePlayerInput()
@@ -106,28 +158,6 @@ public class CameraController : MonoBehaviour
 
         // Limit mouse Y rotation here
         mouseY = HelperK.ClampAngle(mouseY, Y_MinLimit, Y_MaxLimit);
-
-
-        //check if the player wants to zoom
-
-        if (Input.GetMouseButton(1) == true) //if holding RMB down
-        {
-            if (tValue < 1)
-            {
-                tValue += zoomSpeed; //increment t based and how fast we want to zoom, how quickly it can add up to 1
-                Camera.main.fieldOfView = Mathf.Lerp(90, 60, tValue); //go from 90 fov to 60 fov
-            }
-
-        }
-
-        else //if we let go of RMB
-        {
-            if (tValue > 0) //check if we have moved our t value at all , meaning we have zoomed in
-            {
-                tValue -= zoomSpeed; //increment t based and how fast we want to zoom, how quickly it can add up to 1
-                Camera.main.fieldOfView = Mathf.Lerp(90, 60, tValue);  //keep, order, the change in t going downward will account for us going from 60 to 90
-            }
-        }
 
     }
 
@@ -246,7 +276,7 @@ public class CameraController : MonoBehaviour
         transform.LookAt(cameraFocusPoint); //have camera focus on the focus point
     }
 
-    public void Reset() //public incase we ever need to reset the camera externally
+    private void Reset()
     {
         mouseX = StartOffsetRotationHorizontal;
         mouseY = StartOffsetRotationVertical;
