@@ -58,7 +58,7 @@ public class PlayerObject : MonoBehaviour {
         //utilize the methods made earlier, although I modified them to be privately accessable helper functions.
         if (itemToEquip.GetType().Name == "Weapon")
         {
-            if (itemToEquip.getName().Contains("Shield"))
+            if (itemToEquip.getName().Contains("Shield") || itemToEquip.getName().Contains("Bow"))
                 equipPlayer((Weapon)itemToEquip, true);
             else
                 equipPlayer((Weapon)itemToEquip, false);
@@ -154,7 +154,6 @@ public class PlayerObject : MonoBehaviour {
     private void attachWeaponToLeftHand(string weaponName)
     {
         //Find the weapon object on the Player Character
-        //Transform weapon = this.transform.Find(weaponName);
         Transform weapon = HelperK.FindSearchAllChildren(this.transform, weaponName);
 
         //Find the lWeaponBone of the player character. Searching through all children.
@@ -172,6 +171,10 @@ public class PlayerObject : MonoBehaviour {
 
             //compensating for our model rips base rotation being 180degrees off, which extra y rotation due to it being in the opposite of dominant hand
             weapon.transform.Rotate(weapon.transform.rotation.x, weapon.transform.rotation.y + 180, weapon.transform.rotation.z + 180);
+
+            //if a bow do not add an additional base rotation
+            if(weapon.name.Contains("Bow"))
+                weapon.transform.Rotate(weapon.transform.rotation.x, weapon.transform.rotation.y, weapon.transform.rotation.z + 180);
         }
         catch (MissingComponentException ex)
         {

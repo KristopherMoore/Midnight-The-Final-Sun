@@ -23,6 +23,10 @@ public class AnimateBodyParts : MonoBehaviour
         animator.SetBool("isRolling", false);
         animator.SetBool("isIdling", false);
         animator.SetBool("isL1Attack", false);
+        animator.SetBool("isAiming", false);
+        animator.SetBool("isFired", false);
+        animator.SetBool("isJumping", false);
+        animator.SetBool("isGliding", false);
         animator.SetFloat("MotionState", 0);
 
 
@@ -53,6 +57,21 @@ public class AnimateBodyParts : MonoBehaviour
         if (pController.playerAnimationState == PlayerCharacterController.animationState.L1Attack)
         {
             animator.SetBool("isL1Attack", true);
+        }
+        if(pController.playerAnimationState == PlayerCharacterController.animationState.Aiming)
+        {
+            animator.SetBool("isAiming", true);
+        }
+        if (pController.firedBow)
+            animator.SetBool("isFired", true);
+
+        if (pController.playerAnimationState == PlayerCharacterController.animationState.Gliding)
+        {
+            animator.SetBool("isGliding", true);
+        }
+        if (pController.playerAnimationState == PlayerCharacterController.animationState.Jumping)
+        {
+            animator.SetBool("isJumping", true);
         }
 
     }

@@ -93,16 +93,6 @@ public class CameraController : MonoBehaviour
 
     private void UpdateIfAiming()
     {
-        if (Input.GetMouseButton(0))
-        {
-            transform.SetPositionAndRotation(transform.position + transform.right, transform.rotation);
-        }
-
-        //if (Input.GetMouseButton(1))
-        //{
-           // transform.SetPositionAndRotation(transform.position + transform.right, transform.rotation);
-        //}
-
         //check if the player wants to zoom
         if (Input.GetMouseButton(1) == true) //if holding RMB down
         {

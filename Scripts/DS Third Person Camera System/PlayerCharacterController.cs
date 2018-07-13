@@ -10,7 +10,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     public enum animationState
     {
-        Idling, Walking, Jogging, Running, Rolling, Stagger, Stunned, L1Attack, L1AttackC2, Jumping, Gliding
+        Idling, Walking, Jogging, Running, Rolling, Stagger, Stunned, L1Attack, L1AttackC2, Jumping, Gliding, Aiming
     }
     public animationState playerAnimationState { get; set; }
 
@@ -29,6 +29,8 @@ public class PlayerCharacterController : MonoBehaviour
     public bool isAnimationLocked;
     public bool isJumping = false;
     public bool isGliding = false;
+    public bool isAiming = false;
+    public bool firedBow = false;
 
     void Awake() //run on game load (before start)
     {
@@ -118,6 +120,25 @@ public class PlayerCharacterController : MonoBehaviour
         else
             playerAnimationState = animationState.Idling;
 
+        //check for aiming
+        if(Input.GetMouseButton(1))
+        {
+            isAiming = true;
+            playerAnimationState = animationState.Aiming;
+
+            //if we have chosen to fire during aiming
+            if (Input.GetMouseButtonDown(0))
+                firedBow = true;
+            else
+                firedBow = false;
+
+        }
+        //on frame aiming has stopped
+        if(Input.GetMouseButtonUp(1))
+        {
+            isAiming = false;
+        }
+
         //rolling action
         if (Input.GetKey(KeyCode.R))
         {
@@ -169,7 +190,7 @@ public class PlayerCharacterController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Y))
         {
             PlayerObject.Instance.equipPlayer("Recurve Bow");
-            PlayerObject.Instance.equipPlayer("Shield");
+            PlayerObject.Instance.equipPlayer("Katana");
         }
     }
 
@@ -205,6 +226,13 @@ public class PlayerCharacterController : MonoBehaviour
                 isGliding = true;
             }
         }
+
+        //check and apply jump / glide animations
+        if(isJumping)
+            playerAnimationState = animationState.Jumping;
+        if(isGliding)
+            playerAnimationState = animationState.Gliding;
+
     }
 
     IEnumerator WaitXSeconds(float waitTime)
