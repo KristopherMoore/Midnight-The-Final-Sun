@@ -10,7 +10,7 @@ public class SmashCharacterController : MonoBehaviour
 
     public enum animationState
     {
-        Idling, Walking, Jogging, Running, Rolling, Stagger, Stunned, L1Attack, L1AttackC2, Jumping, Gliding, Aiming, DoubleJumping
+        Idling, Walking, Jogging, Running, Rolling, Stagger, Stunned, L1Attack, L1AttackC2, Jumping, Gliding, Aiming, DoubleJumping, Falling
     }
     public animationState playerAnimationState { get; set; }
 
@@ -30,6 +30,9 @@ public class SmashCharacterController : MonoBehaviour
     public bool isJumping = false;
     public bool isGliding = false;
     public bool isDoubleJumping = false;
+    public bool isFalling = false;
+    public bool isFacingStageRight = false;
+
     public bool isAiming = false;
     public bool firedBow = false;
 
@@ -77,17 +80,11 @@ public class SmashCharacterController : MonoBehaviour
         SmashCharacterMotor.Instance.MoveVector = Vector3.zero; //reclacuate, prevents it from being additive. Basically restart on every update
 
         float xAxis = Input.GetAxis("Horizontal");
-        float yAxis = Input.GetAxis("Vertical");
 
         //if we are animation locked, we will ignore axis data
         if (!Instance.isAnimationLocked)
         {
             //check if input exceeds the deadZone (check for a minimal amount of input before moving)
-            if (yAxis > deadZone || yAxis < -deadZone)
-            {
-                Instance.isMoving = true;
-                SmashCharacterMotor.Instance.MoveVector += new Vector3(0, 0, yAxis);
-            }
             if (xAxis > deadZone || xAxis < -deadZone)
             {
                 Instance.isMoving = true;
@@ -110,6 +107,25 @@ public class SmashCharacterController : MonoBehaviour
             return;
 
         playerAnimationState = animationState.Idling; //default state, only modified if some other action happens
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Vector3 toRot = this.transform.rotation.eulerAngles;
+            if (!isFalling)
+            {
+                this.transform.rotation = new Quaternion(toRot.x, 0, toRot.z, this.transform.rotation.w);
+                isFacingStageRight = false;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            Vector3 toRot = this.transform.rotation.eulerAngles;
+            if (!isFalling)
+            {
+                this.transform.rotation = new Quaternion(toRot.x, 180, toRot.z, this.transform.rotation.w);
+                isFacingStageRight = true;
+            }
+        }
 
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
@@ -205,7 +221,10 @@ public class SmashCharacterController : MonoBehaviour
             isJumping = false;
             isGliding = false;
             isDoubleJumping = false;
+            isFalling = false;
         }
+        else
+            isFalling = true;
 
         //jump action
         if (Input.GetKeyDown(KeyCode.Space))
@@ -218,14 +237,14 @@ public class SmashCharacterController : MonoBehaviour
             //}
 
             //if we arent already jumping
-            if (isJumping != true)
+            if (isJumping == false && isFalling == false)
             {
                 isJumping = true;
                 SmashCharacterMotor.Instance.Jump();
             }
 
             //if we are still in jumping state, and space was triggered. We can glide
-            else
+            else if (isJumping == true || isFalling == true)
             {
                 if(isDoubleJumping != true)
                 {
@@ -241,6 +260,8 @@ public class SmashCharacterController : MonoBehaviour
             playerAnimationState = animationState.Jumping;
         if (isGliding)
             playerAnimationState = animationState.Gliding;
+        if (isDoubleJumping)
+            playerAnimationState = animationState.DoubleJumping;
 
     }
 

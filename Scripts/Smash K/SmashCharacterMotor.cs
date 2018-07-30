@@ -12,9 +12,9 @@ public class SmashCharacterMotor : MonoBehaviour
     public float JogSpeed = 3.75f;
     public float RunSpeed = 6.0f;
     public float SlideSpeed = 3f;
-    public float jumpSpeed = 8f;
-    public float Gravity = 21f;
-    public float terminalVelocity = 20f;
+    public float jumpSpeed = 4.5f;
+    public float Gravity = 7f;
+    public float terminalVelocity = 5.5f;
     public float glidingModifier = 19f;
     public float slideThreshold = 0.6f;
     public float maxControllableSlideMagnitude = 0.4f;
@@ -69,18 +69,8 @@ public class SmashCharacterMotor : MonoBehaviour
             if (SmashCharacterController.Instance.isMoving)
             {
                 //old rot
-                Vector3 toRot = new Vector3(MoveVector.x, 0f, MoveVector.z);
-                transform.rotation = Quaternion.LookRotation(toRot);
-            }
-
-            //if aiming, rotate our character model towards our camera focus point
-            if (SmashCharacterController.Instance.isAiming)
-            {
-                Vector3 focusP = cameraFocusPoint.transform.position;
-                
-                transform.LookAt(cameraFocusPoint.transform);
-                transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-                
+                //Vector3 toRot = new Vector3(MoveVector.x, 0f, MoveVector.z);
+                //transform.rotation = Quaternion.LookRotation(toRot);
             }
         }
     }
@@ -129,6 +119,9 @@ public class SmashCharacterMotor : MonoBehaviour
         {
             verticalVelocity = jumpSpeed;
         }
+
+        else
+            verticalVelocity = jumpSpeed;
     }
 
     float MoveSpeed()
