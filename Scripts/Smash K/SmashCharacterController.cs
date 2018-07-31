@@ -6,7 +6,9 @@ public class SmashCharacterController : MonoBehaviour
 {
 
     public static CharacterController CharacterController;
+    public static Rigidbody Rigidbody;
     public static SmashCharacterController Instance; //hold reference to current instance of itself
+    protected bool grounded;
 
     public enum animationState
     {
@@ -23,7 +25,8 @@ public class SmashCharacterController : MonoBehaviour
     }
     public direction MoveDirection { get; set; }
 
-    public float deadZone = 0.01f;
+    public float xAxis = 0f;
+    public float deadZone = 0.05f;
 
     public bool isMoving;
     public bool isAnimationLocked;
@@ -39,13 +42,17 @@ public class SmashCharacterController : MonoBehaviour
     void Awake() //run on game load (before start)
     {
         CharacterController = GetComponent("CharacterController") as CharacterController;
+        Rigidbody = GetComponent("Rigidbody") as Rigidbody;
         
         Instance = this;
+        checkIfGrounded();
     }
 
 
     void Update()
     {
+        checkIfGrounded();
+
         if (Camera.main == null) //check for main camera, if none exists, exit.
             return;
 
@@ -79,7 +86,7 @@ public class SmashCharacterController : MonoBehaviour
 
         SmashCharacterMotor.Instance.MoveVector = Vector3.zero; //reclacuate, prevents it from being additive. Basically restart on every update
 
-        float xAxis = Input.GetAxis("Horizontal");
+        xAxis = Input.GetAxis("Horizontal");
 
         //if we are animation locked, we will ignore axis data
         if (!Instance.isAnimationLocked)
@@ -108,7 +115,7 @@ public class SmashCharacterController : MonoBehaviour
 
         playerAnimationState = animationState.Idling; //default state, only modified if some other action happens
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetAxis("Horizontal") < -deadZone)
         {
             Vector3 toRot = this.transform.rotation.eulerAngles;
             if (!isFalling)
@@ -117,7 +124,7 @@ public class SmashCharacterController : MonoBehaviour
                 isFacingStageRight = false;
             }
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetAxis("Horizontal") > deadZone)
         {
             Vector3 toRot = this.transform.rotation.eulerAngles;
             if (!isFalling)
@@ -127,7 +134,7 @@ public class SmashCharacterController : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetAxis("Horizontal") > deadZone || Input.GetAxis("Horizontal") < -deadZone)
         {
             playerAnimationState = animationState.Jogging;
             if (Input.GetKey(KeyCode.LeftShift))
@@ -227,7 +234,7 @@ public class SmashCharacterController : MonoBehaviour
             isFalling = true;
 
         //jump action
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3) || Input.GetKeyDown(KeyCode.Joystick1Button1))
         {
             //if we are gliding, another space will cancel the glide
             //if (isGliding)
@@ -240,7 +247,7 @@ public class SmashCharacterController : MonoBehaviour
             if (isJumping == false && isFalling == false)
             {
                 isJumping = true;
-                SmashCharacterMotor.Instance.Jump();
+                SmashCharacterMotor.Instance.Jump(false, xAxis);
             }
 
             //if we are still in jumping state, and space was triggered. We can glide
@@ -249,7 +256,7 @@ public class SmashCharacterController : MonoBehaviour
                 if(isDoubleJumping != true)
                 {
                     isDoubleJumping = true;
-                    SmashCharacterMotor.Instance.Jump();
+                    SmashCharacterMotor.Instance.Jump(false, xAxis);
                 }
                 isGliding = true;
             }
@@ -263,6 +270,26 @@ public class SmashCharacterController : MonoBehaviour
         if (isDoubleJumping)
             playerAnimationState = animationState.DoubleJumping;
 
+    }
+
+    private void checkIfGrounded()
+    {
+        RaycastHit hit;
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, maxDistance: .3f))
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+            grounded = true;
+        }
+        else
+        {
+            grounded = false;
+        }
+    }
+
+    public bool isGrounded()
+    {
+        return grounded;
     }
 
     IEnumerator WaitXSeconds(float waitTime)

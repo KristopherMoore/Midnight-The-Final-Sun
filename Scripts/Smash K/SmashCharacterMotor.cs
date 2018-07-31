@@ -13,7 +13,7 @@ public class SmashCharacterMotor : MonoBehaviour
     public float RunSpeed = 6.0f;
     public float SlideSpeed = 3f;
     public float jumpSpeed = 4.5f;
-    public float Gravity = 7f;
+    public float Gravity = 8f;
     public float terminalVelocity = 5.5f;
     public float glidingModifier = 19f;
     public float slideThreshold = 0.6f;
@@ -22,6 +22,10 @@ public class SmashCharacterMotor : MonoBehaviour
 
     public Vector3 MoveVector { get; set; }
     public float verticalVelocity = 0;
+
+    private float horizontalVelocity = 0;
+    private float currentMaxHVel = 0;
+    private float minimumBound = 2;
 
 
     public GameObject cameraFocusPoint;
@@ -39,7 +43,11 @@ public class SmashCharacterMotor : MonoBehaviour
     // Update is called by the TP_Controller
     public void UpdateMotor()
     {
-        ProcessMotion();
+        //Determine whether to deal with Air or Ground Motor Mechanics
+        if (SmashCharacterController.CharacterController.isGrounded)
+            ProcessMotion();
+        else
+            ProcessAirMotion();
     }
 
     void ProcessMotion()
@@ -55,24 +63,67 @@ public class SmashCharacterMotor : MonoBehaviour
         MoveVector = new Vector3(MoveVector.x, verticalVelocity, MoveVector.z);
 
         //Apply Gravity / gliding Gravity depending on state
-        //if (SmashCharacterController.Instance.isGliding)
-           // applyGravityGliding();
-        //else
         applyGravity();
 
         //Move the Character in World Space,if not animation locked
         if (!SmashCharacterController.Instance.isAnimationLocked)
         {
             SmashCharacterController.CharacterController.Move(MoveVector * Time.deltaTime); //Multiply MoveVector by DeltaTime (converts to units per second) right before we move
-
-            //Modify Rotation to direction in which we moved
-            if (SmashCharacterController.Instance.isMoving)
-            {
-                //old rot
-                //Vector3 toRot = new Vector3(MoveVector.x, 0f, MoveVector.z);
-                //transform.rotation = Quaternion.LookRotation(toRot);
-            }
         }
+    }
+
+    private void ProcessAirMotion()
+    {
+        Debug.Log(horizontalVelocity + " start Hvel");
+
+        //Account for Influence of horizontal Velocity, and clamp the number to the current max in either positive or neg direction. Must use logic to check
+        horizontalVelocity += (SmashCharacterController.Instance.xAxis * .25f);
+
+        Debug.Log(horizontalVelocity + " after xAxis DI");
+
+        float negBound = 0;
+        float posBound = 0;
+        if (currentMaxHVel > 0)
+        {
+            posBound = currentMaxHVel;
+            negBound = -currentMaxHVel;
+        }
+        else if (currentMaxHVel < 0)
+        {
+            posBound = -currentMaxHVel;
+            negBound = currentMaxHVel;
+        }
+        else //must be zero, allow space for DI
+        {
+            posBound = minimumBound;
+            negBound = -minimumBound;
+        }
+        
+
+        //double check for minimum bound. This ensure small axis angles dont cause slow vertical jumps
+        if (posBound < minimumBound)
+            posBound = minimumBound;
+
+        if (negBound > -minimumBound)
+            negBound = -minimumBound;
+
+        //bound hVel
+        if (horizontalVelocity > posBound)
+            horizontalVelocity = posBound;
+        if (horizontalVelocity < negBound)
+            horizontalVelocity = negBound;
+
+
+
+        //modify moveVector by applying both horizontal and vertical velocity
+        MoveVector = new Vector3(horizontalVelocity, verticalVelocity, MoveVector.z);
+        applyGravity();
+
+        //multiply by DletaTime
+        SmashCharacterController.CharacterController.Move(MoveVector * Time.deltaTime);
+
+        Debug.Log(horizontalVelocity + " hVel");
+        Debug.Log(currentMaxHVel + " max");
     }
 
     //method for rolling, will propel the character in their rolled direction, over a set duration.
@@ -122,6 +173,21 @@ public class SmashCharacterMotor : MonoBehaviour
 
         else
             verticalVelocity = jumpSpeed;
+    }
+
+    //force here is a "vector" in the traditional sense, a force and a direction based on positive or negative
+    public void Jump(bool isShorthop, float force)
+    {
+        //set vert vel based on jumpspeed of short/full hops
+        if (isShorthop)
+            verticalVelocity = jumpSpeed / 2;
+        else
+            verticalVelocity = jumpSpeed;
+
+        //set up our velocity horizontally and our max Vel speed
+        horizontalVelocity = force * 4;
+        currentMaxHVel = horizontalVelocity;
+
     }
 
     float MoveSpeed()
