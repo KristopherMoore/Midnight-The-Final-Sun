@@ -26,6 +26,7 @@ public class SmashCharacterMotor : MonoBehaviour
     private float horizontalVelocity = 0;
     private float currentMaxHVel = 0;
     private float minimumBound = 2;
+    private float jumpHVelForceMultiplier = 4f;
 
 
     public GameObject cameraFocusPoint;
@@ -74,12 +75,18 @@ public class SmashCharacterMotor : MonoBehaviour
 
     private void ProcessAirMotion()
     {
-        Debug.Log(horizontalVelocity + " start Hvel");
+        //Check if we started falling without jumping. if so we when off a ledge. In that case, check what the last movement differential was (last time input was above
+        //a deadzone. and use it to seed the horiontal velocity. This should similuate running off edges)
+        if (SmashCharacterController.Instance.isFalling && !SmashCharacterController.Instance.isJumping)
+            horizontalVelocity = SmashCharacterController.Instance.lastAxisInput * jumpHVelForceMultiplier;
+
+
+        //Debug.Log(horizontalVelocity + " start Hvel");
 
         //Account for Influence of horizontal Velocity, and clamp the number to the current max in either positive or neg direction. Must use logic to check
         horizontalVelocity += (SmashCharacterController.Instance.xAxis * .25f);
 
-        Debug.Log(horizontalVelocity + " after xAxis DI");
+        //Debug.Log(horizontalVelocity + " after xAxis DI");
 
         float negBound = 0;
         float posBound = 0;
@@ -122,8 +129,8 @@ public class SmashCharacterMotor : MonoBehaviour
         //multiply by DletaTime
         SmashCharacterController.CharacterController.Move(MoveVector * Time.deltaTime);
 
-        Debug.Log(horizontalVelocity + " hVel");
-        Debug.Log(currentMaxHVel + " max");
+        //Debug.Log(horizontalVelocity + " hVel");
+        //Debug.Log(currentMaxHVel + " max");
     }
 
     //method for rolling, will propel the character in their rolled direction, over a set duration.
@@ -185,8 +192,15 @@ public class SmashCharacterMotor : MonoBehaviour
             verticalVelocity = jumpSpeed;
 
         //set up our velocity horizontally and our max Vel speed
-        horizontalVelocity = force * 4;
+        horizontalVelocity = force * jumpHVelForceMultiplier;
         currentMaxHVel = horizontalVelocity;
+
+    }
+
+    //similar to the jump with vector, although this time our vertical force will be determined by player percentages
+    //hitForces will be in pos/neg axes.
+    public void Knockback(float horizontalHitForce, float verticalHitForce)
+    {
 
     }
 

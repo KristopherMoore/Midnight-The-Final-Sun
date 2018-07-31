@@ -6,7 +6,6 @@ public class SmashCharacterController : MonoBehaviour
 {
 
     public static CharacterController CharacterController;
-    public static Rigidbody Rigidbody;
     public static SmashCharacterController Instance; //hold reference to current instance of itself
     protected bool grounded;
 
@@ -27,6 +26,7 @@ public class SmashCharacterController : MonoBehaviour
 
     public float xAxis = 0f;
     public float deadZone = 0.05f;
+    public float lastAxisInput = 0f;
 
     public bool isMoving;
     public bool isAnimationLocked;
@@ -42,7 +42,6 @@ public class SmashCharacterController : MonoBehaviour
     void Awake() //run on game load (before start)
     {
         CharacterController = GetComponent("CharacterController") as CharacterController;
-        Rigidbody = GetComponent("Rigidbody") as Rigidbody;
         
         Instance = this;
         checkIfGrounded();
@@ -96,6 +95,7 @@ public class SmashCharacterController : MonoBehaviour
             {
                 Instance.isMoving = true;
                 SmashCharacterMotor.Instance.MoveVector += new Vector3(xAxis, 0, 0);
+                this.lastAxisInput = xAxis;
             }
         }
 

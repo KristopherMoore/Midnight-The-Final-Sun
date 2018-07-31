@@ -23,7 +23,9 @@ public class GameHandler : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             //toggleCursor();
-            GameMenu.Instance.changeMenuStatus();
+            //GameMenu.Instance.changeMenuStatus();
+
+
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
