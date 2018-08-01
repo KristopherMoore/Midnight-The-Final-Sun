@@ -12,7 +12,6 @@ public class AnimateCharacter : MonoBehaviour
         animator = transform.GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         SmashCharacterController pController = SmashCharacterController.Instance;
@@ -29,6 +28,7 @@ public class AnimateCharacter : MonoBehaviour
         animator.SetBool("isDoubleJumping", false);
         animator.SetBool("isGliding", false);
         animator.SetBool("isFalling", false);
+        animator.SetBool("isStunned", false);
         animator.SetFloat("MotionState", 0);
 
 
@@ -81,6 +81,10 @@ public class AnimateCharacter : MonoBehaviour
         if (pController.playerAnimationState == SmashCharacterController.animationState.Falling)
         {
             animator.SetBool("isFalling", true);
+        }
+        if (pController.playerAnimationState == SmashCharacterController.animationState.Stunned)
+        {
+            animator.SetBool("isStunned", true);
         }
 
     }

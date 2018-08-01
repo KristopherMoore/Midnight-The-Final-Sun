@@ -6,7 +6,7 @@ public class PlayerCharacter : MonoBehaviour {
 
     //This class will serve as a base for the Player objects. It will hold important references to their stats and stocks.
 
-    public string name;
+    public string playerName;
 
     private int maxStocks;
     private int stocks;
@@ -17,8 +17,14 @@ public class PlayerCharacter : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        name = "DefaultInstance";
+        playerName = "DefaultInstance";
+        percent = 50;
 	}
+
+    public void setName(string toSet)
+    {
+        playerName = toSet;
+    }
 
     public int getCurrentStocks()
     {

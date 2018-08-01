@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class testRigidBody : MonoBehaviour {
 
-    private bool isGrounded;
-    private static Rigidbody rigidbody;
+    private static Rigidbody rb;
 
     private Vector3 moveVect;
 
 	// Use this for initialization
 	void Start ()
     {
-        rigidbody = GetComponent("Rigidbody") as Rigidbody;
+        rb = GetComponent("Rigidbody") as Rigidbody;
 	}
 	
 	// Update is called once per frame
@@ -23,12 +22,10 @@ public class testRigidBody : MonoBehaviour {
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, maxDistance: .3f))
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
-            isGrounded = true;
         }
         else
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * 1000, Color.white);
-            isGrounded = false;
         }
 
         float xAxis = Input.GetAxis("Horizontal");
@@ -39,12 +36,10 @@ public class testRigidBody : MonoBehaviour {
             moveVect += new Vector3(xAxis, 0, 0);
         }
 
-        //rigidbody.MovePosition(moveVect);
-
     }
 
     private void LateUpdate()
     {
-        rigidbody.MovePosition(moveVect);
+        rb.MovePosition(moveVect);
     }
 }

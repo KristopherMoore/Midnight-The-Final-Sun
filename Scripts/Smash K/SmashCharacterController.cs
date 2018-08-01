@@ -7,6 +7,7 @@ public class SmashCharacterController : MonoBehaviour
 
     public static CharacterController CharacterController;
     public static SmashCharacterController Instance; //hold reference to current instance of itself
+    public static PlayerCharacter player; // hold reference to the player Object
     protected bool grounded;
 
     public enum animationState
@@ -17,12 +18,6 @@ public class SmashCharacterController : MonoBehaviour
 
     private int currentAttackChain = 0;
     private int maxAttackChain = 3;
-
-    public enum direction
-    {
-        Stationary, Forward, Left, Backward, Right, LeftFwd, RightFwd, LeftBck, RightBck
-    }
-    public direction MoveDirection { get; set; }
 
     public float xAxis = 0f;
     public float deadZone = 0.05f;
@@ -35,6 +30,7 @@ public class SmashCharacterController : MonoBehaviour
     public bool isDoubleJumping = false;
     public bool isFalling = false;
     public bool isFacingStageRight = false;
+    public bool isStunned = false;
 
     public bool isAiming = false;
     public bool firedBow = false;
@@ -42,6 +38,9 @@ public class SmashCharacterController : MonoBehaviour
     void Awake() //run on game load (before start)
     {
         CharacterController = GetComponent("CharacterController") as CharacterController;
+        player = GetComponent<PlayerCharacter>();
+        player.setName(this.name);
+        Debug.Log(player.name);
         
         Instance = this;
         checkIfGrounded();
@@ -70,6 +69,9 @@ public class SmashCharacterController : MonoBehaviour
         //handling jumpstate after locomotion specifically. Unlike the other actions, this applies directly into the locomotion processes
         //and if it came before it would be overrident by the verticalVelocity check in GetLocomotionInput
         HandleJumpInput();
+
+        //handleKnockback after Jump because our Jump shouldnt override a knockback on the same frame.
+        HandleKnockBack();
 
         //update the motor even if we didnt have locomotion, as the motor also calculates things like gravity.
         SmashCharacterMotor.Instance.UpdateMotor();
@@ -170,11 +172,6 @@ public class SmashCharacterController : MonoBehaviour
             isAnimationLocked = true;
             playerAnimationState = animationState.Rolling;
 
-            //TODO:
-            //Corroutine here to wait for rolling to finish, then when done set isAnimationLocked = false; Encapsulate Handle Action
-            //Inputs inside of another check for isAnimationLocked, that way any prior engaged animations are messed with until co
-            //routine finishes.
-
             StartCoroutine(WaitForAnimation("DS roll fwd"));
 
             //wait for animation, and send roll movement command to Motor
@@ -221,6 +218,9 @@ public class SmashCharacterController : MonoBehaviour
 
     void HandleJumpInput()
     {
+        //avoid being able to jump when we are stunned
+        if (isAnimationLocked || isStunned)
+            return;
 
         //when our character hits the ground, reset our states
         if (CharacterController.isGrounded)
@@ -272,6 +272,55 @@ public class SmashCharacterController : MonoBehaviour
 
     }
 
+    void HandleKnockBack()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            isStunned = true;
+            StartCoroutine(hitStunWait());
+            SmashCharacterMotor.Instance.Knockback(-.5f, .5f, player.getPercentage());
+        }
+
+        //TODO:, Replace this will external function call. MAKE SURE it occurs after update frame. or in late update.
+        // We could just the colliders check in LateUpdate to process hits.
+        if (Input.GetKeyDown(KeyCode.G))
+            playerIsHit(true, true, -.5f);
+
+        //updateCheck for if we are still knocked back or otherwise stunned.
+        if (isStunned)
+            playerAnimationState = animationState.Stunned;
+    }
+
+    //allow external classes to hit the character, sending direction, and hitForce.(which is dependent on what hit us
+    public void playerIsHit(bool sendRight, bool sendUp, float hitForce)
+    {
+        if (hitForce < 0) //ensure the calling method doesnt send us a negative number
+            hitForce = -hitForce;
+
+        if (sendRight)
+        {
+            if (sendUp)
+                knockBack(hitForce, hitForce); // hori: positive, vert: positive;
+            else
+                knockBack(hitForce, -hitForce); // hori: positve, vert: negative
+        }
+
+        else //sendLeft
+        {
+            if (sendUp)
+                knockBack(-hitForce, hitForce); //hori: negative, vert: positive;
+            else
+                knockBack(-hitForce, -hitForce); //hori: negative, vert: negative;
+        }
+
+    }//followed by its helper method
+    private void knockBack(float horizontalForce, float verticalForce)
+    {
+        isStunned = true;
+        StartCoroutine(hitStunWait());
+        SmashCharacterMotor.Instance.Knockback(horizontalForce, verticalForce, player.getPercentage());
+    }
+
     private void checkIfGrounded()
     {
         RaycastHit hit;
@@ -290,6 +339,12 @@ public class SmashCharacterController : MonoBehaviour
     public bool isGrounded()
     {
         return grounded;
+    }
+
+    IEnumerator hitStunWait()
+    {
+        yield return new WaitForSeconds(1f);
+        isStunned = false;
     }
 
     IEnumerator WaitXSeconds(float waitTime)

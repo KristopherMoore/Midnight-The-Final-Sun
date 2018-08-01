@@ -9,12 +9,12 @@ public class SmashCharacterMotor : MonoBehaviour
     public static SmashCharacterMotor Instance; //hold reference to instance of itself  
 
     public float WalkSpeed = 1.75f;
-    public float JogSpeed = 3.75f;
-    public float RunSpeed = 6.0f;
+    public float JogSpeed = 3f;
+    public float RunSpeed = 4.0f;
     public float SlideSpeed = 3f;
     public float jumpSpeed = 4.5f;
-    public float Gravity = 8f;
-    public float terminalVelocity = 5.5f;
+    public float Gravity = 10f;
+    public float terminalVelocity = 4.5f;
     public float glidingModifier = 19f;
     public float slideThreshold = 0.6f;
     public float maxControllableSlideMagnitude = 0.4f;
@@ -26,7 +26,7 @@ public class SmashCharacterMotor : MonoBehaviour
     private float horizontalVelocity = 0;
     private float currentMaxHVel = 0;
     private float minimumBound = 2;
-    private float jumpHVelForceMultiplier = 4f;
+    private float jumpHVelForceMultiplier = 2f;
 
 
     public GameObject cameraFocusPoint;
@@ -47,6 +47,10 @@ public class SmashCharacterMotor : MonoBehaviour
         //Determine whether to deal with Air or Ground Motor Mechanics
         if (SmashCharacterController.CharacterController.isGrounded)
             ProcessMotion();
+
+        else if (SmashCharacterController.Instance.isStunned)
+            ProcessKnockbackMotion();
+
         else
             ProcessAirMotion();
     }
@@ -77,7 +81,7 @@ public class SmashCharacterMotor : MonoBehaviour
     {
         //Check if we started falling without jumping. if so we when off a ledge. In that case, check what the last movement differential was (last time input was above
         //a deadzone. and use it to seed the horiontal velocity. This should similuate running off edges)
-        if (SmashCharacterController.Instance.isFalling && !SmashCharacterController.Instance.isJumping)
+        if (SmashCharacterController.Instance.isFalling && !SmashCharacterController.Instance.isJumping && !SmashCharacterController.Instance.isStunned)
             horizontalVelocity = SmashCharacterController.Instance.lastAxisInput * jumpHVelForceMultiplier;
 
 
@@ -126,11 +130,28 @@ public class SmashCharacterMotor : MonoBehaviour
         MoveVector = new Vector3(horizontalVelocity, verticalVelocity, MoveVector.z);
         applyGravity();
 
-        //multiply by DletaTime
+        //multiply by DeltaTime
         SmashCharacterController.CharacterController.Move(MoveVector * Time.deltaTime);
 
         //Debug.Log(horizontalVelocity + " hVel");
         //Debug.Log(currentMaxHVel + " max");
+    }
+
+    private void ProcessKnockbackMotion()
+    {
+        //TODO: Bound this motion to not let the character influence fast
+
+
+        //Account for Influence of horizontal Velocity, and clamp the number to the current max in either positive or neg direction. Must use logic to check
+        horizontalVelocity += (SmashCharacterController.Instance.xAxis * .05f);
+        verticalVelocity += (Input.GetAxis("Vertical") * .05f);
+
+        //modify moveVector by applying both horizontal and vertical velocity
+        MoveVector = new Vector3(horizontalVelocity, verticalVelocity, MoveVector.z);
+        applyGravity();
+
+        //multiply by DeltaTime
+        SmashCharacterController.CharacterController.Move(MoveVector * Time.deltaTime);
     }
 
     //method for rolling, will propel the character in their rolled direction, over a set duration.
@@ -198,9 +219,20 @@ public class SmashCharacterMotor : MonoBehaviour
     }
 
     //similar to the jump with vector, although this time our vertical force will be determined by player percentages
-    //hitForces will be in pos/neg axes.
-    public void Knockback(float horizontalHitForce, float verticalHitForce)
+    //hitForceMultipliers should be used from .01 -> 1; And strong hits are 1, while weak are .5. Horizontal Neg is left. Positive Neg is down.
+    public void Knockback(float horizontalhitForceMultiplier, float verticalhitForceMultiplier, int playerPercentage)
     {
+        //calc Knockback speed based on hitForces and percentage (its possible for it to be zero so we will add 1 to it to not mess with multiplications)
+        float knockbackSpeed = ++playerPercentage;
+
+        Debug.Log(playerPercentage + " player %");
+        Debug.Log(knockbackSpeed + " Knockback Speed");
+
+        //verticalVelocity
+        verticalVelocity = (verticalhitForceMultiplier * knockbackSpeed) * .15f;
+
+        //horizontalVelocity
+        horizontalVelocity = (horizontalhitForceMultiplier * knockbackSpeed) * .15f;
 
     }
 
