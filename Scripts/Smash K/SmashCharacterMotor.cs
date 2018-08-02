@@ -45,11 +45,11 @@ public class SmashCharacterMotor : MonoBehaviour
     public void UpdateMotor()
     {
         //Determine whether to deal with Air or Ground Motor Mechanics
-        if (SmashCharacterController.CharacterController.isGrounded)
-            ProcessMotion();
-
-        else if (SmashCharacterController.Instance.isStunned)
+        if (SmashCharacterController.Instance.isStunned)
             ProcessKnockbackMotion();
+
+        else if (SmashCharacterController.CharacterController.isGrounded)
+            ProcessMotion();
 
         else
             ProcessAirMotion();
@@ -142,7 +142,7 @@ public class SmashCharacterMotor : MonoBehaviour
         //TODO: Bound this motion to not let the character influence fast
 
 
-        //Account for Influence of horizontal Velocity, and clamp the number to the current max in either positive or neg direction. Must use logic to check
+        //Account for Influence of horizontal Velocity and vertical velocity
         horizontalVelocity += (SmashCharacterController.Instance.xAxis * .05f);
         verticalVelocity += (Input.GetAxis("Vertical") * .05f);
 

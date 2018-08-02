@@ -35,6 +35,9 @@ public class SmashCharacterController : MonoBehaviour
     public bool isAiming = false;
     public bool firedBow = false;
 
+    private int frameWaitCounter = 0;
+    private int stunnedDurationInFrames = 0;
+
     void Awake() //run on game load (before start)
     {
         CharacterController = GetComponent("CharacterController") as CharacterController;
@@ -43,13 +46,13 @@ public class SmashCharacterController : MonoBehaviour
         Debug.Log(player.name);
         
         Instance = this;
-        checkIfGrounded();
+        checkStates();
     }
 
 
     void Update()
     {
-        checkIfGrounded();
+        checkStates();
 
         if (Camera.main == null) //check for main camera, if none exists, exit.
             return;
@@ -275,24 +278,21 @@ public class SmashCharacterController : MonoBehaviour
     void HandleKnockBack()
     {
         if (Input.GetKeyDown(KeyCode.T))
-        {
-            isStunned = true;
-            StartCoroutine(hitStunWait());
-            SmashCharacterMotor.Instance.Knockback(-.5f, .5f, player.getPercentage());
-        }
+            playerIsHit(false, true, -.5f, 80);
 
         //TODO:, Replace this will external function call. MAKE SURE it occurs after update frame. or in late update.
         // We could just the colliders check in LateUpdate to process hits.
         if (Input.GetKeyDown(KeyCode.G))
-            playerIsHit(true, true, -.5f);
+            playerIsHit(true, true, -.5f, 30);
 
         //updateCheck for if we are still knocked back or otherwise stunned.
         if (isStunned)
             playerAnimationState = animationState.Stunned;
+
     }
 
     //allow external classes to hit the character, sending direction, and hitForce.(which is dependent on what hit us
-    public void playerIsHit(bool sendRight, bool sendUp, float hitForce)
+    public void playerIsHit(bool sendRight, bool sendUp, float hitForce, int stunDurationInFrames)
     {
         if (hitForce < 0) //ensure the calling method doesnt send us a negative number
             hitForce = -hitForce;
@@ -300,28 +300,30 @@ public class SmashCharacterController : MonoBehaviour
         if (sendRight)
         {
             if (sendUp)
-                knockBack(hitForce, hitForce); // hori: positive, vert: positive;
+                knockBack(hitForce, hitForce, stunDurationInFrames); // hori: positive, vert: positive;
             else
-                knockBack(hitForce, -hitForce); // hori: positve, vert: negative
+                knockBack(hitForce, -hitForce, stunDurationInFrames); // hori: positve, vert: negative
         }
 
         else //sendLeft
         {
             if (sendUp)
-                knockBack(-hitForce, hitForce); //hori: negative, vert: positive;
+                knockBack(-hitForce, hitForce, stunDurationInFrames); //hori: negative, vert: positive;
             else
-                knockBack(-hitForce, -hitForce); //hori: negative, vert: negative;
+                knockBack(-hitForce, -hitForce, stunDurationInFrames); //hori: negative, vert: negative;
         }
 
-    }//followed by its helper method
-    private void knockBack(float horizontalForce, float verticalForce)
+    }//followed by its helper method: knockBack
+    private void knockBack(float horizontalForce, float verticalForce, int stunDurationInFrames)
     {
+        //since we were knocked back. Reset our framewait counter to 0. Add in our stun duration 
+        frameWaitCounter = 0;
+        stunnedDurationInFrames = stunDurationInFrames;
         isStunned = true;
-        StartCoroutine(hitStunWait());
         SmashCharacterMotor.Instance.Knockback(horizontalForce, verticalForce, player.getPercentage());
     }
 
-    private void checkIfGrounded()
+    private void checkStates()
     {
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
@@ -334,11 +336,30 @@ public class SmashCharacterController : MonoBehaviour
         {
             grounded = false;
         }
+
+        //check if that threw us into a falling state
+        if (CharacterController.isGrounded)
+            isFalling = false;
+        else
+            isFalling = true;
+
+        //run HitStunWaitFrames, if we were stunned to see when we can leave the stunned state 
+        if (isStunned)
+            hitStunWaitFrames();
     }
 
     public bool isGrounded()
     {
         return grounded;
+    }
+
+    private void hitStunWaitFrames()
+    {
+        //check then increment the FrameWaitCounter
+        if (frameWaitCounter++ == stunnedDurationInFrames)
+            isStunned = false;
+        else
+            isStunned = true;
     }
 
     IEnumerator hitStunWait()
