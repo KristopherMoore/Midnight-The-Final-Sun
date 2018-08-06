@@ -27,7 +27,7 @@ public class SmashCharacterMotor : MonoBehaviour
     private float currentMaxHVel = 0;
     private float minimumBound = 2;
     private float jumpHVelForceMultiplier = 2f;
-
+   
 
     public GameObject cameraFocusPoint;
 
