@@ -6,7 +6,9 @@ public class SmashCharacterMotor : MonoBehaviour
 {
 
 
-    public static SmashCharacterMotor Instance; //hold reference to instance of itself  
+    private SmashCharacterMotor Instance; //hold reference to instance of itself  
+    private SmashCharacterController thisCharacterController; //hold reference to this motor's character controller (the script)
+    private CharacterController thisActualCharacterController; //holds reference to the physical character controller obj (not the script to run it)
 
     public float WalkSpeed = 1.75f;
     public float JogSpeed = 3f;
@@ -39,16 +41,19 @@ public class SmashCharacterMotor : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        thisCharacterController = GetComponent("SmashCharacterController") as SmashCharacterController;
+        thisActualCharacterController = GetComponent("CharacterController") as CharacterController;
+        Debug.Log(thisCharacterController + " TEST IN MOTOR");
     }
 
     // Update is called by the TP_Controller
     public void UpdateMotor()
     {
         //Determine whether to deal with Air or Ground Motor Mechanics
-        if (SmashCharacterController.Instance.isStunned)
+        if (thisCharacterController.isStunned)
             ProcessKnockbackMotion();
 
-        else if (SmashCharacterController.CharacterController.isGrounded)
+        else if (thisActualCharacterController.isGrounded)
             ProcessMotion();
 
         else
@@ -71,9 +76,9 @@ public class SmashCharacterMotor : MonoBehaviour
         applyGravity();
 
         //Move the Character in World Space,if not animation locked
-        if (!SmashCharacterController.Instance.isAnimationLocked)
+        if (!thisCharacterController.isAnimationLocked)
         {
-            SmashCharacterController.CharacterController.Move(MoveVector * Time.deltaTime); //Multiply MoveVector by DeltaTime (converts to units per second) right before we move
+            thisActualCharacterController.Move(MoveVector * Time.deltaTime); //Multiply MoveVector by DeltaTime (converts to units per second) right before we move
         }
     }
 
@@ -81,14 +86,14 @@ public class SmashCharacterMotor : MonoBehaviour
     {
         //Check if we started falling without jumping. if so we when off a ledge. In that case, check what the last movement differential was (last time input was above
         //a deadzone. and use it to seed the horiontal velocity. This should similuate running off edges)
-        if (SmashCharacterController.Instance.isFalling && !SmashCharacterController.Instance.isJumping && !SmashCharacterController.Instance.isStunned)
-            horizontalVelocity = SmashCharacterController.Instance.lastAxisInput * jumpHVelForceMultiplier;
+        if (thisCharacterController.isFalling && !thisCharacterController.isJumping && !thisCharacterController.isStunned)
+            horizontalVelocity = thisCharacterController.lastAxisInput * jumpHVelForceMultiplier;
 
 
         //Debug.Log(horizontalVelocity + " start Hvel");
 
         //Account for Influence of horizontal Velocity, and clamp the number to the current max in either positive or neg direction. Must use logic to check
-        horizontalVelocity += (SmashCharacterController.Instance.xAxis * .25f);
+        horizontalVelocity += (thisCharacterController.xAxis * .25f);
 
         //Debug.Log(horizontalVelocity + " after xAxis DI");
 
@@ -131,7 +136,7 @@ public class SmashCharacterMotor : MonoBehaviour
         applyGravity();
 
         //multiply by DeltaTime
-        SmashCharacterController.CharacterController.Move(MoveVector * Time.deltaTime);
+        thisActualCharacterController.Move(MoveVector * Time.deltaTime);
 
         //Debug.Log(horizontalVelocity + " hVel");
         //Debug.Log(currentMaxHVel + " max");
@@ -141,9 +146,8 @@ public class SmashCharacterMotor : MonoBehaviour
     {
         //TODO: Bound this motion to not let the character influence fast
 
-
         //Account for Influence of horizontal Velocity and vertical velocity
-        horizontalVelocity += (SmashCharacterController.Instance.xAxis * .05f);
+        horizontalVelocity += (thisCharacterController.xAxis * .05f);
         verticalVelocity += (Input.GetAxis("Vertical") * .05f);
 
         //modify moveVector by applying both horizontal and vertical velocity
@@ -151,7 +155,7 @@ public class SmashCharacterMotor : MonoBehaviour
         applyGravity();
 
         //multiply by DeltaTime
-        SmashCharacterController.CharacterController.Move(MoveVector * Time.deltaTime);
+        thisActualCharacterController.Move(MoveVector * Time.deltaTime);
     }
 
     //method for rolling, will propel the character in their rolled direction, over a set duration.
@@ -166,7 +170,7 @@ public class SmashCharacterMotor : MonoBehaviour
         {
             MoveVector = new Vector3(MoveVector.x, MoveVector.y - (Gravity * Time.deltaTime), MoveVector.z);
         }
-        if (SmashCharacterController.CharacterController.isGrounded && MoveVector.y < -1)
+        if (thisActualCharacterController.isGrounded && MoveVector.y < -1)
         {
             MoveVector = new Vector3(MoveVector.x, -1, MoveVector.z);
         }
@@ -186,7 +190,7 @@ public class SmashCharacterMotor : MonoBehaviour
             MoveVector = new Vector3(MoveVector.x, MoveVector.y - (Gravity * Time.deltaTime), MoveVector.z);
         }
 
-        if (SmashCharacterController.CharacterController.isGrounded && MoveVector.y < -1)
+        if (thisActualCharacterController.isGrounded && MoveVector.y < -1)
         {
             MoveVector = new Vector3(MoveVector.x, -1, MoveVector.z);
         }
@@ -194,7 +198,7 @@ public class SmashCharacterMotor : MonoBehaviour
 
     public void Jump()
     {
-        if (SmashCharacterController.CharacterController.isGrounded)
+        if (thisActualCharacterController.isGrounded)
         {
             verticalVelocity = jumpSpeed;
         }
@@ -206,6 +210,8 @@ public class SmashCharacterMotor : MonoBehaviour
     //force here is a "vector" in the traditional sense, a force and a direction based on positive or negative
     public void Jump(bool isShorthop, float force)
     {
+        Debug.Log("Jumped " + thisActualCharacterController);
+        
         //set vert vel based on jumpspeed of short/full hops
         if (isShorthop)
             verticalVelocity = jumpSpeed / 2;
@@ -240,13 +246,18 @@ public class SmashCharacterMotor : MonoBehaviour
     {
         float moveSpeed = JogSpeed;
 
-        if (SmashCharacterController.Instance.playerAnimationState == SmashCharacterController.animationState.Walking)
+        if (thisCharacterController.playerAnimationState == SmashCharacterController.animationState.Walking)
             moveSpeed = WalkSpeed;
 
-        if (SmashCharacterController.Instance.playerAnimationState == SmashCharacterController.animationState.Running)
+        if (thisCharacterController.playerAnimationState == SmashCharacterController.animationState.Running)
             moveSpeed = RunSpeed;
 
         return moveSpeed;
+    }
+
+    public void testWhichMotor()
+    {
+        Debug.Log("I AM RUNNING THIS MOTOR: " + this);
     }
 
 }

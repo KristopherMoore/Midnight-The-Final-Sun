@@ -5,16 +5,18 @@ using UnityEngine;
 public class AnimateCharacter : MonoBehaviour
 {
     private Animator animator;
+    private SmashCharacterController pController;
 
     // Use this for initialization
     void Start()
     {
         animator = transform.GetComponent<Animator>();
+        pController = GetComponent("SmashCharacterController") as SmashCharacterController;
     }
 
     void Update()
     {
-        SmashCharacterController pController = SmashCharacterController.Instance;
+        //SmashCharacterController pController = SmashCharacterController.Instance;
 
         animator.SetBool("isWalking", false);
         animator.SetBool("isJogging", false);

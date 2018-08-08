@@ -5,9 +5,10 @@ using UnityEngine;
 public class SmashCharacterController : MonoBehaviour
 {
 
-    public static CharacterController CharacterController;
-    public static SmashCharacterController Instance; //hold reference to current instance of itself
-    public static PlayerCharacter player; // hold reference to the player Object
+    private CharacterController CharacterController;
+    private SmashCharacterController Instance; //hold reference to current instance of itself
+    public PlayerCharacter player; // hold reference to the player Object
+    private SmashCharacterMotor thisMotor; //holds this local character controllers motor
     protected bool grounded;
 
     public enum animationState
@@ -38,21 +39,24 @@ public class SmashCharacterController : MonoBehaviour
     private int frameWaitCounter = 0;
     private int stunnedDurationInFrames = 0;
 
-    void Awake() //run on game load (before start)
+    private void Awake() //run on game load (before start)
     {
         CharacterController = GetComponent("CharacterController") as CharacterController;
+        thisMotor = this.GetComponent("SmashCharacterMotor") as SmashCharacterMotor;
         player = GetComponent<PlayerCharacter>();
         player.setName(this.name);
-        Debug.Log(player.name);
-        
+        Debug.Log(CharacterController);
+        Debug.Log(thisMotor);
+
         Instance = this;
         checkStates();
     }
 
 
-    void Update()
+    private void Update()
     {
         checkStates();
+        thisMotor.testWhichMotor();
 
         if (Camera.main == null) //check for main camera, if none exists, exit.
             return;
@@ -77,18 +81,18 @@ public class SmashCharacterController : MonoBehaviour
         HandleKnockBack();
 
         //update the motor even if we didnt have locomotion, as the motor also calculates things like gravity.
-        SmashCharacterMotor.Instance.UpdateMotor();
+        thisMotor.UpdateMotor();
 
     }
 
-    void GetLocomotionInput()
+    private void GetLocomotionInput()
     {
         Instance.isMoving = false;
         Instance.isAnimationLocked = false;
 
-        SmashCharacterMotor.Instance.verticalVelocity = SmashCharacterMotor.Instance.MoveVector.y;
+        thisMotor.verticalVelocity = thisMotor.MoveVector.y;
 
-        SmashCharacterMotor.Instance.MoveVector = Vector3.zero; //reclacuate, prevents it from being additive. Basically restart on every update
+        thisMotor.MoveVector = Vector3.zero; //reclacuate, prevents it from being additive. Basically restart on every update
 
         xAxis = Input.GetAxis("Horizontal");
 
@@ -99,14 +103,14 @@ public class SmashCharacterController : MonoBehaviour
             if (xAxis > deadZone || xAxis < -deadZone)
             {
                 Instance.isMoving = true;
-                SmashCharacterMotor.Instance.MoveVector += new Vector3(xAxis, 0, 0);
+                thisMotor.MoveVector += new Vector3(xAxis, 0, 0);
                 this.lastAxisInput = xAxis;
             }
         }
 
     }
 
-    void HandleActionInput()
+    private void HandleActionInput()
     {
         //ESCAPE sequence, allows us to modify animationLocks manually for avoid errors
         if (Input.GetKey(KeyCode.F))
@@ -219,7 +223,7 @@ public class SmashCharacterController : MonoBehaviour
         }
     }
 
-    void HandleJumpInput()
+    private void HandleJumpInput()
     {
         //avoid being able to jump when we are stunned
         if (isAnimationLocked || isStunned)
@@ -250,7 +254,7 @@ public class SmashCharacterController : MonoBehaviour
             if (isJumping == false && isFalling == false)
             {
                 isJumping = true;
-                SmashCharacterMotor.Instance.Jump(false, xAxis);
+                thisMotor.Jump(false, xAxis);
             }
 
             //if we are still in jumping state, and space was triggered. We can glide
@@ -259,7 +263,7 @@ public class SmashCharacterController : MonoBehaviour
                 if(isDoubleJumping != true)
                 {
                     isDoubleJumping = true;
-                    SmashCharacterMotor.Instance.Jump(false, xAxis);
+                    thisMotor.Jump(false, xAxis);
                 }
                 isGliding = true;
             }
@@ -275,7 +279,7 @@ public class SmashCharacterController : MonoBehaviour
 
     }
 
-    void HandleKnockBack()
+    private void HandleKnockBack()
     {
         if (Input.GetKeyDown(KeyCode.T))
             playerIsHit(false, true, -.5f, 80);
@@ -320,7 +324,7 @@ public class SmashCharacterController : MonoBehaviour
         frameWaitCounter = 0;
         stunnedDurationInFrames = stunDurationInFrames;
         isStunned = true;
-        SmashCharacterMotor.Instance.Knockback(horizontalForce, verticalForce, player.getPercentage());
+        thisMotor.Knockback(horizontalForce, verticalForce, player.getPercentage());
     }
 
     private void checkStates()
