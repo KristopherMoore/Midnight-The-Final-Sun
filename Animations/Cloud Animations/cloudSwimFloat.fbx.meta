@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c813a4e6319479642955088f716aef7f
+guid: dc2e78055a64e4245ba1a607e3a44f1f
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -281,7 +281,7 @@ ModelImporter:
     400272: ThrowN_end
     400274: TransN
     400276: WaistN
-    7400000: cloudRollBack_skeleton|cloudRollBack
+    7400000: cloudSwimFLoat_skeleton|cloudSwimFLoat
     9500000: //RootNode
   externalObjects: {}
   materials:

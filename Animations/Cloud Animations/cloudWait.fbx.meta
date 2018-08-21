@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c813a4e6319479642955088f716aef7f
+guid: 20357680e7d83c943b2af0427357574b
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -281,7 +281,7 @@ ModelImporter:
     400272: ThrowN_end
     400274: TransN
     400276: WaistN
-    7400000: cloudRollBack_skeleton|cloudRollBack
+    7400000: cloudWait_skeleton|cloudWait
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -310,7 +310,35 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: cloudWait_skeleton|cloudWait
+      takeName: cloudWait_skeleton|cloudWait
+      firstFrame: 0
+      lastFrame: 89
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
