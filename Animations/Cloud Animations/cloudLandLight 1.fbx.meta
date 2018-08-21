@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 16d79bccdbeb5d042bf4632d0a3d95f9
+guid: 3e7c689658a450e4a899ba7872843c88
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -281,7 +281,7 @@ ModelImporter:
     400272: ThrowN_end
     400274: TransN
     400276: WaistN
-    7400000: cloudLandHeavy_skeleton|cloudLandHeavy
+    7400000: cloudLandLight_skeleton|cloudLandLight
     9500000: //RootNode
   externalObjects: {}
   materials:
