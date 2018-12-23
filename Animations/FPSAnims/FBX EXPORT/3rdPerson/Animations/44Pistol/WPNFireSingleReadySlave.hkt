@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="ascii"?>
+<hktagfile version="2" sdkversion="hk_2014.1.0-r1" maxpredicate="21" predicates="20">
+<!-- hasRootLevelContainer, -->
+  <class name="hkRootLevelContainer" version="0">
+    <member name="namedVariants" type="struct" array="true" class="hkRootLevelContainerNamedVariant"/>
+  </class>
+  <class name="hkRootLevelContainerNamedVariant" version="1">
+    <member name="name" type="string"/>
+    <member name="className" type="string"/>
+    <member name="variant" type="ref" class="hkReferencedObject"/>
+  </class>
+  <class name="hkBaseObject" version="0">
+  </class>
+  <class name="hkReferencedObject" version="0" parent="hkBaseObject">
+    <member name="memSizeAndRefCount" type="void"/>
+  </class>
+  <class name="hkaAnimationContainer" version="1" parent="hkReferencedObject">
+    <member name="skeletons" type="ref" array="true" class="hkaSkeleton"/>
+    <member name="animations" type="ref" array="true" class="hkaAnimation"/>
+    <member name="bindings" type="ref" array="true" class="hkaAnimationBinding"/>
+    <member name="attachments" type="ref" array="true" class="hkaBoneAttachment"/>
+    <member name="skins" type="ref" array="true" class="hkaMeshBinding"/>
+  </class>
+  <class name="hkaSkeleton" version="5" parent="hkReferencedObject">
+    <member name="name" type="string"/>
+    <member name="parentIndices" type="int" array="true"/>
+    <member name="bones" type="struct" array="true" class="hkaBone"/>
+    <member name="referencePose" type="vec12" array="true"/>
+    <member name="referenceFloats" type="real" array="true"/>
+    <member name="floatSlots" type="string" array="true"/>
+    <member name="localFrames" type="struct" array="true" class="hkaSkeletonLocalFrameOnBone"/>
+    <member name="partitions" type="struct" array="true" class="hkaSkeletonPartition"/>
+  </class>
+  <class name="hkaBone" version="0">
+    <member name="name" type="string"/>
+    <member name="lockTranslation" type="byte"/>
+  </class>
+  <class name="hkaSkeletonLocalFrameOnBone" version="0">
+    <member name="localFrame" type="ref" class="hkLocalFrame"/>
+    <member name="boneIndex" type="int"/>
+  </class>
+  <class name="hkLocalFrame" version="0" parent="hkReferencedObject">
+  </class>
+  <class name="hkaSkeletonPartition" version="1">
+    <member name="name" type="string"/>
+    <member name="startBoneIndex" type="int"/>
+    <member name="numBones" type="int"/>
+  </class>
+  <class name="hkaAnimation" version="3" parent="hkReferencedObject">
+    <member name="type" type="int"/>
+    <member name="duration" type="real"/>
+    <member name="numberOfTransformTracks" type="int"/>
+    <member name="numberOfFloatTracks" type="int"/>
+    <member name="extractedMotion" type="ref" class="hkaAnimatedReferenceFrame"/>
+    <member name="annotationTracks" type="struct" array="true" class="hkaAnnotationTrack"/>
+  </class>
+  <class name="hkaAnimatedReferenceFrame" version="0" parent="hkReferencedObject">
+    <member name="frameType" type="void"/>
+  </class>
+  <class name="hkaAnnotationTrack" version="0">
+    <member name="trackName" type="string"/>
+    <member name="annotations" type="struct" array="true" class="hkaAnnotationTrackAnnotation"/>
+  </class>
+  <class name="hkaAnnotationTrackAnnotation" version="0">
+    <member name="time" type="real"/>
+    <member name="text" type="string"/>
+  </class>
+  <class name="hkaAnimationBinding" version="3" parent="hkReferencedObject">
+    <member name="originalSkeletonName" type="string"/>
+    <member name="animation" type="ref" class="hkaAnimation"/>
+    <member name="transformTrackToBoneIndices" type="int" array="true"/>
+    <member name="floatTrackToFloatSlotIndices" type="int" array="true"/>
+    <member name="partitionIndices" type="int" array="true"/>
+    <member name="blendHint" type="int"/>
+  </class>
+  <class name="hkaBoneAttachment" version="2" parent="hkReferencedObject">
+    <member name="originalSkeletonName" type="string"/>
+    <member name="boneFromAttachment" type="vec16"/>
+    <member name="attachment" type="ref" class="hkReferencedObject"/>
+    <member name="name" type="string"/>
+    <member name="boneIndex" type="int"/>
+  </class>
+  <class name="hkaMeshBinding" version="3" parent="hkReferencedObject">
+    <member name="mesh" type="ref" class="hkxMesh"/>
+    <member name="originalSkeletonName" type="string"/>
+    <member name="name" type="string"/>
+    <member name="skeleton" type="ref" class="hkaSkeleton"/>
+    <member name="mappings" type="struct" array="true" class="hkaMeshBindingMapping"/>
+    <member name="boneFromSkinMeshTransforms" type="vec16" array="true"/>
+  </class>
+  <class name="hkxMesh" version="1" parent="hkReferencedObject">
+    <member name="sections" type="ref" array="true" class="hkxMeshSection"/>
+    <member name="userChannelInfos" type="ref" array="true" class="hkxMeshUserChannelInfo"/>
+  </class>
+  <class name="hkxMeshSection" version="5" parent="hkReferencedObject">
+    <member name="vertexBuffer" type="ref" class="hkxVertexBuffer"/>
+    <member name="indexBuffers" type="ref" array="true" class="hkxIndexBuffer"/>
+    <member name="material" type="ref" class="hkxMaterial"/>
+    <member name="userChannels" type="ref" array="true" class="hkReferencedObject"/>
+    <member name="vertexAnimations" type="ref" array="true" class="hkxVertexAnimation"/>
+    <member name="linearKeyFrameHints" type="real" array="true"/>
+    <member name="boneMatrixMap" type="struct" array="true" class="hkMeshBoneIndexMapping"/>
+  </class>
+  <class name="hkxVertexBuffer" version="1" parent="hkReferencedObject">
+    <member name="data" type="struct" class="hkxVertexBufferVertexData"/>
+    <member name="desc" type="struct" class="hkxVertexDescription"/>
+  </class>
+  <class name="hkxVertexBufferVertexData" version="2">
+    <member name="vectorData" type="int" array="true"/>
+    <member name="floatData" type="int" array="true"/>
+    <member name="uint32Data" type="int" array="true"/>
+    <member name="uint16Data" type="int" array="true"/>
+    <member name="uint8Data" type="byte" array="true"/>
+    <member name="numVerts" type="int"/>
+    <member name="vectorStride" type="int"/>
+    <member name="floatStride" type="int"/>
+    <member name="uint32Stride" type="int"/>
+    <member name="uint16Stride" type="int"/>
+    <member name="uint8Stride" type="int"/>
+  </class>
+  <class name="hkxVertexDescription" version="1">
+    <member name="decls" type="struct" array="true" class="hkxVertexDescriptionElementDecl"/>
+  </class>
+  <class name="hkxVertexDescriptionElementDecl" version="4">
+    <member name="byteOffset" type="int"/>
+    <member name="type" type="int"/>
+    <member name="usage" type="int"/>
+    <member name="byteStride" type="int"/>
+    <member name="numElements" type="byte"/>
+    <member name="channelID" type="string"/>
+  </class>
+  <class name="hkxIndexBuffer" version="1" parent="hkReferencedObject">
+    <member name="indexType" type="int"/>
+    <member name="indices16" type="int" array="true"/>
+    <member name="indices32" type="int" array="true"/>
+    <member name="vertexBaseOffset" type="int"/>
+    <member name="length" type="int"/>
+  </class>
+  <class name="hkxAttributeHolder" version="2" parent="hkReferencedObject">
+    <member name="attributeGroups" type="struct" array="true" class="hkxAttributeGroup"/>
+  </class>
+  <class name="hkxAttributeGroup" version="0">
+    <member name="name" type="string"/>
+    <member name="attributes" type="struct" array="true" class="hkxAttribute"/>
+  </class>
+  <class name="hkxAttribute" version="1">
+    <member name="name" type="string"/>
+    <member name="value" type="ref" class="hkReferencedObject"/>
+  </class>
+  <class name="hkxMaterial" version="5" parent="hkxAttributeHolder">
+    <member name="name" type="string"/>
+    <member name="stages" type="struct" array="true" class="hkxMaterialTextureStage"/>
+    <member name="diffuseColor" type="vec4"/>
+    <member name="ambientColor" type="vec4"/>
+    <member name="specularColor" type="vec4"/>
+    <member name="emissiveColor" type="vec4"/>
+    <member name="subMaterials" type="ref" array="true" class="hkxMaterial"/>
+    <member name="extraData" type="ref" class="hkReferencedObject"/>
+    <member name="uvMapScale" type="real" count="2"/>
+    <member name="uvMapOffset" type="real" count="2"/>
+    <member name="uvMapRotation" type="real"/>
+    <member name="uvMapAlgorithm" type="int"/>
+    <member name="specularMultiplier" type="real"/>
+    <member name="specularExponent" type="real"/>
+    <member name="transparency" type="byte"/>
+    <member name="userData" type="int"/>
+    <member name="properties" type="struct" array="true" class="hkxMaterialProperty"/>
+  </class>
+  <class name="hkxMaterialTextureStage" version="1">
+    <member name="texture" type="ref" class="hkReferencedObject"/>
+    <member name="usageHint" type="int"/>
+    <member name="tcoordChannel" type="int"/>
+  </class>
+  <class name="hkxMaterialProperty" version="0">
+    <member name="key" type="int"/>
+    <member name="value" type="int"/>
+  </class>
+  <class name="hkxVertexAnimation" version="0" parent="hkReferencedObject">
+    <member name="time" type="real"/>
+    <member name="vertData" type="struct" class="hkxVertexBuffer"/>
+    <member name="vertexIndexMap" type="int" array="true"/>
+    <member name="componentMap" type="struct" array="true" class="hkxVertexAnimationUsageMap"/>
+  </class>
+  <class name="hkxVertexAnimationUsageMap" version="0">
+    <member name="use" type="int"/>
+    <member name="useIndexOrig" type="byte"/>
+    <member name="useIndexLocal" type="byte"/>
+  </class>
+  <class name="hkMeshBoneIndexMapping" version="0">
+    <member name="mapping" type="int" array="true"/>
+  </class>
+  <class name="hkxMeshUserChannelInfo" version="0" parent="hkxAttributeHolder">
+    <member name="name" type="string"/>
+    <member name="className" type="string"/>
+  </class>
+  <class name="hkaMeshBindingMapping" version="0">
+    <member name="mapping" type="int" array="true"/>
+  </class>
+  <class name="hkaSplineCompressedAnimation" version="0" parent="hkaAnimation">
+    <member name="numFrames" type="int"/>
+    <member name="numBlocks" type="int"/>
+    <member name="maxFramesPerBlock" type="int"/>
+    <member name="maskAndQuantizationSize" type="int"/>
+    <member name="blockDuration" type="real"/>
+    <member name="blockInverseDuration" type="real"/>
+    <member name="frameDuration" type="real"/>
+    <member name="blockOffsets" type="int" array="true"/>
+    <member name="floatBlockOffsets" type="int" array="true"/>
+    <member name="transformOffsets" type="int" array="true"/>
+    <member name="floatOffsets" type="int" array="true"/>
+    <member name="data" type="byte" array="true"/>
+    <member name="endian" type="int"/>
+  </class>
+  <class name="hkaDefaultAnimatedReferenceFrame" version="0" parent="hkaAnimatedReferenceFrame">
+    <member name="up" type="vec4"/>
+    <member name="forward" type="vec4"/>
+    <member name="duration" type="real"/>
+    <member name="referenceFrameSamples" type="vec4" array="true"/>
+  </class>
+
+  <object id="#0001" type="hkRootLevelContainer">
+    <array name="namedVariants" size="1">
+      <struct>
+        <string name="name">Merged Animation Container</string>
+        <string name="className">hkaAnimationContainer</string>
+        <ref name="variant">#0002</ref>
+      </struct>
+    </array>
+  </object>
+  <object id="#0002" type="hkaAnimationContainer">
+    <array name="animations" size="1">
+      <ref>#0003</ref>
+    </array>
+    <array name="bindings" size="1">
+      <ref>#0005</ref>
+    </array>
+  </object>
+  <object id="#0003" type="hkaSplineCompressedAnimation">
+    <int name="type">3</int>
+    <real name="duration">x3eaaaaab <!-- 0.333333 --></real>
+    <int name="numberOfTransformTracks">95</int>
+    <ref name="extractedMotion">#0004</ref>
+    <array name="annotationTracks" size="95">
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+      <struct>
+        <string name="trackName"></string>
+      </struct>
+    </array>
+    <int name="numFrames">11</int>
+    <int name="numBlocks">1</int>
+    <int name="maxFramesPerBlock">256</int>
+    <int name="maskAndQuantizationSize">380</int>
+    <real name="blockDuration">x41080000 <!-- 8.5 --></real>
+    <real name="blockInverseDuration">x3df0f0f1 <!-- 0.117647 --></real>
+    <real name="frameDuration">x3d088889 <!-- 0.0333333 --></real>
+    <array name="blockOffsets" size="1">
+      0 
+    </array>
+    <array name="floatBlockOffsets" size="1">
+      1640 
+    </array>
+    <array name="data" size="1648">
+      69 0 0 0 69 4 15 0 69 0 0 0 69 4 15 0 
+      69 1 15 0 69 1 15 0 69 4 15 0 69 1 15 0 
+      69 1 15 0 69 3 15 0 69 1 15 0 69 1 15 0 
+      69 3 15 0 69 1 15 0 69 7 15 0 69 1 15 0 
+      69 1 15 0 69 1 9 0 69 1 9 0 69 1 15 0 
+      69 7 15 0 69 1 15 0 69 1 15 0 69 1 1 0 
+      69 1 1 0 69 7 15 0 69 1 15 0 69 7 15 0 
+      69 7 15 0 69 7 0 0 69 7 240 0 69 0 0 0 
+      69 0 0 0 69 7 7 0 69 7 0 0 69 7 0 0 
+      69 7 0 0 69 7 0 0 69 7 0 0 69 0 0 0 
+      69 0 0 0 69 7 7 0 69 1 9 0 69 1 9 0 
+      69 1 9 0 69 1 9 0 69 3 15 0 69 1 15 0 
+      69 7 15 0 69 1 15 0 69 1 15 0 69 7 15 0 
+      69 1 15 0 69 1 15 0 69 7 15 0 69 1 15 0 
+      69 1 15 0 69 7 15 0 69 1 15 0 69 1 15 0 
+      69 7 15 0 69 1 15 0 69 1 15 0 69 7 15 0 
+      69 1 15 0 69 1 15 0 69 7 15 0 69 1 15 0 
+      69 1 15 0 69 7 15 0 69 1 15 0 69 1 15 0 
+      69 7 15 0 69 1 15 0 69 1 15 0 69 7 15 0 
+      69 1 15 0 69 1 15 0 69 6 9 0 69 0 0 0 
+      69 0 12 0 69 0 12 0 69 7 15 0 69 4 0 0 
+      69 7 15 0 69 4 0 0 69 7 0 0 69 7 0 0 
+      69 7 0 0 69 6 0 0 69 6 0 0 69 6 0 0 
+      69 7 15 0 69 7 15 0 69 6 0 0 136 93 137 66 
+      140 69 73 242 94 0 0 0 165 174 211 64 50 88 149 155 
+      22 0 0 0 241 194 252 65 247 7 126 18 54 0 0 0 
+      5 139 255 65 163 70 126 187 61 0 0 0 158 174 211 192 
+      214 182 100 140 24 0 0 0 209 194 252 65 30 72 128 149 
+      55 0 0 0 81 138 255 65 69 89 128 80 61 0 0 0 
+      159 176 114 64 255 191 64 187 248 247 128 81 57 0 0 0 
+      88 70 11 65 17 152 130 5 56 0 0 0 247 76 31 65 
+      28 232 131 114 56 0 0 0 247 171 176 65 229 23 113 192 
+      253 216 129 6 59 0 0 0 0 151 3 65 104 201 119 25 
+      54 0 0 0 205 57 153 65 160 170 2 191 53 248 216 63 
+      92 56 144 252 16 0 0 0 197 149 72 65 61 167 34 194 
+      57 0 0 0 29 191 143 65 92 69 77 191 46 0 0 0 
+      215 217 196 64 211 247 127 255 55 0 0 0 215 217 196 64 
+      211 247 127 255 55 0 0 0 239 217 196 64 37 234 148 171 
+      79 0 0 0 205 57 153 65 160 170 2 191 206 249 216 191 
+      226 247 123 227 31 0 0 0 85 140 72 65 231 136 205 12 
+      45 0 0 0 133 195 143 65 207 9 135 158 58 0 0 0 
+      136 226 196 64 18 248 127 255 55 0 0 0 127 226 196 64 
+      18 248 127 255 55 0 0 0 144 139 144 64 255 177 36 190 
+      255 144 146 61 221 23 122 132 39 0 0 0 130 226 196 64 
+      194 231 127 239 15 0 0 0 215 65 21 65 247 50 172 192 
+      143 65 205 64 48 221 164 160 21 0 0 0 104 123 14 65 
+      47 35 185 191 207 86 169 192 128 64 116 41 88 0 0 0 
+      207 200 191 191 175 59 54 64 127 163 100 191 255 158 172 61 
+      128 208 140 191 0 119 145 62 8 0 1 0 0 1 2 3 
+      4 7 8 9 10 10 87 204 128 3 56 230 215 129 37 56 
+      231 215 129 37 56 234 215 129 37 56 238 215 129 37 56 253 
+      215 129 37 56 1 216 129 37 56 4 216 129 36 56 5 216 
+      129 36 56 0 127 240 221 190 79 194 183 64 0 120 139 191 
+      4 168 128 8 56 0 0 0 159 181 232 62 223 39 50 192 
+      32 66 5 64 127 180 232 62 239 39 50 192 32 66 5 64 
+      127 180 232 62 63 40 50 192 32 66 5 64 127 180 232 62 
+      63 40 50 192 32 66 5 64 127 180 232 62 63 40 50 192 
+      32 66 5 64 255 101 222 60 223 19 164 63 127 248 191 191 
+      4 168 128 8 56 0 0 0 255 103 66 191 96 249 127 255 
+      55 0 0 0 111 112 229 64 79 247 127 255 55 0 0 0 
+      127 216 65 191 170 245 127 255 55 0 0 0 47 112 229 64 
+      43 249 127 255 55 0 0 0 66 151 42 65 255 31 120 59 
+      254 183 127 51 60 0 0 0 165 149 42 65 3 168 126 234 
+      59 0 0 0 95 159 202 63 191 159 161 191 191 55 237 63 
+      171 228 151 245 14 0 0 0 159 116 100 64 220 215 139 203 
+      53 0 0 0 127 183 25 64 255 39 132 181 55 0 0 0 
+      69 11 240 64 255 78 220 62 64 198 17 64 197 56 142 148 
+      53 0 0 0 223 41 65 64 253 23 126 242 51 0 0 0 
+      255 212 236 63 254 183 126 73 53 0 0 0 133 16 243 64 
+      255 248 30 63 255 53 234 62 97 183 151 135 52 0 0 0 
+      111 221 69 64 245 55 126 142 51 0 0 0 176 7 12 64 
+      251 55 127 11 54 0 0 0 63 217 238 64 255 76 179 62 
+      191 41 184 191 214 214 149 209 51 0 0 0 223 133 42 64 
+      241 167 126 77 52 0 0 0 223 42 243 63 249 87 127 65 
+      54 0 0 0 40 100 212 64 255 247 182 190 127 46 65 192 
+      128 214 144 253 51 0 0 0 160 63 15 64 243 231 126 37 
+      53 0 0 0 255 60 213 63 239 151 126 64 52 0 0 0 
+      47 156 202 63 63 156 161 191 191 55 237 191 175 205 164 237 
+      75 0 0 0 79 116 100 64 230 151 132 216 50 0 0 0 
+      127 183 25 64 246 103 129 80 54 0 0 0 145 10 240 64 
+      191 110 220 62 128 199 17 192 145 120 122 11 56 0 0 0 
+      15 42 65 64 3 24 131 101 49 0 0 0 142 212 236 63 
+      0 104 129 220 52 0 0 0 14 16 243 64 159 10 31 63 
+      255 61 234 190 156 184 115 251 49 0 0 0 119 221 69 64 
+      11 232 129 14 51 0 0 0 176 7 12 64 242 183 125 191 
+      125 0 0 0 97 216 238 64 127 120 179 62 63 39 184 63 
+      168 89 112 11 49 0 0 0 210 133 42 64 10 8 129 243 
+      52 0 0 0 175 42 243 63 19 232 129 164 50 0 0 0 
+      97 99 212 64 255 211 182 190 191 45 65 64 23 250 114 85 
+      49 0 0 0 176 63 15 64 14 56 129 140 52 0 0 0 
+      55 60 213 63 19 184 129 60 51 0 0 0 80 108 6 61 
+      49 247 240 66 254 255 127 255 55 0 0 0 255 247 127 255 
+      39 0 0 0 255 247 127 255 39 0 0 0 130 130 153 192 
+      30 250 200 192 127 171 27 193 177 5 90 48 61 0 0 0 
+      255 255 237 186 238 152 68 192 184 24 4 193 255 204 180 192 
+      186 152 130 126 63 0 0 0 255 255 237 186 255 239 178 188 
+      255 187 50 189 255 63 56 60 255 239 178 188 255 187 50 189 
+      255 63 56 60 255 239 178 188 255 187 50 189 255 63 56 60 
+      255 223 169 187 255 191 33 188 255 223 169 187 255 191 33 188 
+      255 223 169 187 255 191 33 188 80 138 10 65 255 93 35 191 
+      111 178 160 64 241 247 131 166 31 0 0 0 31 154 33 65 
+      95 156 21 191 239 75 159 192 220 39 230 42 56 0 0 0 
+      229 255 127 64 46 247 240 66 0 0 0 0 0 0 0 0 
+    </array>
+  </object>
+  <object id="#0004" type="hkaDefaultAnimatedReferenceFrame">
+    <vec4 name="up">x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x3f800000 <!-- 1.0 --> x00000000 <!-- 0.0 --></vec4>
+    <vec4 name="forward">x00000000 <!-- 0.0 --> x3f800000 <!-- 1.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --></vec4>
+    <real name="duration">x3eaaaaab <!-- 0.333333 --></real>
+    <array name="referenceFrameSamples" size="11">
+      <vec4>x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --></vec4>
+      <vec4>x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --></vec4>
+      <vec4>x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --></vec4>
+      <vec4>x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --></vec4>
+      <vec4>x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --></vec4>
+      <vec4>x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --></vec4>
+      <vec4>x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --></vec4>
+      <vec4>x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --></vec4>
+      <vec4>x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --></vec4>
+      <vec4>x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --></vec4>
+      <vec4>x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --> x00000000 <!-- 0.0 --></vec4>
+    </array>
+  </object>
+  <object id="#0005" type="hkaAnimationBinding">
+    <string name="originalSkeletonName">Root</string>
+    <ref name="animation">#0003</ref>
+  </object>
+</hktagfile>
