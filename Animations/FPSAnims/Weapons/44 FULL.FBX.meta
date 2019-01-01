@@ -1,0 +1,195 @@
+fileFormatVersion: 2
+guid: 4be839330975e1c46b947b648a8c1d10
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: 44 MagnumBoltLatch:0
+    100004: 44 MagnumGate:0
+    100006: 44MagBarrelLong:0
+    100008: 44MagGrips:0
+    100010: 44MagnumBulletCase:0
+    100012: 44MagnumBullets:0
+    100014: 44MagnumCylinder:0
+    100016: 44MagnumEjector:0
+    100018: 44MagnumHammer:0
+    100020: 44MagnumMoonClip:0
+    100022: 44MagnumReceiver
+    100024: 44MagnumReceiver:0
+    100026: 44MagnumTrigger:0
+    100028: Object007:0
+    100030: ProjectileNode
+    100032: WeaponBolt
+    100034: WeaponExtra1
+    100036: WeaponMagazine
+    100038: WeaponMagazineChild1
+    100040: WeaponMagazineChild2
+    100042: WeaponMagazineChild3
+    100044: WeaponMagazineChild4
+    100046: WeaponMagazineChild5
+    100048: WeaponOptics1
+    100050: WeaponOptics2
+    100052: WeaponTrigger
+    400000: //RootNode
+    400002: 44 MagnumBoltLatch:0
+    400004: 44 MagnumGate:0
+    400006: 44MagBarrelLong:0
+    400008: 44MagGrips:0
+    400010: 44MagnumBulletCase:0
+    400012: 44MagnumBullets:0
+    400014: 44MagnumCylinder:0
+    400016: 44MagnumEjector:0
+    400018: 44MagnumHammer:0
+    400020: 44MagnumMoonClip:0
+    400022: 44MagnumReceiver
+    400024: 44MagnumReceiver:0
+    400026: 44MagnumTrigger:0
+    400028: Object007:0
+    400030: ProjectileNode
+    400032: WeaponBolt
+    400034: WeaponExtra1
+    400036: WeaponMagazine
+    400038: WeaponMagazineChild1
+    400040: WeaponMagazineChild2
+    400042: WeaponMagazineChild3
+    400044: WeaponMagazineChild4
+    400046: WeaponMagazineChild5
+    400048: WeaponOptics1
+    400050: WeaponOptics2
+    400052: WeaponTrigger
+    2100000: 44 MagnumGate_0
+    2100002: 44MagnumCylinder_0
+    2100004: 44MagnumEjector_0
+    2100006: 44MagnumBullets_0
+    2100008: 44MagnumBulletCase_0
+    2100010: 44MagnumMoonClip_0
+    2100012: 44MagnumHammer_0
+    2100014: 44 MagnumBoltLatch_0
+    2100016: 44MagnumReceiver_0
+    2100018: 44MagnumTrigger_0
+    2100020: 44MagBarrelLong_0
+    2100022: 44MagGrips_0
+    2100024: Object007_0
+    2300000: 44 MagnumBoltLatch:0
+    2300002: 44 MagnumGate:0
+    2300004: 44MagBarrelLong:0
+    2300006: 44MagGrips:0
+    2300008: 44MagnumBulletCase:0
+    2300010: 44MagnumBullets:0
+    2300012: 44MagnumCylinder:0
+    2300014: 44MagnumEjector:0
+    2300016: 44MagnumHammer:0
+    2300018: 44MagnumMoonClip:0
+    2300020: 44MagnumReceiver:0
+    2300022: 44MagnumTrigger:0
+    2300024: Object007:0
+    3300000: 44 MagnumBoltLatch:0
+    3300002: 44 MagnumGate:0
+    3300004: 44MagBarrelLong:0
+    3300006: 44MagGrips:0
+    3300008: 44MagnumBulletCase:0
+    3300010: 44MagnumBullets:0
+    3300012: 44MagnumCylinder:0
+    3300014: 44MagnumEjector:0
+    3300016: 44MagnumHammer:0
+    3300018: 44MagnumMoonClip:0
+    3300020: 44MagnumReceiver:0
+    3300022: 44MagnumTrigger:0
+    3300024: Object007:0
+    4300000: 44 MagnumGate:0
+    4300002: 44MagnumCylinder:0
+    4300004: 44MagnumEjector:0
+    4300006: 44MagnumBullets:0
+    4300008: 44MagnumBulletCase:0
+    4300010: 44MagnumMoonClip:0
+    4300012: 44MagnumHammer:0
+    4300014: 44 MagnumBoltLatch:0
+    4300016: 44MagnumReceiver:0
+    4300018: 44MagnumTrigger:0
+    4300020: 44MagBarrelLong:0
+    4300022: 44MagGrips:0
+    4300024: Object007:0
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.0254
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 44MagnumReceiver
+    rootMotionBoneRotation: {x: -0.000000030908623, y: 0.7071068, z: 0.7071068, w: 0.000000030908623}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
