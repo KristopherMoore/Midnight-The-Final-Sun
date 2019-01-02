@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 979e7a38f5a783e4a8a66eb9756daafe
+guid: a46179d3406f7dc40a359664437521c6
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -14,7 +14,7 @@ ModelImporter:
     100016: BaseMaleBody_Fitted:0
     100018: BaseMaleHands3rd:0
     100020: Belly_skin
-    100022: Body:0
+    100022: body1stperson:0
     100024: CamTarget
     100026: CamTargetParent
     100028: CharacterBumper
@@ -79,61 +79,62 @@ ModelImporter:
     100146: Pelvis_Rear_skin
     100148: Pelvis_skin
     100150: PipboyBone
-    100152: pipboysleeve:0
-    100154: R_RibHelper
-    100156: RArm_Collarbone
-    100158: RArm_Collarbone_skin
-    100160: RArm_Finger11
-    100162: RArm_Finger12
-    100164: RArm_Finger13
-    100166: RArm_Finger21
-    100168: RArm_Finger22
-    100170: RArm_Finger23
-    100172: RArm_Finger31
-    100174: RArm_Finger32
-    100176: RArm_Finger33
-    100178: RArm_Finger41
-    100180: RArm_Finger42
-    100182: RArm_Finger43
-    100184: RArm_Finger51
-    100186: RArm_Finger52
-    100188: RArm_Finger53
-    100190: RArm_ForeArm1
-    100192: RArm_ForeArm1_skin
-    100194: RArm_ForeArm2
-    100196: RArm_ForeArm2_skin
-    100198: RArm_ForeArm3
-    100200: RArm_ForeArm3_skin
-    100202: RArm_Hand
-    100204: RArm_ShoulderFat_skin
-    100206: RArm_UpperArm
-    100208: RArm_UpperArm_skin
-    100210: RArm_UpperFat_skin
-    100212: RArm_UpperTwist1
-    100214: RArm_UpperTwist1_skin
-    100216: RArm_UpperTwist2
-    100218: RArm_UpperTwist2_skin
-    100220: RBreast_skin
-    100222: RButtFat_skin
-    100224: RLeg_Calf
-    100226: RLeg_Calf_Low_skin
-    100228: RLeg_Calf_skin
-    100230: RLeg_Foot
-    100232: RLeg_Thigh
-    100234: RLeg_Thigh_Fat_skin
-    100236: RLeg_Thigh_Low_skin
-    100238: RLeg_Thigh_skin
-    100240: RLeg_Toe1
-    100242: Root
-    100244: SPINE1
-    100246: Spine1_Rear_skin
-    100248: Spine1_skin
-    100250: SPINE2
-    100252: Spine2_Rear_skin
-    100254: Spine2_skin
-    100256: UpperBelly_skin
-    100258: WEAPON
-    100260: WeaponLeft
+    100152: pipboysleeve1stPerson:0
+    100154: pipboysleeve:0
+    100156: R_RibHelper
+    100158: RArm_Collarbone
+    100160: RArm_Collarbone_skin
+    100162: RArm_Finger11
+    100164: RArm_Finger12
+    100166: RArm_Finger13
+    100168: RArm_Finger21
+    100170: RArm_Finger22
+    100172: RArm_Finger23
+    100174: RArm_Finger31
+    100176: RArm_Finger32
+    100178: RArm_Finger33
+    100180: RArm_Finger41
+    100182: RArm_Finger42
+    100184: RArm_Finger43
+    100186: RArm_Finger51
+    100188: RArm_Finger52
+    100190: RArm_Finger53
+    100192: RArm_ForeArm1
+    100194: RArm_ForeArm1_skin
+    100196: RArm_ForeArm2
+    100198: RArm_ForeArm2_skin
+    100200: RArm_ForeArm3
+    100202: RArm_ForeArm3_skin
+    100204: RArm_Hand
+    100206: RArm_ShoulderFat_skin
+    100208: RArm_UpperArm
+    100210: RArm_UpperArm_skin
+    100212: RArm_UpperFat_skin
+    100214: RArm_UpperTwist1
+    100216: RArm_UpperTwist1_skin
+    100218: RArm_UpperTwist2
+    100220: RArm_UpperTwist2_skin
+    100222: RBreast_skin
+    100224: RButtFat_skin
+    100226: RLeg_Calf
+    100228: RLeg_Calf_Low_skin
+    100230: RLeg_Calf_skin
+    100232: RLeg_Foot
+    100234: RLeg_Thigh
+    100236: RLeg_Thigh_Fat_skin
+    100238: RLeg_Thigh_Low_skin
+    100240: RLeg_Thigh_skin
+    100242: RLeg_Toe1
+    100244: Root
+    100246: SPINE1
+    100248: Spine1_Rear_skin
+    100250: Spine1_skin
+    100252: SPINE2
+    100254: Spine2_Rear_skin
+    100256: Spine2_skin
+    100258: UpperBelly_skin
+    100260: WEAPON
+    100262: WeaponLeft
     400000: AnimObjectA
     400002: AnimObjectB
     400004: AnimObjectL1
@@ -145,7 +146,7 @@ ModelImporter:
     400016: BaseMaleBody_Fitted:0
     400018: BaseMaleHands3rd:0
     400020: Belly_skin
-    400022: Body:0
+    400022: body1stperson:0
     400024: CamTarget
     400026: CamTargetParent
     400028: CharacterBumper
@@ -210,74 +211,78 @@ ModelImporter:
     400146: Pelvis_Rear_skin
     400148: Pelvis_skin
     400150: PipboyBone
-    400152: pipboysleeve:0
-    400154: R_RibHelper
-    400156: RArm_Collarbone
-    400158: RArm_Collarbone_skin
-    400160: RArm_Finger11
-    400162: RArm_Finger12
-    400164: RArm_Finger13
-    400166: RArm_Finger21
-    400168: RArm_Finger22
-    400170: RArm_Finger23
-    400172: RArm_Finger31
-    400174: RArm_Finger32
-    400176: RArm_Finger33
-    400178: RArm_Finger41
-    400180: RArm_Finger42
-    400182: RArm_Finger43
-    400184: RArm_Finger51
-    400186: RArm_Finger52
-    400188: RArm_Finger53
-    400190: RArm_ForeArm1
-    400192: RArm_ForeArm1_skin
-    400194: RArm_ForeArm2
-    400196: RArm_ForeArm2_skin
-    400198: RArm_ForeArm3
-    400200: RArm_ForeArm3_skin
-    400202: RArm_Hand
-    400204: RArm_ShoulderFat_skin
-    400206: RArm_UpperArm
-    400208: RArm_UpperArm_skin
-    400210: RArm_UpperFat_skin
-    400212: RArm_UpperTwist1
-    400214: RArm_UpperTwist1_skin
-    400216: RArm_UpperTwist2
-    400218: RArm_UpperTwist2_skin
-    400220: RBreast_skin
-    400222: RButtFat_skin
-    400224: RLeg_Calf
-    400226: RLeg_Calf_Low_skin
-    400228: RLeg_Calf_skin
-    400230: RLeg_Foot
-    400232: RLeg_Thigh
-    400234: RLeg_Thigh_Fat_skin
-    400236: RLeg_Thigh_Low_skin
-    400238: RLeg_Thigh_skin
-    400240: RLeg_Toe1
-    400242: Root
-    400244: SPINE1
-    400246: Spine1_Rear_skin
-    400248: Spine1_skin
-    400250: SPINE2
-    400252: Spine2_Rear_skin
-    400254: Spine2_skin
-    400256: UpperBelly_skin
-    400258: WEAPON
-    400260: WeaponLeft
+    400152: pipboysleeve1stPerson:0
+    400154: pipboysleeve:0
+    400156: R_RibHelper
+    400158: RArm_Collarbone
+    400160: RArm_Collarbone_skin
+    400162: RArm_Finger11
+    400164: RArm_Finger12
+    400166: RArm_Finger13
+    400168: RArm_Finger21
+    400170: RArm_Finger22
+    400172: RArm_Finger23
+    400174: RArm_Finger31
+    400176: RArm_Finger32
+    400178: RArm_Finger33
+    400180: RArm_Finger41
+    400182: RArm_Finger42
+    400184: RArm_Finger43
+    400186: RArm_Finger51
+    400188: RArm_Finger52
+    400190: RArm_Finger53
+    400192: RArm_ForeArm1
+    400194: RArm_ForeArm1_skin
+    400196: RArm_ForeArm2
+    400198: RArm_ForeArm2_skin
+    400200: RArm_ForeArm3
+    400202: RArm_ForeArm3_skin
+    400204: RArm_Hand
+    400206: RArm_ShoulderFat_skin
+    400208: RArm_UpperArm
+    400210: RArm_UpperArm_skin
+    400212: RArm_UpperFat_skin
+    400214: RArm_UpperTwist1
+    400216: RArm_UpperTwist1_skin
+    400218: RArm_UpperTwist2
+    400220: RArm_UpperTwist2_skin
+    400222: RBreast_skin
+    400224: RButtFat_skin
+    400226: RLeg_Calf
+    400228: RLeg_Calf_Low_skin
+    400230: RLeg_Calf_skin
+    400232: RLeg_Foot
+    400234: RLeg_Thigh
+    400236: RLeg_Thigh_Fat_skin
+    400238: RLeg_Thigh_Low_skin
+    400240: RLeg_Thigh_skin
+    400242: RLeg_Toe1
+    400244: Root
+    400246: SPINE1
+    400248: Spine1_Rear_skin
+    400250: Spine1_skin
+    400252: SPINE2
+    400254: Spine2_Rear_skin
+    400256: Spine2_skin
+    400258: UpperBelly_skin
+    400260: WEAPON
+    400262: WeaponLeft
     2100000: BaseMaleHands3rd_0
-    2100002: pipboysleeve_0
-    2100004: BaseMaleBody_Fitted_0
-    2100006: Body_0
+    2100002: body1stperson_0
+    2100004: pipboysleeve1stPerson_0
+    2100006: pipboysleeve_0
+    2100008: BaseMaleBody_Fitted_0
     4300000: BaseMaleHands3rd:0
-    4300002: pipboysleeve:0
-    4300004: BaseMaleBody_Fitted:0
-    4300006: Body:0
+    4300002: body1stperson:0
+    4300004: pipboysleeve1stPerson:0
+    4300006: pipboysleeve:0
+    4300008: BaseMaleBody_Fitted:0
     9500000: //RootNode
     13700000: BaseMaleBody_Fitted:0
     13700002: BaseMaleHands3rd:0
-    13700004: Body:0
-    13700006: pipboysleeve:0
+    13700004: body1stperson:0
+    13700006: pipboysleeve1stPerson:0
+    13700008: pipboysleeve:0
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -292,7 +297,12 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Body_0
+      name: body1stperson_0
+    second: {fileID: 2100000, guid: 957ed61f69a4a84428c9e0da80fbf035, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pipboysleeve1stPerson_0
     second: {fileID: 2100000, guid: 957ed61f69a4a84428c9e0da80fbf035, type: 2}
   - first:
       type: UnityEngine:Material
