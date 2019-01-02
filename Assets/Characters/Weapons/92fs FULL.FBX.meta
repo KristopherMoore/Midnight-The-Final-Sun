@@ -1,0 +1,213 @@
+fileFormatVersion: 2
+guid: 003399d646f0c2040a5f8f53c22c4a4f
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Beretta92FS_Barrel:0
+    100004: Beretta92FS_LowerFrameNew
+    100006: Beretta92FS_LowerFrameNew:0
+    100008: Beretta92FS_Magazine:0
+    100010: Beretta92FS_Slide:0
+    100012: Beretta92FS_Trigger:0
+    100014: Bullet:0
+    100016: Bullets:0
+    100018: FlashlightLaser:0
+    100020: GripsNewUV:0
+    100022: ProjectileNode
+    100024: Rail:0
+    100026: Weapon
+    100028: WeaponBolt
+    100030: WeaponMagazine
+    100032: WeaponTrigger
+    400000: //RootNode
+    400002: Beretta92FS_Barrel:0
+    400004: Beretta92FS_LowerFrameNew
+    400006: Beretta92FS_LowerFrameNew:0
+    400008: Beretta92FS_Magazine:0
+    400010: Beretta92FS_Slide:0
+    400012: Beretta92FS_Trigger:0
+    400014: Bullet:0
+    400016: Bullets:0
+    400018: FlashlightLaser:0
+    400020: GripsNewUV:0
+    400022: ProjectileNode
+    400024: Rail:0
+    400026: Weapon
+    400028: WeaponBolt
+    400030: WeaponMagazine
+    400032: WeaponTrigger
+    2100000: Beretta92FS_LowerFrameNew_0
+    2100002: Beretta92FS_Slide_0
+    2100004: Beretta92FS_Trigger_0
+    2100006: Beretta92FS_Magazine_0
+    2100008: Bullet_0
+    2100010: Bullets_0
+    2100012: Beretta92FS_Barrel_0
+    2100014: GripsNewUV_0
+    2100016: FlashlightLaser_0
+    2100018: Rail_0
+    2300000: Beretta92FS_Barrel:0
+    2300002: Beretta92FS_LowerFrameNew:0
+    2300004: Beretta92FS_Magazine:0
+    2300006: Beretta92FS_Slide:0
+    2300008: Beretta92FS_Trigger:0
+    2300010: Bullet:0
+    2300012: Bullets:0
+    2300014: FlashlightLaser:0
+    2300016: GripsNewUV:0
+    2300018: Rail:0
+    3300000: Beretta92FS_Barrel:0
+    3300002: Beretta92FS_LowerFrameNew:0
+    3300004: Beretta92FS_Magazine:0
+    3300006: Beretta92FS_Slide:0
+    3300008: Beretta92FS_Trigger:0
+    3300010: Bullet:0
+    3300012: Bullets:0
+    3300014: FlashlightLaser:0
+    3300016: GripsNewUV:0
+    3300018: Rail:0
+    4300000: Beretta92FS_LowerFrameNew:0
+    4300002: Beretta92FS_Slide:0
+    4300004: Beretta92FS_Trigger:0
+    4300006: Beretta92FS_Magazine:0
+    4300008: Bullet:0
+    4300010: Bullets:0
+    4300012: Beretta92FS_Barrel:0
+    4300014: GripsNewUV:0
+    4300016: FlashlightLaser:0
+    4300018: Rail:0
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Beretta92FS_Barrel_0
+    second: {fileID: 2100000, guid: ae1f93714207a114aa877f340cab854d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Beretta92FS_LowerFrameNew_0
+    second: {fileID: 2100000, guid: ae1f93714207a114aa877f340cab854d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Beretta92FS_Magazine_0
+    second: {fileID: 2100000, guid: ae1f93714207a114aa877f340cab854d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Beretta92FS_Slide_0
+    second: {fileID: 2100000, guid: ae1f93714207a114aa877f340cab854d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Beretta92FS_Trigger_0
+    second: {fileID: 2100000, guid: ae1f93714207a114aa877f340cab854d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bullet_0
+    second: {fileID: 2100000, guid: ae1f93714207a114aa877f340cab854d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bullets_0
+    second: {fileID: 2100000, guid: ae1f93714207a114aa877f340cab854d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FlashlightLaser_0
+    second: {fileID: 2100000, guid: 57b49eb60889ec241a4c5dd509cfa400, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GripsNewUV_0
+    second: {fileID: 2100000, guid: 7a565197426d02c4bb6cb04c8a378949, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rail_0
+    second: {fileID: 2100000, guid: 02a7dd382836fc44caf8a1bbe2c75faf, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.0254
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

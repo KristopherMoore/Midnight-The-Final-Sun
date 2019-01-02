@@ -1,0 +1,216 @@
+fileFormatVersion: 2
+guid: 52f65717c396a7849ba0f65952135f9c
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Object007:0
+    100004: ProjectileNode
+    100006: ReceiverDisplay
+    100008: Safety:0
+    100010: Shotgun_Barrel_Short:0
+    100012: Shotgun_Grip_Stock_Short:0
+    100014: ShotgunBarrelCatch:0
+    100016: ShotgunReceiver
+    100018: ShotgunReceiver:0
+    100020: ShotgunShellL:1
+    100022: ShotgunShellR:1
+    100024: ShotgunStock:0
+    100026: ShotgunTrigger:0
+    100028: WeaponBolt
+    100030: WeaponBoltTrans
+    100032: WeaponExtra1
+    100034: WeaponExtra1Trans
+    100036: WeaponMagazine
+    100038: WeaponMagazineChild1
+    100040: WeaponMagazineChild1Trans
+    100042: WeaponMagazineChild2
+    100044: WeaponMagazineChild2Trans
+    100046: WeaponMagazineChild3
+    100048: WeaponMagazineChild3Trans
+    100050: WeaponMagazineChild4
+    100052: WeaponMagazineChild4Trans
+    100054: WeaponMagazineChild5
+    100056: WeaponMagazineChild5Trans
+    100058: WeaponMagazineTrans
+    100060: WeaponOptics1
+    100062: WeaponOptics1Trans
+    100064: WeaponOptics2
+    100066: WeaponOptics2Trans
+    100068: WeaponTrigger
+    100070: WeaponTriggerTrans
+    400000: //RootNode
+    400002: Object007:0
+    400004: ProjectileNode
+    400006: ReceiverDisplay
+    400008: Safety:0
+    400010: Shotgun_Barrel_Short:0
+    400012: Shotgun_Grip_Stock_Short:0
+    400014: ShotgunBarrelCatch:0
+    400016: ShotgunReceiver
+    400018: ShotgunReceiver:0
+    400020: ShotgunShellL:1
+    400022: ShotgunShellR:1
+    400024: ShotgunStock:0
+    400026: ShotgunTrigger:0
+    400028: WeaponBolt
+    400030: WeaponBoltTrans
+    400032: WeaponExtra1
+    400034: WeaponExtra1Trans
+    400036: WeaponMagazine
+    400038: WeaponMagazineChild1
+    400040: WeaponMagazineChild1Trans
+    400042: WeaponMagazineChild2
+    400044: WeaponMagazineChild2Trans
+    400046: WeaponMagazineChild3
+    400048: WeaponMagazineChild3Trans
+    400050: WeaponMagazineChild4
+    400052: WeaponMagazineChild4Trans
+    400054: WeaponMagazineChild5
+    400056: WeaponMagazineChild5Trans
+    400058: WeaponMagazineTrans
+    400060: WeaponOptics1
+    400062: WeaponOptics1Trans
+    400064: WeaponOptics2
+    400066: WeaponOptics2Trans
+    400068: WeaponTrigger
+    400070: WeaponTriggerTrans
+    2100000: ShotgunShellL_1
+    2100002: ShotgunShellR_1
+    2100004: Object007_0
+    2100006: ShotgunStock_0
+    2100008: ShotgunBarrelCatch_0
+    2100010: ShotgunTrigger_0
+    2100012: Safety_0
+    2100014: ShotgunReceiver_0
+    2100016: Shotgun_Grip_Stock_Short_0
+    2100018: Shotgun_Barrel_Short_0
+    2300000: Object007:0
+    2300002: Safety:0
+    2300004: Shotgun_Barrel_Short:0
+    2300006: Shotgun_Grip_Stock_Short:0
+    2300008: ShotgunBarrelCatch:0
+    2300010: ShotgunReceiver:0
+    2300012: ShotgunShellL:1
+    2300014: ShotgunShellR:1
+    2300016: ShotgunStock:0
+    2300018: ShotgunTrigger:0
+    3300000: Object007:0
+    3300002: Safety:0
+    3300004: Shotgun_Barrel_Short:0
+    3300006: Shotgun_Grip_Stock_Short:0
+    3300008: ShotgunBarrelCatch:0
+    3300010: ShotgunReceiver:0
+    3300012: ShotgunShellL:1
+    3300014: ShotgunShellR:1
+    3300016: ShotgunStock:0
+    3300018: ShotgunTrigger:0
+    4300000: ShotgunShellL:1
+    4300002: ShotgunShellR:1
+    4300004: Object007:0
+    4300006: ShotgunStock:0
+    4300008: ShotgunBarrelCatch:0
+    4300010: ShotgunTrigger:0
+    4300012: Safety:0
+    4300014: ShotgunReceiver:0
+    4300016: Shotgun_Grip_Stock_Short:0
+    4300018: Shotgun_Barrel_Short:0
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ShotgunReceiver_0
+    second: {fileID: 2100000, guid: d422dcd4db6ef5448a1e63514edbf5e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ShotgunStock_0
+    second: {fileID: 2100000, guid: bde0bd4ec0a1dc24583419611dacf256, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shotgun_Barrel_Short_0
+    second: {fileID: 2100000, guid: acd5ad68fdf2b484fa64468cdfe55020, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.0254
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
