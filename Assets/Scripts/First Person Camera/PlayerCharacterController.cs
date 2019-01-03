@@ -29,13 +29,21 @@ public class PlayerCharacterController : MonoBehaviour
     public bool isAnimationLocked;
     public bool isJumping = false;
     public bool isGliding = false;
+    public bool isSneaking = false;
     public bool isAiming = false;
     public bool firedBow = false;
+
+
+    //cameraAnchorPoint, used for moving the camera during crouch, etc.
+    private Transform cameraAnchorPoint;
 
     void Awake() //run on game load (before start)
     {
         CharacterController = GetComponent("CharacterController") as CharacterController;
-        Instance = this;  
+        Instance = this;
+
+        //grab Camera's anchor point, the Head
+        cameraAnchorPoint = HelperK.FindSearchAllChildren(this.transform, "AnchorPointHead");
     }
 
     
@@ -78,21 +86,21 @@ public class PlayerCharacterController : MonoBehaviour
         float xAxis = Input.GetAxis("Horizontal");
         float yAxis = Input.GetAxis("Vertical");
 
-        //if we are animation locked, we will ignore axis data
-        if(!Instance.isAnimationLocked)
+        
+        //check if input exceeds the deadZone (check for a minimal amount of input before moving)
+        if (yAxis > deadZone || yAxis < -deadZone)
         {
-            //check if input exceeds the deadZone (check for a minimal amount of input before moving)
-            if (yAxis > deadZone || yAxis < -deadZone)
-            {
-                Instance.isMoving = true;
-                PlayerCharacterMotor.Instance.MoveVector += new Vector3(0, 0, yAxis);
-            }
-            if (xAxis > deadZone || xAxis < -deadZone)
-            {
-                Instance.isMoving = true;
-                PlayerCharacterMotor.Instance.MoveVector += new Vector3(xAxis, 0, 0);
-            }
+            Instance.isMoving = true;
+            PlayerCharacterMotor.Instance.MoveVector += new Vector3(0, 0, yAxis);
         }
+        if (xAxis > deadZone || xAxis < -deadZone)
+        {
+            Instance.isMoving = true;
+            PlayerCharacterMotor.Instance.MoveVector += new Vector3(xAxis, 0, 0);
+        }
+
+        //Since arent animation locked, animate our body based on X and Y Axes
+        AnimateBodyParts.Instance.setMotionAxes(xAxis, yAxis);
 
     }
 
@@ -112,17 +120,44 @@ public class PlayerCharacterController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
+            //NEED TO REFACTOR, old animationStates into states like isSneaking.
             playerAnimationState = animationState.Jogging;
             if (Input.GetKey(KeyCode.LeftShift))
-                playerAnimationState = animationState.Running;
+            {
+                if(isSneaking == false)
+                    playerAnimationState = animationState.Running;
+            }
             else if (Input.GetKey(KeyCode.Z))
                 playerAnimationState = animationState.Walking;
         }
         else
             playerAnimationState = animationState.Idling;
 
+        //check for crouching
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            //check and inverse our sneaking state. //IN FUTURE; can have our player set whether crouch should be toggle or hold, ie change GetKeyDown to GetKey (Hold).
+            if (isSneaking == false)
+            {
+                isSneaking = true;
+
+                //set our height
+                cameraAnchorPoint.SetPositionAndRotation(cameraAnchorPoint.position + Vector3.down, cameraAnchorPoint.rotation);
+            }
+            else
+            {
+                isSneaking = false;
+
+                //set our height
+                cameraAnchorPoint.SetPositionAndRotation(cameraAnchorPoint.position + Vector3.up, cameraAnchorPoint.rotation);
+            }
+
+            //set our Animation state
+            AnimateBodyParts.Instance.setSneakState(isSneaking);
+        }
+
         //check for aiming
-        if(Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1))
         {
             isAiming = true;
             playerAnimationState = animationState.Aiming;

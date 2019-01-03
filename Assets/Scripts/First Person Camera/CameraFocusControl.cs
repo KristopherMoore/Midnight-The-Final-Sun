@@ -15,7 +15,7 @@ public class CameraFocusControl : MonoBehaviour
     //IMPORTANT, these values control where the anchor starts in ragard to the player, rotation and distance
     private float StartOffsetRotationHorizontal = 0f;  //positive shifts the focus point the the "right of the player" starting orientation
     private float StartOffsetRotationVertical = 0f;  //negative shifts the focus point to the "top of the player" (upwards) starting orientation
-    private float StartOffsetDistance = -10f;        //negative shifts the distance away from the player in front fromt he starting position.
+    private float StartOffsetDistance = -50f;        //negative shifts the distance away from the player in front fromt he starting position.
 
     public float Distance = -25f;
     public float DistanceMin = -100f;
@@ -112,7 +112,7 @@ public class CameraFocusControl : MonoBehaviour
         var posY = Mathf.SmoothDamp(position.y, desiredPosition.y, ref velY, Y_Smooth);
         var posZ = Mathf.SmoothDamp(position.z, desiredPosition.z, ref velZ, X_Smooth);
 
-        position = new Vector3(posX, posY, posZ); //convert to a Vector3
+        position = new Vector3(posX, posY, posZ); //convert to a Vector3 
 
         transform.position = position;  //change the position of our focus control point
 

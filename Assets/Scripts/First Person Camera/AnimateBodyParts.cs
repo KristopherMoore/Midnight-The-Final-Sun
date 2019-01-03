@@ -5,74 +5,39 @@ using UnityEngine;
 public class AnimateBodyParts : MonoBehaviour
 {
     private Animator animator;
+    private PlayerCharacterController pController;
+
+    //public Instance so our Controllers can access this script.
+    public static AnimateBodyParts Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     // Use this for initialization
     void Start()
     {
         animator = transform.GetComponent<Animator>();
+
+        pController = PlayerCharacterController.Instance;
+
+        //ensure these have a starting value
+        animator.SetFloat("MotionXAxis", 0);
+        animator.SetFloat("MotionYAxis", 0);
+        animator.SetBool("isSneaking", false);
     }
 
-    // Update is called once per frame
-    void Update()
+    //Outside methods can set our motion Axes, IE the player character controller. Limit the times we get Axis Input in each script.
+    public void setMotionAxes(float XSet, float YSet)
     {
-        PlayerCharacterController pController = PlayerCharacterController.Instance;
- 
-        animator.SetBool("isWalking", false);
-        animator.SetBool("isJogging", false);
-        animator.SetBool("isRunning", false);
-        animator.SetBool("isRolling", false);
-        animator.SetBool("isIdling", false);
-        animator.SetBool("isL1Attack", false);
-        animator.SetBool("isAiming", false);
-        animator.SetBool("isFired", false);
-        animator.SetBool("isJumping", false);
-        animator.SetBool("isGliding", false);
-        animator.SetFloat("MotionState", 0);
+        animator.SetFloat("MotionXAxis", XSet);
+        animator.SetFloat("MotionYAxis", YSet);
+    }
 
-
-        if (pController.playerAnimationState == PlayerCharacterController.animationState.Idling)
-        {
-            animator.SetBool("isIdling", true);
-        }
-        if (pController.playerAnimationState == PlayerCharacterController.animationState.Walking)
-        {
-            animator.SetBool("isWalking", true);
-            animator.SetFloat("MotionState", 0.333f);
-        }
-        if (pController.playerAnimationState == PlayerCharacterController.animationState.Jogging)
-        {
-            animator.SetBool("isJogging", true);
-            animator.SetFloat("MotionState", 0.666f);
-            //Mathf.Lerp()
-        }
-        if (pController.playerAnimationState == PlayerCharacterController.animationState.Running)
-        {
-            animator.SetBool("isRunning", true);
-            animator.SetFloat("MotionState", 1);
-        }
-        if (pController.playerAnimationState == PlayerCharacterController.animationState.Rolling)
-        {
-            animator.SetBool("isRolling", true);
-        }
-        if (pController.playerAnimationState == PlayerCharacterController.animationState.L1Attack)
-        {
-            animator.SetBool("isL1Attack", true);
-        }
-        if(pController.playerAnimationState == PlayerCharacterController.animationState.Aiming)
-        {
-            animator.SetBool("isAiming", true);
-        }
-        if (pController.firedBow)
-            animator.SetBool("isFired", true);
-
-        if (pController.playerAnimationState == PlayerCharacterController.animationState.Gliding)
-        {
-            animator.SetBool("isGliding", true);
-        }
-        if (pController.playerAnimationState == PlayerCharacterController.animationState.Jumping)
-        {
-            animator.SetBool("isJumping", true);
-        }
-
+    //see above, for outside methods to set sneaking anim state
+    public void setSneakState(bool toSet)
+    {
+        animator.SetBool("isSneaking", toSet);
     }
 }

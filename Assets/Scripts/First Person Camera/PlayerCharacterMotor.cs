@@ -6,9 +6,10 @@ public class PlayerCharacterMotor : MonoBehaviour
 {
     public static PlayerCharacterMotor Instance; //hold reference to instance of itself  
 
-    public float WalkSpeed = 1.75f;
-    public float JogSpeed = 3.75f;
-    public float RunSpeed = 6.0f;
+    private float WalkSpeed = 3f;
+    private float JogSpeed = 6f;
+    private float RunSpeed = 9f;
+    private float SneakSpeed = 3f;
     public float SlideSpeed = 3f;
     public float jumpSpeed = 8f;
     public float Gravity = 21f;
@@ -135,6 +136,9 @@ public class PlayerCharacterMotor : MonoBehaviour
       
         if (PlayerCharacterController.Instance.playerAnimationState == PlayerCharacterController.animationState.Running)
             moveSpeed = RunSpeed;
+
+        if (PlayerCharacterController.Instance.isSneaking)
+            moveSpeed = SneakSpeed;
 
         return moveSpeed;
     }

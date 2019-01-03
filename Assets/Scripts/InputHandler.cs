@@ -24,7 +24,16 @@ public class InputHandler : MonoBehaviour {
     private KeyCode[] keybinds;
     private KeyCode[] altKeybinds;
 
-	void Awake ()
+    //mouse input variables
+    private bool cursorMoved;
+    private float mouseX = 0f;
+    private float mouseY = 0f;
+    private float X_MouseSensitivity = 5f;
+    private float Y_MouseSensitivity = 5f;
+    private float deadZone = 0.19f;
+
+
+    void Awake ()
     {
         Instance = this;
 
@@ -51,8 +60,36 @@ public class InputHandler : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        
-	}
+        getPlayerInput();
+    }
+
+    //method for handling player input and storing the values for 
+    public void getPlayerInput()
+    {
+        //reset variables
+        cursorMoved = false;
+
+        //get Axis input
+        mouseX += Input.GetAxis("Mouse X") * X_MouseSensitivity;
+        mouseY -= Input.GetAxis("Mouse Y") * Y_MouseSensitivity;
+
+        //check for controller input
+        if (Input.GetAxis("RightJoyHorizontal") > deadZone || Input.GetAxis("RightJoyHorizontal") < -deadZone)
+            mouseX += Input.GetAxis("RightJoyHorizontal") * X_MouseSensitivity;
+        if (Input.GetAxis("RightJoyVertical") > deadZone || Input.GetAxis("RightJoyVertical") < -deadZone)
+            mouseY -= Input.GetAxis("RightJoyVertical") * Y_MouseSensitivity;
+
+        //check to see if the mouse has moved at all.
+        if (Input.GetAxis("Mouse X") != 0)
+            Instance.cursorMoved = true;
+        if (Input.GetAxis("Mouse Y") != 0)
+            Instance.cursorMoved = true;
+    }
+
+    public bool isCursorMoving()
+    {
+        return cursorMoved;
+    }
 
     private void setNewBind(actions actionToModify)
     {
