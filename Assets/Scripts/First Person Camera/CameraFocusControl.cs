@@ -13,7 +13,7 @@ public class CameraFocusControl : MonoBehaviour
 
 
     //IMPORTANT, these values control where the anchor starts in ragard to the player, rotation and distance
-    private float StartOffsetRotationHorizontal = 10f;  //positive shifts the focus point the the "right of the player" starting orientation
+    private float StartOffsetRotationHorizontal = 0f;  //positive shifts the focus point the the "right of the player" starting orientation
     private float StartOffsetRotationVertical = 0f;  //negative shifts the focus point to the "top of the player" (upwards) starting orientation
     private float StartOffsetDistance = -10f;        //negative shifts the distance away from the player in front fromt he starting position.
 
@@ -28,8 +28,8 @@ public class CameraFocusControl : MonoBehaviour
     public float Y_Smooth = 0.1f;
 
     //IMPORTANT, i found best values to be a differential of 100, so my settings has camera with -30, 70, and the camera focus with -50, 50. And they stop exactly together
-    public float Y_MinLimit = -50f;   //for the camera focus, this limits how high upwards we can aim (towards the sky)  the higher negatives = higher aim
-    public float Y_MaxLimit = 50f;    //inverse, controls how low we can aim, higher numbers = lower we can aim
+    public float Y_MinLimit = -75f;   //for the camera focus, this limits how high upwards we can aim (towards the sky)  the higher negatives = higher aim
+    public float Y_MaxLimit = 75f;    //inverse, controls how low we can aim, higher numbers = lower we can aim
 
     private float mouseX = 0f;
     private float mouseY = 0f;
@@ -62,9 +62,6 @@ public class CameraFocusControl : MonoBehaviour
     void LateUpdate()
     {
         if (anchorAround == null) //if we arent anchoring around anything (for our focus point we will want to anchor around the player so we roate around them)
-            return;
-
-        if (GameMenu.Instance.getMenuStatus() == true)
             return;
 
         HandlePlayerInput();
@@ -119,7 +116,7 @@ public class CameraFocusControl : MonoBehaviour
 
         transform.position = position;  //change the position of our focus control point
 
-        //transform.LookAt(TargetLookAt);  //shouldnt need to focus on anything, just rotate around anchor
+        transform.LookAt(anchorAround);  //shouldnt need to focus on anything, just rotate around anchor
     }
 
     public void Reset() //public incase we ever need to reset the camera externally

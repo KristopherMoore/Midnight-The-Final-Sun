@@ -11,9 +11,9 @@ public class CameraController : MonoBehaviour
     public static CameraController Instance;
 
     //IMPORTANT, these values control where the anchor starts in ragard to the player, rotation and distance
-    private float StartOffsetRotationHorizontal = 10.85f;  //positive shifts the camera the the "left of the player" starting orientation
-    private float StartOffsetRotationVertical = 20f;  //negative shifts the camera to the "bottom of the player" (under) starting orientation
-    private float StartOffsetDistance = 1.7f;        //negative shifts the distance away from the player in front fromt he starting position.
+    private float StartOffsetRotationHorizontal = 0;  //positive shifts the camera the the "left of the player" starting orientation
+    private float StartOffsetRotationVertical = 0;  //negative shifts the camera to the "bottom of the player" (under) starting orientation
+    private float StartOffsetDistance = 0;        //negative shifts the distance away from the player in front fromt he starting position.
 
     public Transform cameraAnchorAround;
     public Transform cameraFocusPoint;
@@ -28,7 +28,7 @@ public class CameraController : MonoBehaviour
     public float X_Smooth = 0.15f;
     public float Y_Smooth = 0.15f;
 
-    //IMPORTANT, i found best values to be a differential of 100, so my settings has camera with -30, 70, and the camera focus with -50, 50. And they stop exactly together
+    //IMPORTANT, I found best values to be a differential of 100, so my settings has camera with -30, 70, and the camera focus with -50, 50. And they stop exactly together
     public float Y_MinLimit = -30f;
     public float Y_MaxLimit = 70f;    //controls how far our camera can rotate on its axis, needs to be tuned along with CameraFocusControl's values (NOT THE SAME), so they work well together
 
@@ -68,69 +68,21 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (cameraAnchorAround == null) //if we arent looking at anything
-            return;
+        Debug.DrawRay(this.transform.position, this.transform.rotation * (Vector3.forward * 100), Color.red);
 
-        if (GameMenu.Instance.getMenuStatus() == true)
+        if (cameraAnchorAround == null) //if we arent looking at anything
             return;
 
         HandlePlayerInput();
 
-        CheckCameraPoints(cameraAnchorAround.position, desiredPosition);
+        //move camera position with player
+        transform.position = cameraAnchorAround.position;
 
-        int count = 0;
-        do
-        {
-            CalculateDesiredPosition();
-            count++;
-        } while (CheckIfOccluded(count));
-
-        UpdatePosition();
-
-        UpdateIfAiming();
+        //have camera focus on the focus point
+        transform.LookAt(cameraFocusPoint);
 
     }
 
-    private void UpdateIfAiming()
-    {
-        //check if the player wants to zoom
-        if (Input.GetMouseButton(1) == true) //if holding RMB down
-        {
-            if (tValue < 1)
-            {
-                tValue += zoomSpeed; //increment t based and how fast we want to zoom, how quickly it can add up to 1
-                Camera.main.fieldOfView = Mathf.Lerp(90, 60, tValue); //go from 90 fov to 60 fov
-            }
-            
-            //Lerp values of camera position and to its right along the red axis.
-            float lerpX = Mathf.Lerp(transform.position.x, transform.position.x + transform.right.x, tValue);
-            float lerpY = Mathf.Lerp(transform.position.y, transform.position.y + transform.right.y, tValue);
-            float lerpZ = Mathf.Lerp(transform.position.z, transform.position.z + transform.right.z, tValue);
-            Vector3 newPosition = new Vector3(lerpX, lerpY, lerpZ);
-
-            //set our new position on the camera object
-            transform.SetPositionAndRotation(newPosition, transform.rotation);
-
-        }
-
-        else //if we let go of RMB
-        {
-            if (tValue > 0) //check if we have moved our t value at all , meaning we have zoomed in
-            {
-                tValue -= zoomSpeed; //increment t based and how fast we want to zoom, how quickly it can add up to 1
-                Camera.main.fieldOfView = Mathf.Lerp(90, 60, tValue);  //keep, order, the change in t going downward will account for us going from 60 to 90
-            }
-
-            //Lerp values of camera position and to its right along the red axis.
-            float lerpX = Mathf.Lerp(transform.position.x, transform.position.x + transform.right.x, tValue);
-            float lerpY = Mathf.Lerp(transform.position.y, transform.position.y + transform.right.y, tValue);
-            float lerpZ = Mathf.Lerp(transform.position.z, transform.position.z + transform.right.z, tValue);
-            Vector3 newPosition = new Vector3(lerpX, lerpY, lerpZ);
-          
-            //set our new position on the camera object
-            transform.SetPositionAndRotation(newPosition, transform.rotation);
-        }
-    }
 
     void HandlePlayerInput()
     {
@@ -151,122 +103,7 @@ public class CameraController : MonoBehaviour
 
     }
 
-    void CalculateDesiredPosition()
-    {
-        //Evaluate distance
-        ResetDesiredDistance();
-        Distance = Mathf.SmoothDamp(Distance, desiredDistance, ref velDistance, distanceSmooth);
 
-        //Calculate desired position
-        desiredPosition = CalculatePosition(mouseY, mouseX, Distance);
-    }
-
-    Vector3 CalculatePosition(float rotationX, float rotationY, float distance)
-    {
-        Vector3 direction = new Vector3(0, 0, -distance);
-        Quaternion rotation = Quaternion.Euler(rotationX, rotationY, 0);
-        return cameraAnchorAround.position + rotation * direction;
-    }
-
-    bool CheckIfOccluded(int count)
-    {
-        bool isOccluded = false;
-
-        var nearestDistance = CheckCameraPoints(cameraAnchorAround.position, desiredPosition);
-
-        if (nearestDistance != -1) //something was hit, we are occluded
-        {
-            if (count < maxOcclusionChecks)
-            {
-                isOccluded = true;
-                Distance -= OcculsionDistanceStep;
-
-                if (Distance < 0.25f)
-                    Distance = 0.25f;
-            }
-            else //exceed max occlusion checks. Move camera now
-                Distance = nearestDistance - Camera.main.nearClipPlane;
-
-            desiredDistance = Distance;
-            distanceSmooth = DistanceResumeSmooth;
-
-        }
-
-        return isOccluded;
-    }
-
-    float CheckCameraPoints(Vector3 from, Vector3 to)
-    {
-        var nearestDistance = -1f;
-        RaycastHit hitInfo;
-        HelperK.ClipPlanePoints clipPlanePoints = HelperK.ClipPlaneAtNear(to);
-
-        //debugging lines creation
-        Debug.DrawLine(from, to + transform.forward * -GetComponent<Camera>().nearClipPlane, Color.red);
-        Debug.DrawLine(from, clipPlanePoints.UpperLeft);
-        Debug.DrawLine(from, clipPlanePoints.LowerLeft);
-        Debug.DrawLine(from, clipPlanePoints.UpperRight);
-        Debug.DrawLine(from, clipPlanePoints.LowerRight);
-
-        Debug.DrawLine(clipPlanePoints.UpperLeft, clipPlanePoints.UpperRight);
-        Debug.DrawLine(clipPlanePoints.UpperRight, clipPlanePoints.LowerRight);
-        Debug.DrawLine(clipPlanePoints.LowerRight, clipPlanePoints.LowerLeft);
-        Debug.DrawLine(clipPlanePoints.LowerLeft, clipPlanePoints.UpperLeft);
-
-        if (Physics.Linecast(from, clipPlanePoints.UpperLeft, out hitInfo) && hitInfo.collider.tag != "Player" && hitInfo.collider.tag != "IgnoreCameraCollision")
-            nearestDistance = hitInfo.distance;
-
-        if (Physics.Linecast(from, clipPlanePoints.UpperRight, out hitInfo) && hitInfo.collider.tag != "Player" && hitInfo.collider.tag != "IgnoreCameraCollision")
-            if (hitInfo.distance < nearestDistance || nearestDistance == -1) //if the new hit closer? or if we havent otherwise hit anything
-                nearestDistance = hitInfo.distance;
-
-        if (Physics.Linecast(from, clipPlanePoints.LowerLeft, out hitInfo) && hitInfo.collider.tag != "Player" && hitInfo.collider.tag != "IgnoreCameraCollision")
-            if (hitInfo.distance < nearestDistance || nearestDistance == -1) //if the new hit closer? or if we havent otherwise hit anything
-                nearestDistance = hitInfo.distance;
-
-        if (Physics.Linecast(from, clipPlanePoints.LowerRight, out hitInfo) && hitInfo.collider.tag != "Player" && hitInfo.collider.tag != "IgnoreCameraCollision")
-            if (hitInfo.distance < nearestDistance || nearestDistance == -1) //if the new hit closer? or if we havent otherwise hit anything
-                nearestDistance = hitInfo.distance;
-
-        if (Physics.Linecast(from, to + transform.forward * -GetComponent<Camera>().nearClipPlane, out hitInfo) && hitInfo.collider.tag != "Player" && hitInfo.collider.tag != "IgnoreCameraCollision")
-            if (hitInfo.distance < nearestDistance || nearestDistance == -1) //if the new hit closer? or if we havent otherwise hit anything
-                nearestDistance = hitInfo.distance;
-
-        if (Physics.Linecast(from, to + transform.forward * -GetComponent<Camera>().nearClipPlane, out hitInfo))
-            Debug.Log(hitInfo.collider.tag);
-
-        return nearestDistance;
-    }
-
-    void ResetDesiredDistance()
-    {
-        if (desiredDistance < preOccludedDistance) //are we closer than the starting distance
-        {
-            Vector3 pos = CalculatePosition(mouseY, mouseX, preOccludedDistance);
-
-            //we are going to use this new point and test if it can be moved to without occluding
-            var nearestDistance = CheckCameraPoints(cameraAnchorAround.position, pos);
-
-            if (nearestDistance == -1 || nearestDistance > preOccludedDistance) //no collisions or its nearest distance is greater than our pre occluded distance
-            {
-                desiredDistance = preOccludedDistance;
-            }
-        }
-    }
-
-    void UpdatePosition()
-    {
-        //find positions individually
-        var posX = Mathf.SmoothDamp(position.x, desiredPosition.x, ref velX, X_Smooth);
-        var posY = Mathf.SmoothDamp(position.y, desiredPosition.y, ref velY, Y_Smooth);
-        var posZ = Mathf.SmoothDamp(position.z, desiredPosition.z, ref velZ, X_Smooth);
-
-        position = new Vector3(posX, posY, posZ);
-
-        transform.position = position;  //move the camera to the appropriate position in world space
-
-        transform.LookAt(cameraFocusPoint); //have camera focus on the focus point
-    }
 
     private void Reset()
     {
@@ -279,7 +116,7 @@ public class CameraController : MonoBehaviour
     }
 
 
-    public static void UseExsistingOrCreateNewMainCamera()
+    public static void UseExistingOrCreateNewMainCamera()
     {
         GameObject tempCamera;
         GameObject cameraAnchorAround;

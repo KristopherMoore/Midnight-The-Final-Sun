@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerCharacterMotor : MonoBehaviour
 {
-
-
     public static PlayerCharacterMotor Instance; //hold reference to instance of itself  
 
     public float WalkSpeed = 1.75f;
@@ -73,29 +71,12 @@ public class PlayerCharacterMotor : MonoBehaviour
         {
             PlayerCharacterController.CharacterController.Move(MoveVector * Time.deltaTime); //Multiply MoveVector by DeltaTime (converts to units per second) right before we move
 
-            //Modify Rotation to direction in which we moved
-            if (PlayerCharacterController.Instance.isMoving)
-            {
-                //old rot
-                Vector3 toRot = new Vector3(MoveVector.x, 0f, MoveVector.z);
-                transform.rotation = Quaternion.LookRotation(toRot);
-     
-                //new attempt
-                //Vector3 toRot = MoveVector;
-                //transform.LookAt(toRot);
-                //transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-
-            }
-
-            //if aiming, rotate our character model towards our camera focus point
-            if (PlayerCharacterController.Instance.isAiming)
-            {
-                Vector3 focusP = cameraFocusPoint.transform.position;
-                //focusP.y = 0f;
-                transform.LookAt(cameraFocusPoint.transform);
-                transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-                //transform.rotation = Quaternion.LookRotation(focusP);
-            }
+            //rotate our character model towards our camera focus point
+            Vector3 focusP = cameraFocusPoint.transform.position;
+            //focusP.y = 0f;
+            //transform.LookAt(cameraFocusPoint.transform);
+            //transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+            //transform.rotation = Quaternion.LookRotation(focusP);
         }
     }
 
