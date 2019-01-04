@@ -31,7 +31,8 @@ public class PlayerCharacterController : MonoBehaviour
     public bool isGliding = false;
     public bool isSneaking = false;
     public bool isAiming = false;
-    public bool firedBow = false;
+    public bool isFiring = false;
+    public bool isReloading = false;
 
 
     //cameraAnchorPoint, used for moving the camera during crouch, etc.
@@ -51,10 +52,6 @@ public class PlayerCharacterController : MonoBehaviour
     {
         if (Camera.main == null) //check for main camera, if none exists, exit.
             return;
-
-        //TEMP REMOVE OF GAME MENU LOCK (SHOULD probably be moved into the game handler anyway)
-        //if (GameMenu.Instance.getMenuStatus() == true) //if we are currently in a menu, remove control of character, by ending this update run
-            //return;
 
         //handle actions before locomotion, since actions will at times lock the player into place
         HandleActionInput();
@@ -162,12 +159,6 @@ public class PlayerCharacterController : MonoBehaviour
             isAiming = true;
             playerAnimationState = animationState.Aiming;
 
-            //if we have chosen to fire during aiming
-            if (Input.GetMouseButtonDown(0))
-                firedBow = true;
-            else
-                firedBow = false;
-
         }
         //on frame aiming has stopped
         if(Input.GetMouseButtonUp(1))
@@ -175,52 +166,28 @@ public class PlayerCharacterController : MonoBehaviour
             isAiming = false;
         }
 
-        //rolling action
+        //reloading action
         if (Input.GetKey(KeyCode.R))
         {
-            isAnimationLocked = true;
-            playerAnimationState = animationState.Rolling;
+            //isAnimationLocked = true; COMMENT OUT FOR NOW, may need to revise how anims locks were working in redesign
+            Instance.isReloading = true;
 
-            //TODO:
-            //Corroutine here to wait for rolling to finish, then when done set isAnimationLocked = false; Encapsulate Handle Action
-            //Inputs inside of another check for isAnimationLocked, that way any prior engaged animations are messed with until co
-            //routine finishes.
+            //send off animation.
+            AnimateArms.Instance.setReloading(true);
+            AnimateWeapon.Instance.setReloading(true);
 
-            StartCoroutine(WaitForAnimation("DS roll fwd"));
-
-            //wait for animation, and send roll movement command to Motor
-            StartCoroutine(WaitXSeconds(1f));
-
+            //wait for Animation to play. based on weapon being handled.
+            StartCoroutine(WaitXSecondsForReload(3f));
 
         }
 
-        //L1 attack action, with left click
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        //Weapon fire action, with left click
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            switch(currentAttackChain)
-            {
-                case 0:
-                    isAnimationLocked = true;
-                    playerAnimationState = animationState.L1Attack;
-                    currentAttackChain += 1;
-                    StartCoroutine(WaitXSeconds(1f));
-                    break;
-                case 1:
-                    isAnimationLocked = true;
-                    playerAnimationState = animationState.L1AttackC2;
-                    currentAttackChain += 1;
-                    StartCoroutine(WaitXSeconds(1f));
-                    break;
-                case 2:
-                    isAnimationLocked = true;
-                    playerAnimationState = animationState.L1Attack;
-                    currentAttackChain += 1;
-                    StartCoroutine(WaitXSeconds(1f));
-                    break;
-                default:
-                    break;
-            }
+            Instance.isFiring = true;
         }
+        else
+            Instance.isFiring = false;
 
         //Equip item action
         if(Input.GetKeyDown(KeyCode.Y))
@@ -271,13 +238,17 @@ public class PlayerCharacterController : MonoBehaviour
 
     }
 
-    IEnumerator WaitXSeconds(float waitTime)
+    IEnumerator WaitXSecondsForReload(float waitTime)
     {
         print(Time.time);
         yield return new WaitForSeconds(waitTime);
         print(Time.time);
         isAnimationLocked = false;
-        currentAttackChain = 0;
+        isReloading = false;
+
+        //end anims
+        AnimateArms.Instance.setReloading(false);
+        AnimateWeapon.Instance.setReloading(false);
     }
 
     IEnumerator WaitForAnimation(string animationName)

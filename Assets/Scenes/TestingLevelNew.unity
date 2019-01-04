@@ -2081,6 +2081,26 @@ Prefab:
       propertyPath: m_Name
       value: FlashlightLaser:0
       objectReference: {fileID: 0}
+    - target: {fileID: 120176075565842876, guid: 2884542b53895544abd14dcf4e79284c,
+        type: 2}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 96491158126261234, guid: 2884542b53895544abd14dcf4e79284c,
+        type: 2}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 96491158126261234, guid: 2884542b53895544abd14dcf4e79284c,
+        type: 2}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 120176075565842876, guid: 2884542b53895544abd14dcf4e79284c,
+        type: 2}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2884542b53895544abd14dcf4e79284c, type: 2}
   m_IsPrefabAsset: 0
@@ -3876,12 +3896,11 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 796274168}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44337540ce6769e439624313a2f76a22, type: 3}
+  m_Script: {fileID: 11500000, guid: d9562bfb2550a214dbc0fc3c83a0021b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraFocusPoint: {fileID: 0}
 --- !u!95 &796274171
 Animator:
   serializedVersion: 3
@@ -3892,7 +3911,7 @@ Animator:
   m_GameObject: {fileID: 796274168}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 003399d646f0c2040a5f8f53c22c4a4f, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 388fca25432a55c4ab7e268a53a1a970, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -37697,9 +37716,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad9e3d595ad2b446a95b130220b409b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WalkSpeed: 1.75
-  JogSpeed: 3.75
-  RunSpeed: 6
   SlideSpeed: 3
   jumpSpeed: 8
   Gravity: 21
@@ -37728,7 +37744,8 @@ MonoBehaviour:
   isGliding: 0
   isSneaking: 0
   isAiming: 0
-  firedBow: 0
+  isFiring: 0
+  isReloading: 0
 --- !u!143 &2064939450
 CharacterController:
   m_ObjectHideFlags: 0

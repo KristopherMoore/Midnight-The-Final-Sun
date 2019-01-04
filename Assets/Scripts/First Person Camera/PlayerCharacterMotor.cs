@@ -131,6 +131,7 @@ public class PlayerCharacterMotor : MonoBehaviour
     {
         float moveSpeed = JogSpeed;
 
+        //NEED TO REFACTOR these old animation state calls with new checks. like the isSneaking. 
         if (PlayerCharacterController.Instance.playerAnimationState == PlayerCharacterController.animationState.Walking)
             moveSpeed = WalkSpeed;
       
