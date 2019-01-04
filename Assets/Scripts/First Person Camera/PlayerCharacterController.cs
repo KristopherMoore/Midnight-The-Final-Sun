@@ -177,7 +177,7 @@ public class PlayerCharacterController : MonoBehaviour
             AnimateWeapon.Instance.setReloading(true);
 
             //wait for Animation to play. based on weapon being handled.
-            StartCoroutine(WaitXSecondsForReload(3f));
+            StartCoroutine(WaitXSecondsForReload(4f));
 
         }
 

@@ -78,7 +78,7 @@ public class CameraController : MonoBehaviour
         //move camera position with player
         transform.position = cameraAnchorAround.position;
 
-        //have camera focus on the focus point
+        //have camera focus on the focus point (Dont need it smoothed in this case.)
         transform.LookAt(cameraFocusPoint);
 
     }
