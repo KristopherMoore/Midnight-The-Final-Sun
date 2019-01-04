@@ -101,4 +101,15 @@ public static class HelperK
         return original;
 
     }
+
+    //helper function to wait for a certain amount of frames
+    public static IEnumerator waitForFrameAmount(int frameCount)
+    {
+        //run until our frame counter reaches zero
+        while(frameCount > 0)
+        {
+            frameCount--;
+            yield return null; //end current action.
+        }
+    }
 }

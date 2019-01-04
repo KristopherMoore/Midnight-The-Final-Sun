@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerCharacterController : MonoBehaviour
 {
+    //IMPORTANT NOTE: I have offloaded redundancy into this Controller, primarily because the Animation scripts were very redundant in state checking
+    //since this controller already has to check these states we can drastically reduce overhead by simply adding in statement load. Furthermore,
+    //this controller already has exit conditions for optimization, so that is expontential in our overall statement execution reduction.
 
     public static CharacterController CharacterController;
     public static PlayerCharacterController Instance; //hold reference to current instance of itself
@@ -17,16 +20,19 @@ public class PlayerCharacterController : MonoBehaviour
     private int currentAttackChain = 0;
     private int maxAttackChain = 3;
 
-    public enum direction
-    {
-        Stationary, Forward, Left, Backward, Right, LeftFwd, RightFwd, LeftBck, RightBck
-    }
-    public direction MoveDirection { get; set; }
-
     public float deadZone = 0.01f;
 
+
+    private int frameCounter = 0;
+
+
+    //player states, used for checks on the controller, especially for animations. Used to use an enumerator, but multiple calls from exterior methods were required for checks,
+    //whereas if we have some redundancy here we avoid exterior redundancy. I feel like this is the best choice.
+    //TODO: add encapsulation to these values.
     public bool isMoving;
-    public bool isAnimationLocked;
+    public bool isWalking = false;
+    public bool isRunning = false;
+    public bool isAnimationLocked = false;
     public bool isJumping = false;
     public bool isGliding = false;
     public bool isSneaking = false;
@@ -68,6 +74,9 @@ public class PlayerCharacterController : MonoBehaviour
 
         //update the motor even if we didnt have locomotion, as the motor also calculates things like gravity.
         PlayerCharacterMotor.Instance.UpdateMotor();
+
+        //updateOurAnimators
+        updateAnimations();
 
     }
 
@@ -121,11 +130,22 @@ public class PlayerCharacterController : MonoBehaviour
             playerAnimationState = animationState.Jogging;
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                if(isSneaking == false)
-                    playerAnimationState = animationState.Running;
+                //cant run if we are sneaking, so check that and proceed accordingly
+                if (isSneaking == false)
+                {
+                    isRunning = true;
+                    AnimateArms.Instance.setRunning(true);
+                }
+                else
+                {
+                    isRunning = false;
+                    AnimateArms.Instance.setRunning(false);
+                }
             }
             else if (Input.GetKey(KeyCode.Z))
-                playerAnimationState = animationState.Walking;
+                isWalking = true;
+            else
+                isWalking = false;
         }
         else
             playerAnimationState = animationState.Idling;
@@ -133,7 +153,7 @@ public class PlayerCharacterController : MonoBehaviour
         //check for crouching
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            //check and inverse our sneaking state. //IN FUTURE; can have our player set whether crouch should be toggle or hold, ie change GetKeyDown to GetKey (Hold).
+            //check and inverse our sneaking state.
             if (isSneaking == false)
             {
                 isSneaking = true;
@@ -160,6 +180,7 @@ public class PlayerCharacterController : MonoBehaviour
             playerAnimationState = animationState.Aiming;
 
         }
+
         //on frame aiming has stopped
         if(Input.GetMouseButtonUp(1))
         {
@@ -169,7 +190,6 @@ public class PlayerCharacterController : MonoBehaviour
         //reloading action
         if (Input.GetKey(KeyCode.R))
         {
-            //isAnimationLocked = true; COMMENT OUT FOR NOW, may need to revise how anims locks were working in redesign
             Instance.isReloading = true;
 
             //send off animation.
@@ -184,16 +204,9 @@ public class PlayerCharacterController : MonoBehaviour
         //Weapon fire action, with left click
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Instance.isFiring = true;
-        }
-        else
-            Instance.isFiring = false;
-
-        //Equip item action
-        if(Input.GetKeyDown(KeyCode.Y))
-        {
-            PlayerObject.Instance.equipPlayer("Recurve Bow");
-            PlayerObject.Instance.equipPlayer("Katana");
+            //run the FireWeapon coroutine, if we arent currently in a isFiring state.
+            if(!isFiring)
+                StartCoroutine(FireWeapon(.3f));
         }
     }
 
@@ -238,17 +251,53 @@ public class PlayerCharacterController : MonoBehaviour
 
     }
 
+    private void updateAnimations()
+    {
+        switch(playerAnimationState)
+        {
+            case animationState.Jogging:
+                AnimateArms.Instance.setRunning(true);
+                break;
+
+            
+            default:
+                break;
+
+        }
+    }
+
     IEnumerator WaitXSecondsForReload(float waitTime)
     {
-        print(Time.time);
+        //wait the time out
         yield return new WaitForSeconds(waitTime);
-        print(Time.time);
         isAnimationLocked = false;
         isReloading = false;
 
         //end anims
         AnimateArms.Instance.setReloading(false);
         AnimateWeapon.Instance.setReloading(false);
+    }
+
+    IEnumerator FireWeapon(float waitTime)
+    {
+        //PRE-WAIT ACTIONS
+        Instance.isFiring = true;
+        //play our fire sound
+        SoundManager.Instance.PlaySound("Fire");
+        //send off animation
+        AnimateArms.Instance.setFired(true);
+        AnimateWeapon.Instance.setFired(true);
+
+        //wait the time out, in frames
+        yield return new WaitForSeconds(waitTime);
+
+        //POST-WAIT ACTIONS
+        isAnimationLocked = false;
+        isFiring = false;
+
+        //end anims
+        AnimateArms.Instance.setFired(false);
+        AnimateWeapon.Instance.setFired(false);
     }
 
     IEnumerator WaitForAnimation(string animationName)
