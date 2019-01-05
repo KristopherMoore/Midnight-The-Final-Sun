@@ -27,9 +27,26 @@ public class AnimateArms : MonoBehaviour
 
         pController = PlayerCharacterController.Instance;
 
-        //ensure starting values
+    }
+
+    //so we can reset our animation states
+    public void resetAllAnimations()
+    {
         animator.SetBool("isFired", false);
+        animator.SetBool("isIdling", false);
+        animator.SetBool("isJogging", false);
         animator.SetBool("isReloading", false);
+        animator.SetBool("isRunning", false);
+    }
+
+    public void setIdling(bool toSet)
+    {
+        animator.SetBool("isIdling", toSet);
+    }
+
+    public void setJogging(bool toSet)
+    {
+        animator.SetBool("isJogging", toSet);
     }
 
     //Outside methods can set our reloading anim, IE the player character controller. Limit the times we get Axis Input in each script.

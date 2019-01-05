@@ -13,7 +13,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     public enum animationState
     {
-        Idling, Walking, Jogging, Running, Rolling, Stagger, Stunned, L1Attack, L1AttackC2, Jumping, Gliding, Aiming, DoubleJumping, Falling
+        Idling, Walking, Jogging, Running, Sneaking, Stagger, Stunned, Jumping, Gliding, Aiming, DoubleJumping, Falling
     }
     public animationState playerAnimationState { get; set; }
 
@@ -43,6 +43,9 @@ public class PlayerCharacterController : MonoBehaviour
 
     //cameraAnchorPoint, used for moving the camera during crouch, etc.
     private Transform cameraAnchorPoint;
+    Vector3 crouchCamOffset = new Vector3(0f, 2f, 0f);
+    Vector3 standCamOffset = new Vector3(0f, 3f, 0f);
+    float smoothSpeed = 5f;
 
     void Awake() //run on game load (before start)
     {
@@ -126,7 +129,6 @@ public class PlayerCharacterController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
-            //NEED TO REFACTOR, old animationStates into states like isSneaking.
             playerAnimationState = animationState.Jogging;
             if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -134,18 +136,16 @@ public class PlayerCharacterController : MonoBehaviour
                 if (isSneaking == false)
                 {
                     isRunning = true;
-                    AnimateArms.Instance.setRunning(true);
-                }
-                else
-                {
-                    isRunning = false;
-                    AnimateArms.Instance.setRunning(false);
+                    playerAnimationState = animationState.Running;
                 }
             }
             else if (Input.GetKey(KeyCode.Z))
                 isWalking = true;
             else
+            {
                 isWalking = false;
+                isRunning = false;
+            }
         }
         else
             playerAnimationState = animationState.Idling;
@@ -157,21 +157,23 @@ public class PlayerCharacterController : MonoBehaviour
             if (isSneaking == false)
             {
                 isSneaking = true;
-
-                //set our height
-                cameraAnchorPoint.SetPositionAndRotation(cameraAnchorPoint.position + Vector3.down, cameraAnchorPoint.rotation);
+                playerAnimationState = animationState.Sneaking;
             }
             else
             {
                 isSneaking = false;
-
-                //set our height
-                cameraAnchorPoint.SetPositionAndRotation(cameraAnchorPoint.position + Vector3.up, cameraAnchorPoint.rotation);
             }
 
             //set our Animation state
             AnimateBodyParts.Instance.setSneakState(isSneaking);
         }
+        //continuation of crouch, but need to run every frame, LERP our way to the positon
+        if (PlayerCharacterController.Instance.isSneaking)
+        {
+            cameraAnchorPoint.localPosition = Vector3.Lerp(cameraAnchorPoint.localPosition, crouchCamOffset, smoothSpeed * Time.deltaTime);
+        }
+        else
+            cameraAnchorPoint.localPosition = Vector3.Lerp(cameraAnchorPoint.localPosition, standCamOffset, smoothSpeed * Time.deltaTime);
 
         //check for aiming
         if (Input.GetMouseButton(1))
@@ -251,18 +253,51 @@ public class PlayerCharacterController : MonoBehaviour
 
     }
 
+    //send off any necessary animationStates to the animators
     private void updateAnimations()
     {
-        switch(playerAnimationState)
+        //reset Animations
+        AnimateArms.Instance.resetAllAnimations();
+        AnimateBodyParts.Instance.resetAllAnimations();
+        AnimateWeapon.Instance.resetAllAnimations();
+
+        //utilizing a switch here for C's overall more efficient execution time rather than if conditionals
+        switch (playerAnimationState)
         {
+            case animationState.Idling:
+                AnimateArms.Instance.setIdling(true);
+                break;
             case animationState.Jogging:
+                AnimateArms.Instance.setJogging(true);
+                break;
+            case animationState.Running:
                 AnimateArms.Instance.setRunning(true);
                 break;
-
-            
+            case animationState.Jumping:
+                AnimateBodyParts.Instance.setJumping(true);
+                break;
+            case animationState.Falling:
+                AnimateBodyParts.Instance.setFalling(true);
+                break;
             default:
                 break;
 
+        }
+
+        //some animations (like sneak/reload/fire) can happen during other animation states, but as an enumerator gets overriden, we need to check it seperately
+        if(isSneaking)
+        {
+            AnimateBodyParts.Instance.setSneakState(true);
+        }
+        if(isReloading)
+        {
+            AnimateArms.Instance.setReloading(true);
+            AnimateWeapon.Instance.setReloading(true);
+        }
+        if(isFiring)
+        {
+            AnimateArms.Instance.setFired(true);
+            AnimateWeapon.Instance.setFired(true);
         }
     }
 

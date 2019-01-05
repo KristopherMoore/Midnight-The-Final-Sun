@@ -21,6 +21,8 @@ public class WeaponPointAtFocus : MonoBehaviour {
         //if we are in a state where the weapon shouldnt be focused but instead follows the arms it is attached to
         if (PlayerCharacterController.Instance.isReloading)
             return;
+        if (PlayerCharacterController.Instance.isRunning)
+            return;
 
         //get our new rotation by utilizing look rotation functionality
         Quaternion targetRotation = Quaternion.LookRotation(cameraFocusPoint.transform.position - transform.position);

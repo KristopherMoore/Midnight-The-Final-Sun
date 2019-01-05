@@ -38,4 +38,10 @@ public class AnimateWeapon : MonoBehaviour {
     {
         animator.SetBool("isFired", toSet);
     }
+
+    public void resetAllAnimations()
+    {
+        animator.SetBool("isFired", false);
+        animator.SetBool("isReloading", false);
+    }
 }

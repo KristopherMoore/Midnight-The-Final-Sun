@@ -23,9 +23,7 @@ public class AnimateBodyParts : MonoBehaviour
         pController = PlayerCharacterController.Instance;
 
         //ensure these have a starting value
-        animator.SetFloat("MotionXAxis", 0);
-        animator.SetFloat("MotionYAxis", 0);
-        animator.SetBool("isSneaking", false);
+        resetAllAnimations();
     }
 
     //Outside methods can set our motion Axes, IE the player character controller. Limit the times we get Axis Input in each script.
@@ -36,8 +34,28 @@ public class AnimateBodyParts : MonoBehaviour
     }
 
     //see above, for outside methods to set sneaking anim state
+    public void setJumping(bool toSet)
+    {
+        animator.SetBool("isJumping", toSet);
+    }
+
+    //see above, for outside methods to set sneaking anim state
+    public void setFalling(bool toSet)
+    {
+        animator.SetBool("isFalling", toSet);
+    }
+
+    //see above, for outside methods to set sneaking anim state
     public void setSneakState(bool toSet)
     {
         animator.SetBool("isSneaking", toSet);
+    }
+
+    public void resetAllAnimations()
+    {
+        //NOTE: do NOT reset our MotionAxes here, it is handled by a seperate call and never needs to be overriden.
+        animator.SetBool("isSneaking", false);
+        animator.SetBool("isJumping", false);
+        animator.SetBool("isFalling", false);
     }
 }
