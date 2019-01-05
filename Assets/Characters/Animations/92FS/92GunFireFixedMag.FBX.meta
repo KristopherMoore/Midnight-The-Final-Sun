@@ -1,0 +1,216 @@
+fileFormatVersion: 2
+guid: 9470d6f0eb78a2c4bac556f06cadc01a
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Beretta92FS_Barrel:0
+    100004: Beretta92FS_LowerFrameNew
+    100006: Beretta92FS_LowerFrameNew:0
+    100008: Beretta92FS_Magazine:0
+    100010: Beretta92FS_Slide:0
+    100012: Beretta92FS_Trigger:0
+    100014: Bullet:0
+    100016: Bullets:0
+    100018: FlashlightLaser:0
+    100020: GripsNewUV:0
+    100022: ProjectileNode
+    100024: Rail:0
+    100026: Weapon
+    100028: WeaponBolt
+    100030: WeaponExtra1
+    100032: WeaponExtra2
+    100034: WeaponExtra3
+    100036: WeaponIKTargetL
+    100038: WeaponIKTargetLMirror
+    100040: WeaponMagazine
+    100042: WeaponMagazineChild1
+    100044: WeaponMagazineChild2
+    100046: WeaponMagazineChild3
+    100048: WeaponMagazineChild4
+    100050: WeaponMagazineChild5
+    100052: WeaponOptics1
+    100054: WeaponOptics2
+    100056: WeaponTrigger
+    400000: //RootNode
+    400002: Beretta92FS_Barrel:0
+    400004: Beretta92FS_LowerFrameNew
+    400006: Beretta92FS_LowerFrameNew:0
+    400008: Beretta92FS_Magazine:0
+    400010: Beretta92FS_Slide:0
+    400012: Beretta92FS_Trigger:0
+    400014: Bullet:0
+    400016: Bullets:0
+    400018: FlashlightLaser:0
+    400020: GripsNewUV:0
+    400022: ProjectileNode
+    400024: Rail:0
+    400026: Weapon
+    400028: WeaponBolt
+    400030: WeaponExtra1
+    400032: WeaponExtra2
+    400034: WeaponExtra3
+    400036: WeaponIKTargetL
+    400038: WeaponIKTargetLMirror
+    400040: WeaponMagazine
+    400042: WeaponMagazineChild1
+    400044: WeaponMagazineChild2
+    400046: WeaponMagazineChild3
+    400048: WeaponMagazineChild4
+    400050: WeaponMagazineChild5
+    400052: WeaponOptics1
+    400054: WeaponOptics2
+    400056: WeaponTrigger
+    2100000: Beretta92FS_LowerFrameNew_0
+    2100002: Beretta92FS_Slide_0
+    2100004: Beretta92FS_Trigger_0
+    2100006: Beretta92FS_Magazine_0
+    2100008: Bullet_0
+    2100010: Bullets_0
+    2100012: Beretta92FS_Barrel_0
+    2100014: GripsNewUV_0
+    2100016: FlashlightLaser_0
+    2100018: Rail_0
+    2300000: Beretta92FS_Barrel:0
+    2300002: Beretta92FS_LowerFrameNew:0
+    2300004: Beretta92FS_Magazine:0
+    2300006: Beretta92FS_Slide:0
+    2300008: Beretta92FS_Trigger:0
+    2300010: Bullet:0
+    2300012: Bullets:0
+    2300014: FlashlightLaser:0
+    2300016: GripsNewUV:0
+    2300018: Rail:0
+    3300000: Beretta92FS_Barrel:0
+    3300002: Beretta92FS_LowerFrameNew:0
+    3300004: Beretta92FS_Magazine:0
+    3300006: Beretta92FS_Slide:0
+    3300008: Beretta92FS_Trigger:0
+    3300010: Bullet:0
+    3300012: Bullets:0
+    3300014: FlashlightLaser:0
+    3300016: GripsNewUV:0
+    3300018: Rail:0
+    4300000: Beretta92FS_LowerFrameNew:0
+    4300002: Beretta92FS_Slide:0
+    4300004: Beretta92FS_Trigger:0
+    4300006: Beretta92FS_Magazine:0
+    4300008: Bullet:0
+    4300010: Bullets:0
+    4300012: Beretta92FS_Barrel:0
+    4300014: GripsNewUV:0
+    4300016: FlashlightLaser:0
+    4300018: Rail:0
+    7400000: 92GunFireFixedMag
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: 92GunFireFixedMag
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 1000
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.0254
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
