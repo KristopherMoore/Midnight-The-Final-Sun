@@ -32,6 +32,9 @@ public class GameHandler : MonoBehaviour {
 
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+
+            //ensure that the player cursor can be relocked.
+            toggleCursor();
         }
 
         //testing for controller input

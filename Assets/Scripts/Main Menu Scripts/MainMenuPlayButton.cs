@@ -14,7 +14,7 @@ public class MainMenuPlayButton : MonoBehaviour {
 
     IEnumerator LoadAsyncScene()
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Testing Level");
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("TestingLevelNew");
         while(asyncLoad.isDone == false)
         {
             yield return null;

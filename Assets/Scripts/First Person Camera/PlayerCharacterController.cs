@@ -179,8 +179,6 @@ public class PlayerCharacterController : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             isAiming = true;
-            playerAnimationState = animationState.Aiming;
-
         }
 
         //on frame aiming has stopped
@@ -192,22 +190,26 @@ public class PlayerCharacterController : MonoBehaviour
         //reloading action
         if (Input.GetKey(KeyCode.R))
         {
-            Instance.isReloading = true;
+            //if were are not currently reloading
+            if (!isReloading)
+            {
+                Instance.isReloading = true;
 
-            //send off animation.
-            AnimateArms.Instance.setReloading(true);
-            AnimateWeapon.Instance.setReloading(true);
+                //send off animation.
+                AnimateArms.Instance.setReloading(true);
+                AnimateWeapon.Instance.setReloading(true);
 
-            //wait for Animation to play. based on weapon being handled.
-            StartCoroutine(WaitXSecondsForReload(4f));
+                //wait for Animation to play. based on weapon being handled.
+                StartCoroutine(WaitXSecondsForReload(4.25f));
+            }
 
         }
 
         //Weapon fire action, with left click
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            //run the FireWeapon coroutine, if we arent currently in a isFiring state.
-            if(!isFiring)
+            //run the FireWeapon coroutine, if we arent currently in a isFiring state. or reloading
+            if(!isFiring && !isReloading)
                 StartCoroutine(FireWeapon(.3f));
         }
     }

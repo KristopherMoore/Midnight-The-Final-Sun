@@ -12,7 +12,7 @@ public class TestingResourcesLoader : MonoBehaviour {
         go.name = "Test Instance GameObj";
 
         //load object from resources folder and instantiate it Instantiate(our loaded obj, parent's transform)
-        Object obj = Resources.Load("Prefabs/44 Full");
+        Object obj = Resources.Load("Prefabs/Weapons/44 Full");
         Instantiate(obj, go.transform);
 
         //Also instantiate it to our main transform. Testing for when the Player Character Gobj will use this type of script to load/delete
