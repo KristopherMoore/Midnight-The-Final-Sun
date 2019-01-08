@@ -39,6 +39,7 @@ public class PlayerCharacterController : MonoBehaviour
     public bool isAiming = false;
     public bool isFiring = false;
     public bool isReloading = false;
+    private bool flashLightOn = true;
 
 
     //cameraAnchorPoint, used for moving the camera during crouch, etc.
@@ -47,6 +48,9 @@ public class PlayerCharacterController : MonoBehaviour
     Vector3 standCamOffset = new Vector3(0f, 3f, 0f);
     float smoothSpeed = 5f;
 
+    //hold our flashlight object
+    private FlashlightController flashlight;
+
     void Awake() //run on game load (before start)
     {
         CharacterController = GetComponent("CharacterController") as CharacterController;
@@ -54,6 +58,9 @@ public class PlayerCharacterController : MonoBehaviour
 
         //grab Camera's anchor point, the Head
         cameraAnchorPoint = HelperK.FindSearchAllChildren(this.transform, "AnchorPointHead");
+
+        //grab the flashlight
+        flashlight = HelperK.FindSearchAllChildren(this.transform.parent.transform, "FlashLight").GetComponent<FlashlightController>();
     }
 
     
@@ -115,18 +122,13 @@ public class PlayerCharacterController : MonoBehaviour
 
     void HandleActionInput()
     {
-        //ESCAPE sequence, allows us to modify animationLocks manually for avoid errors
-        if (Input.GetKey(KeyCode.F))
-            isAnimationLocked = false;
-        if (Input.GetKey(KeyCode.E))
-            isAnimationLocked = true;
-
         //if we are anim locked, leave this function. no Actions can happen until we are no longer locked
         if (isAnimationLocked == true)
             return;
 
         playerAnimationState = animationState.Idling; //default state, only modified if some other action happens
 
+        //movemetn checks for the animators, always check these first then other action inputs.
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
             playerAnimationState = animationState.Jogging;
@@ -190,7 +192,7 @@ public class PlayerCharacterController : MonoBehaviour
         //reloading action
         if (Input.GetKey(KeyCode.R))
         {
-            //if were are not currently reloading
+            //if were are not currently reloading, do not use negation here, because we send off coroutines, hard checks necessary
             if (!isReloading)
             {
                 Instance.isReloading = true;
@@ -211,6 +213,17 @@ public class PlayerCharacterController : MonoBehaviour
             //run the FireWeapon coroutine, if we arent currently in a isFiring state. or reloading
             if(!isFiring && !isReloading)
                 StartCoroutine(FireWeapon(.3f));
+        }
+
+        //Flashlight boolean check.
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            flashLightOn = !flashLightOn; //negate whatever we had before and send that to the flashlight controller
+            flashlight.setFlashlight(flashLightOn); 
+        }
+        if (Input.GetKey(KeyCode.E))
+        {
+
         }
     }
 
