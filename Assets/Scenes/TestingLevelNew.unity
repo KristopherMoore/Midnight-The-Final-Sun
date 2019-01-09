@@ -2809,7 +2809,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 295560758}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1adfbf0d2b4f214b94a596c66f76084, type: 3}
   m_Name: 
@@ -8400,8 +8400,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.22, z: 0.5}
-  m_Center: {x: 0, y: 0, z: 0.18}
+  m_Size: {x: 0.01, y: 0.01, z: 0.01}
+  m_Center: {x: 0, y: 0.11, z: 0.39}
 --- !u!1 &802683405 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100040, guid: 2b1f2a7a7a2bc2641a8af5e382995c33,
@@ -37930,18 +37930,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!65 &1773998210
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1773998208}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 37.9, y: 11.02, z: 34.58}
-  m_Center: {x: 0, y: 5.2, z: 17.9}
 --- !u!135 &1773998211
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -37952,7 +37940,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 7.67
+  m_Radius: 29.41
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1773998212
 MonoBehaviour:

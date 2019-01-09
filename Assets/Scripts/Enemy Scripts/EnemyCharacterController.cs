@@ -14,9 +14,8 @@ public class EnemyCharacterController : MonoBehaviour {
     private Animator animator;
     private NavMeshAgent NavAgent;
 
-    //get the Hearing Collider and Vision Collider
+    //get the Hearing Collider, vision will be handled by Angle calculations
     private Collider hearingCollider;
-    private Collider visionCollider;
     private bool visionStay;
     private float visionStayCount;
     private bool hearingStay;
@@ -30,31 +29,37 @@ public class EnemyCharacterController : MonoBehaviour {
     private bool isReloading = false;
     private bool isFiring = false;
     private bool isAnimationLocked = false;
+    private bool isMelee = true;
 
     void Awake() //run on game load (before start)
     {
+        //grab relevant objects to our controller.
         CharacterController = GetComponent("CharacterController") as CharacterController;
         Instance = this;
         animator = transform.GetComponent<Animator>();
         NavAgent = GetComponent<NavMeshAgent>();
 
-        //grab collider instances
+        //grab hearing collider instance
         hearingCollider = transform.GetComponent<SphereCollider>();
-        visionCollider = transform.GetComponent<BoxCollider>();
     }
 
 
     void Update()
     {
-        
-        //vision and hearing are handled when the triggers activate.
-
-        //Decide what to do now,
+        //hearing collider is handled when the triggers activate.
+        //vision is done via angle, so we need to check that on Update
+        checkVisionCone();
 
         //handleMotion
         navMeshMovement();
 
         //execute actions and send off any animations.
+        if(isMelee)
+            checkMeleeRangeOfTarget();
+        else
+        {
+            checkRangeOfTarget();
+        }
 
         //since we will not be doing animations seperately for the arms and body, (like the player controller does), we need to lock the enemy in place for reloading,
         //otherwise the animations would look strange.
@@ -63,17 +68,28 @@ public class EnemyCharacterController : MonoBehaviour {
 
     }
 
-    private void CheckVisionAndHearing()
+    //method to check the vision radius of the enemy and if a player is within it
+    private void checkVisionCone()
     {
-        
-    }
+        //find the angle between the target position and our enemies position
+        Vector3 targetDirection = GameObject.Find("PlayerCharacter").transform.position - transform.position;
+        float angle = Vector3.Angle(targetDirection, transform.forward);
 
-    private void OnTriggerEnter(Collider visionCollider)
-    {
-        if(visionCollider.transform.root.tag == "Player")
+        //leaving these Rays for debugging visualization going forward. Mostly if I want to modify and test the bounds of the Vision Cones.
+        Debug.DrawRay(transform.position, transform.forward * 15, Color.yellow);
+        Debug.DrawRay(transform.position, targetDirection * 15, Color.green);
+        Debug.DrawRay(transform.position + transform.up, targetDirection * 15, Color.white);
+
+        //if that angle is less than 60deg, this will be applied to both sides so we have a 120deg triangle of vision
+        if (angle < 60.0f)
         {
-            Debug.Log(visionCollider);
-            isAggroed = true;
+            //now we need to verify that the target is in fact visible, IE not blocked by a structure. We can do that with a raycast towards the player and check if it hits
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position + transform.up, targetDirection, out hit, Mathf.Infinity))
+            {
+                if (hit.transform.tag == "Player")
+                    isAggroed = true;
+            }
         }
     }
 
@@ -101,6 +117,25 @@ public class EnemyCharacterController : MonoBehaviour {
     {
         //if we escape the aggro ranges. we stop being chased. Would work fine, need to determine seperating the trigger states.
         //isAggroed = false;
+    }
+
+    private void checkMeleeRangeOfTarget()
+    {
+        Vector3 targetDirection = GameObject.Find("PlayerCharacter").transform.position - transform.position;
+
+        Debug.DrawRay(transform.position + transform.up, targetDirection, Color.red);
+
+        //cast a ray to see if the target is close enough to start a melee attack
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position + transform.up, targetDirection, out hit, 2f))
+        {
+            animator.SetBool("isMelee", true);
+        }
+    }
+
+    private void checkRangeOfTarget()
+    {
+
     }
 
     //utilize navMeshAgent to move our Enemy
