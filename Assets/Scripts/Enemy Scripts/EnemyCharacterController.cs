@@ -87,7 +87,7 @@ public class EnemyCharacterController : MonoBehaviour {
             RaycastHit hit;
             if (Physics.Raycast(transform.position + transform.up, targetDirection, out hit, Mathf.Infinity))
             {
-                if (hit.transform.tag == "Player")
+                if (hit.transform.root.tag == "Player")
                     isAggroed = true;
             }
         }
@@ -113,7 +113,7 @@ public class EnemyCharacterController : MonoBehaviour {
         //Debug.Log(visionCollider.name);
     }
 
-    private void OnTriggerExit(Collider visionCollider)
+    private void OnTriggerExit(Collider collider)
     {
         //if we escape the aggro ranges. we stop being chased. Would work fine, need to determine seperating the trigger states.
         //isAggroed = false;
@@ -129,7 +129,15 @@ public class EnemyCharacterController : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(transform.position + transform.up, targetDirection, out hit, 2f))
         {
-            animator.SetBool("isMelee", true);
+            //if that hit was on the player
+            if (hit.transform.root.tag == "Player")
+            {
+                animator.SetBool("isMelee", true);
+            }
+        }
+        else
+        {
+            animator.SetBool("isMelee", false);
         }
     }
 

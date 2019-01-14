@@ -9,13 +9,16 @@ public class HealthBarTestingCounter : MonoBehaviour
     public static Text text;
     public static HealthBarTestingCounter Instance;
     private float healthCount = 100f;
-    private static PlayerStats player = new PlayerStats();
+    private Unit player;
 
     // Use this for initialization
     void Start()
     {
         //self instanciation
         Instance = this;
+
+        //find our Player
+        player = GameObject.Find("Player").GetComponent<Unit>();
 
         //find our Counter object
         textFieldObject = GameObject.Find("HealthBar Testing Counter");
@@ -24,6 +27,11 @@ public class HealthBarTestingCounter : MonoBehaviour
         text = textFieldObject.GetComponent<Text>();
 
         //call first instantiation, of the counter
+        updateHealthCounter();
+    }
+
+    private void Update()
+    {
         updateHealthCounter();
     }
 

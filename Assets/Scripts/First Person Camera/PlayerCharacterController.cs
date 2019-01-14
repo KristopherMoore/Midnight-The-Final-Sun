@@ -48,6 +48,10 @@ public class PlayerCharacterController : MonoBehaviour
     Vector3 standCamOffset = new Vector3(0f, 3f, 0f);
     float smoothSpeed = 5f;
 
+    //hold our cameraFocusPoint, and laser start point, for firing the weapon
+    private GameObject cameraFocusPoint;
+    private GameObject laserStartPoint;
+
     //hold our flashlight object
     private FlashlightController flashlight;
 
@@ -58,6 +62,10 @@ public class PlayerCharacterController : MonoBehaviour
 
         //grab Camera's anchor point, the Head
         cameraAnchorPoint = HelperK.FindSearchAllChildren(this.transform, "AnchorPointHead");
+
+        //grab the Camera focus point, (ie what we are aiming at), and the laserStartPoint for our weapon
+        cameraFocusPoint = GameObject.Find("Camera Focus Point");
+        laserStartPoint = GameObject.Find("LaserStartPoint");
 
         //grab the flashlight
         flashlight = HelperK.FindSearchAllChildren(this.transform.parent.transform, "FlashLight").GetComponent<FlashlightController>();
@@ -338,7 +346,26 @@ public class PlayerCharacterController : MonoBehaviour
         AnimateArms.Instance.setFired(true);
         AnimateWeapon.Instance.setFired(true);
 
-        //wait the time out, in frames
+        //now we need to check if we actually hit anything. Due to us using hitscan, we can just do this with raycasting, If we move into a projectile system,
+        //replace this hitscan check with a projectile Instantiation. (on the bullet would use a projectile script to move it in worldspace and handle collisions)
+        Vector3 targetDirection = cameraFocusPoint.transform.position - laserStartPoint.transform.position;
+
+        Debug.DrawRay(laserStartPoint.transform.position, targetDirection, Color.magenta);
+
+        //cast a ray to see if the target is close enough to start a melee attack
+        RaycastHit hit;
+        if (Physics.Raycast(laserStartPoint.transform.position, targetDirection, out hit, Mathf.Infinity))
+        {
+            Debug.Log(hit.transform.root.tag);
+            Debug.Log(hit.transform.name);
+            if (hit.transform.root.tag == "Enemy")
+            {
+                hit.transform.root.GetComponent<Unit>().modifyHP(-100f);
+                Debug.Log(hit.transform.root.GetComponent<Unit>().getHP());
+            }
+        }
+
+        //wait the time out, in frames, just waiting here so the slide can cock back and "rechamber" a round
         yield return new WaitForSeconds(waitTime);
 
         //POST-WAIT ACTIONS
