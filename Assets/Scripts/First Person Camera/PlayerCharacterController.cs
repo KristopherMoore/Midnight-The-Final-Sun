@@ -41,6 +41,8 @@ public class PlayerCharacterController : MonoBehaviour
     public bool isReloading = false;
     private bool flashLightOn = true;
 
+    //cameraState 1st Person, 0 is 3rd Person, 1 is 1st
+    public bool is1stPersonCamera = false;
 
     //cameraAnchorPoint, used for moving the camera during crouch, etc.
     private Transform cameraAnchorPoint;
@@ -232,6 +234,12 @@ public class PlayerCharacterController : MonoBehaviour
         if (Input.GetKey(KeyCode.E))
         {
 
+        }
+
+        //check Camera changes, if so, invert.
+        if(Input.GetKeyDown(KeyCode.U))
+        {
+            is1stPersonCamera = !is1stPersonCamera;
         }
     }
 

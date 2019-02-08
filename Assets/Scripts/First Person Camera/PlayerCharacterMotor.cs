@@ -6,9 +6,9 @@ public class PlayerCharacterMotor : MonoBehaviour
 {
     public static PlayerCharacterMotor Instance; //hold reference to instance of itself  
 
-    private float WalkSpeed = 3f;
-    private float JogSpeed = 6f;
-    private float RunSpeed = 9f;
+    private float WalkSpeed = 1.5f;
+    private float JogSpeed = 2.5f;
+    private float RunSpeed = 5f;
     private float SneakSpeed = 3f;
     public float SlideSpeed = 3f;
     public float jumpSpeed = 8f;

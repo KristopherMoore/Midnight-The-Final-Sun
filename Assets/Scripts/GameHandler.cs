@@ -40,6 +40,7 @@ public class GameHandler : MonoBehaviour {
         //testing for controller input
         if (Input.GetKeyDown(KeyCode.Joystick1Button0))
             Debug.Log("Controller input");
+
 	}
 
     private void toggleCursor()

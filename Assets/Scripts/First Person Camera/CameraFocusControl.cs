@@ -27,9 +27,9 @@ public class CameraFocusControl : MonoBehaviour
     public float X_Smooth = 0.05f;
     public float Y_Smooth = 0.1f;
 
-    //IMPORTANT, i found best values to be a differential of 100, so my settings has camera with -30, 70, and the camera focus with -50, 50. And they stop exactly together
-    public float Y_MinLimit = -75f;   //for the camera focus, this limits how high upwards we can aim (towards the sky)  the higher negatives = higher aim
-    public float Y_MaxLimit = 75f;    //inverse, controls how low we can aim, higher numbers = lower we can aim
+    //IMPORTANT, to have the camera focus point camera stay aligned they MUST have the same limit.
+    public float Y_MinLimit = -70f;   //for the camera focus, this limits how high upwards we can aim (towards the sky)  the higher negatives = higher aim
+    public float Y_MaxLimit = 70f;    //inverse, controls how low we can aim, higher numbers = lower we can aim
 
     private float mouseX = 0f;
     private float mouseY = 0f;
