@@ -1,0 +1,292 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: KaidenUpperBodyMask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: BaseMaleBody:0
+    m_Weight: 1
+  - m_Path: CharacterBumper
+    m_Weight: 1
+  - m_Path: Gloves:0
+    m_Weight: 1
+  - m_Path: GreaserJacket:0
+    m_Weight: 1
+  - m_Path: Hair01:0
+    m_Weight: 1
+  - m_Path: Hair01:001
+    m_Weight: 1
+  - m_Path: HairLong02
+    m_Weight: 1
+  - m_Path: Jeans:0
+    m_Weight: 1
+  - m_Path: M_Torso_Mid:0
+    m_Weight: 1
+  - m_Path: MacHatM:0
+    m_Weight: 1
+  - m_Path: MaleEyes:0
+    m_Weight: 1
+  - m_Path: MaleHeadRear:0
+    m_Weight: 1
+  - m_Path: MGlasses:0
+    m_Weight: 1
+  - m_Path: MGlasses:1
+    m_Weight: 1
+  - m_Path: Root
+    m_Weight: 1
+  - m_Path: Root/AnimObjectA
+    m_Weight: 1
+  - m_Path: Root/AnimObjectB
+    m_Weight: 1
+  - m_Path: Root/CamTargetParent
+    m_Weight: 1
+  - m_Path: Root/CamTargetParent/CamTarget
+    m_Weight: 1
+  - m_Path: Root/COM
+    m_Weight: 1
+  - m_Path: Root/COM/Pelvis
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/LButtFat_skin
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/LLeg_Thigh
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/LLeg_Thigh/LLeg_Calf
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/LLeg_Thigh/LLeg_Calf/LLeg_Calf_Low_skin
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/LLeg_Thigh/LLeg_Calf/LLeg_Calf_skin
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/LLeg_Thigh/LLeg_Calf/LLeg_Foot
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/LLeg_Thigh/LLeg_Calf/LLeg_Foot/LLeg_Toe1
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/LLeg_Thigh/LLeg_Thigh_Fat_skin
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/LLeg_Thigh/LLeg_Thigh_Low_skin
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/LLeg_Thigh/LLeg_Thigh_skin
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/Pelvis_Rear_skin
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/Pelvis_skin
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/RButtFat_skin
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/RLeg_Thigh
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/RLeg_Thigh/RLeg_Calf
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/RLeg_Thigh/RLeg_Calf/RLeg_Calf_Low_skin
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/RLeg_Thigh/RLeg_Calf/RLeg_Calf_skin
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/RLeg_Thigh/RLeg_Calf/RLeg_Foot
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/RLeg_Thigh/RLeg_Calf/RLeg_Foot/RLeg_Toe1
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/RLeg_Thigh/RLeg_Thigh_Fat_skin
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/RLeg_Thigh/RLeg_Thigh_Low_skin
+    m_Weight: 0
+  - m_Path: Root/COM/Pelvis/RLeg_Thigh/RLeg_Thigh_skin
+    m_Weight: 0
+  - m_Path: Root/COM/SPINE1
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/Belly_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/Spine1_Rear_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/Spine1_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/Chest_Rear_Skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/Chest_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/Chest_Upper_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/L_RibHelper
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_Collarbone_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_ShoulderFat_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm1_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm2_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_ForeArm3_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand/AnimObjectL1
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand/AnimObjectL2
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand/AnimObjectL3
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand/LArm_Finger11
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand/LArm_Finger11/LArm_Finger12
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand/LArm_Finger11/LArm_Finger12/LArm_Finger13
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand/LArm_Finger21
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand/LArm_Finger21/LArm_Finger22
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand/LArm_Finger21/LArm_Finger22/LArm_Finger23
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand/LArm_Finger31
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand/LArm_Finger31/LArm_Finger32
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand/LArm_Finger31/LArm_Finger32/LArm_Finger33
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand/LArm_Finger41
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand/LArm_Finger41/LArm_Finger42
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand/LArm_Finger41/LArm_Finger42/LArm_Finger43
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand/LArm_Finger51
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand/LArm_Finger51/LArm_Finger52
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand/LArm_Finger51/LArm_Finger52/LArm_Finger53
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/LArm_Hand/WeaponLeft
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_ForeArm1/LArm_ForeArm2/LArm_ForeArm3/PipboyBone
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_UpperArm_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_UpperTwist1
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_UpperTwist1/LArm_UpperTwist1_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_UpperTwist1/LArm_UpperTwist2
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_UpperTwist1/LArm_UpperTwist2/LArm_UpperFat_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LArm_Collarbone/LArm_UpperArm/LArm_UpperTwist1/LArm_UpperTwist2/LArm_UpperTwist2_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/LBreast_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/Neck
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/Neck/HEAD
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/Neck/HEAD/Face_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/Neck/HEAD/Head_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/Neck/Neck1_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/Neck/Neck_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/Neck_Low_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/R_RibHelper
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_Collarbone_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_ShoulderFat_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm1_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm2_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_ForeArm3_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand/AnimObjectR1
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand/AnimObjectR2
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand/AnimObjectR3
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand/RArm_Finger11
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand/RArm_Finger11/RArm_Finger12
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand/RArm_Finger11/RArm_Finger12/RArm_Finger13
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand/RArm_Finger21
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand/RArm_Finger21/RArm_Finger22
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand/RArm_Finger21/RArm_Finger22/RArm_Finger23
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand/RArm_Finger31
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand/RArm_Finger31/RArm_Finger32
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand/RArm_Finger31/RArm_Finger32/RArm_Finger33
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand/RArm_Finger41
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand/RArm_Finger41/RArm_Finger42
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand/RArm_Finger41/RArm_Finger42/RArm_Finger43
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand/RArm_Finger51
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand/RArm_Finger51/RArm_Finger52
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand/RArm_Finger51/RArm_Finger52/RArm_Finger53
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_ForeArm1/RArm_ForeArm2/RArm_ForeArm3/RArm_Hand/WEAPON
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_UpperArm_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_UpperTwist1
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_UpperTwist1/RArm_UpperTwist1_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_UpperTwist1/RArm_UpperTwist2
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_UpperTwist1/RArm_UpperTwist2/RArm_UpperFat_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RArm_Collarbone/RArm_UpperArm/RArm_UpperTwist1/RArm_UpperTwist2/RArm_UpperTwist2_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Chest/RBreast_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Spine2_Rear_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/Spine2_skin
+    m_Weight: 1
+  - m_Path: Root/COM/SPINE1/SPINE2/UpperBelly_skin
+    m_Weight: 1
+  - m_Path: UprLipRollOut:0
+    m_Weight: 1

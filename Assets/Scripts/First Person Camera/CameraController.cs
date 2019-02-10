@@ -12,8 +12,9 @@ public class CameraController : MonoBehaviour
 
     //IMPORTANT, these values control where the anchor starts in ragard to the player, rotation and distance
     private float StartOffsetRotationHorizontal = -25;  //positive shifts the camera the the "left of the player" starting orientation
-    private float StartOffsetRotationVertical = 0;  //negative shifts the camera to the "bottom of the player" (under) starting orientation
-    private float StartOffsetDistance = 1f;        //negative shifts the distance away from the player in front fromt he starting position.
+    private float StartOffsetRotationVertical = 0f;  //negative shifts the camera to the "bottom of the player" (under) starting orientation 
+                                                     //NOTE: keep this zero, and modify the body anchor points for Vertical offset, this value will unalign the camera / focus point degree rotations
+    private float StartOffsetDistance = 2f;        //negative shifts the distance away from the player in front fromt he starting position.
 
     //anchor points transforms.
     public Transform cameraAnchorAround;
@@ -21,7 +22,7 @@ public class CameraController : MonoBehaviour
     public Transform cameraAnchorHead;
     public Transform cameraAnchorBody;
 
-    public float Distance = 1f;
+    public float Distance = 2f;
     public float DistanceMin = 1f;
     public float DistanceMax = 25f;
     public float DistanceSmooth = 0.05f;
@@ -33,8 +34,8 @@ public class CameraController : MonoBehaviour
     public float Y_Smooth = 0.05f;
 
     //IMPORTANT, to have the camera focus point camera stay aligned they MUST have the same limit.
-    public float Y_MinLimit = -70f;
-    public float Y_MaxLimit = 70f;    //controls how far our camera can rotate on its axis, needs to be tuned along with CameraFocusControl's values (NOT THE SAME), so they work well together
+    private float Y_MinLimit = -60f;
+    private float Y_MaxLimit = 60f;    //controls how far our camera can rotate on its axis, needs to be tuned along with CameraFocusControl's values (NOT THE SAME), so they work well together
 
     public float OcculsionDistanceStep = 0.5f;
     public int maxOcclusionChecks = 10;

@@ -127,6 +127,7 @@ public class PlayerCharacterController : MonoBehaviour
 
         //Since arent animation locked, animate our body based on X and Y Axes
         AnimateBodyParts.Instance.setMotionAxes(xAxis, yAxis);
+        Animate3rdPerson.Instance.setMotionAxes(xAxis, yAxis);
 
     }
 
