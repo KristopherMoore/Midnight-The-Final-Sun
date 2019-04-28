@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//extremely simple script for flashlight control. will be modified by the PlayerCharacter Controllers.
 public class FlashlightController : MonoBehaviour {
 	
-    //extremely simple script for flashlight controll. will be modified by the PlayerCharacter Controllers.
-
-    //so our controller can set the flashlight on and off
+    //set our flashlight based on a boolean
     public void setFlashlight(bool toSet)
     {
         this.gameObject.SetActive(toSet);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//class to handle the Animator for the Player Character's THIRD Person Body Parts
 public class Animate3rdPerson : MonoBehaviour {
 
     private Animator animator;
@@ -29,6 +30,12 @@ public class Animate3rdPerson : MonoBehaviour {
     //Outside methods can set our motion Axes, IE the player character controller. Limit the times we get Axis Input in each script.
     public void setMotionAxes(float XSet, float YSet)
     {
+        if (animator == null)
+        {
+            animator = transform.GetComponent<Animator>();
+            Debug.Log("ANIMATOR RESET");
+        }
+
         animator.SetFloat("MotionXAxis", XSet);
         animator.SetFloat("MotionYAxis", YSet);
     }

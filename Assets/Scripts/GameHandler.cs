@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//The GameHandler is responsible for upkeeping a valid game state, serves to lock the state of the game if in a menu, and other such actions
 public class GameHandler : MonoBehaviour {
-
-    //class to handle the game state, holding key game details like save states, a masterList of all items. Etc.
 
     //Public itemMasterList, so other methods can utilize the single instance of the MasterList
     public static ItemsMasterList itemsMasterList = new ItemsMasterList();
@@ -19,7 +18,7 @@ public class GameHandler : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        //TEMP REMOVE OF GAME MENU LOCK
+        //TODO: TEMP REMOVE OF GAME MENU LOCK
         //if (GameMenu.Instance.getMenuStatus() == true) //if we are currently in a menu, remove control of character, by ending this update run
         //return;
 
@@ -43,12 +42,14 @@ public class GameHandler : MonoBehaviour {
 
 	}
 
+    //toggleCursor action, to allow us to change the cursor state on calls
     private void toggleCursor()
     {
-        //invert the cursor visibility and from that decide to lock or unlock, since we cant invert enums
+        //invert the cursor visibility
         Cursor.visible = !Cursor.visible;
 
-        if (Cursor.visible == true)
+        //decide to lock or unlock, since we cant invert enums
+        if (Cursor.visible)
         {
             Cursor.lockState = CursorLockMode.None;
         }

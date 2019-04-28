@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//class to handle the Animator for the Player Character's Weapon, this includes states like Firing, and Reloading
 public class AnimateWeapon : MonoBehaviour {
 
     private Animator animator;

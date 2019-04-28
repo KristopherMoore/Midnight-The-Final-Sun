@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//class to handle the Animator for the Player Character's First Person Arms
 public class AnimateArms : MonoBehaviour
 {
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//class to handle a HitScan based raycast system. Extremely simple, but necessry for HitScan based shooting
 public class HitScanRayCast : MonoBehaviour {
 
     public GameObject cameraFocusPoint;

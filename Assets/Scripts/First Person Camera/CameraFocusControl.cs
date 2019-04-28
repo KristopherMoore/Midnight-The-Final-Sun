@@ -5,6 +5,8 @@ using UnityEngine;
 public class CameraFocusControl : MonoBehaviour
 {
 
+    //TODO: Still too much overlap between CameraController and CameraFocusControl, need to have some consolidations
+
     public static CameraFocusControl Instance;
 
 
@@ -27,9 +29,10 @@ public class CameraFocusControl : MonoBehaviour
     public float X_Smooth = 0.05f;
     public float Y_Smooth = 0.1f;
 
-    //IMPORTANT, to have the camera focus point camera stay aligned they MUST have the same limit.
-    private float Y_MinLimit = -60f;   //for the camera focus, this limits how high upwards we can aim (towards the sky)  the higher negatives = higher aim
-    private float Y_MaxLimit = 60f;    //inverse, controls how low we can aim, higher numbers = lower we can aim
+    //IMPORTANT, to have the camera focus point camera stay aligned they MUST have the same limit. AND must be aligned to the CameraControllers limits
+    //TODO: have this value be taken from values of the CameraController
+    private float Y_MinLimit = -80f;   //for the camera focus, this limits how high upwards we can aim (towards the sky)  the higher negatives = higher aim
+    private float Y_MaxLimit = 80f;    //inverse, controls how low we can aim, higher numbers = lower we can aim
 
     private float mouseX = 0f;
     private float mouseY = 0f;
@@ -71,6 +74,7 @@ public class CameraFocusControl : MonoBehaviour
         UpdatePosition();
     }
 
+    //Handle the players mouse inputs, and respond accordingly. Handles Controller input as well.
     void HandlePlayerInput() //function to get and handle mouse input
     {
 
@@ -89,6 +93,7 @@ public class CameraFocusControl : MonoBehaviour
 
     }
 
+    //calcuates our DesiredPosition vector based on our distance and axis values
     void CalculateDesiredPosition() //find out where we want to be
     {
         //Evaluate distance
@@ -98,6 +103,7 @@ public class CameraFocusControl : MonoBehaviour
         desiredPosition = CalculatePosition(mouseY, mouseX, Distance); //based on the given changes to the vertical and horizontal planes (may need to invert here for consistency with camera), and our distance
     }
 
+    //give a rotation and a distance, returns a vector our our new Camera position with rotational offsets
     Vector3 CalculatePosition(float rotationX, float rotationY, float distance) //takes in our (mouseY, mouseX, Distance) variables and finds our new position from our desired position
     {
         Vector3 direction = new Vector3(0, 0, -distance); //calc direction to rotate
@@ -105,6 +111,7 @@ public class CameraFocusControl : MonoBehaviour
         return anchorAround.position + rotation * direction; //use the anchor around position then rotate by rotation and direction
     }
 
+    //updates the camera physical posiition in world space, Smoothly based on our current/desired posititons
     void UpdatePosition()
     {
         //find positions individually
@@ -114,12 +121,15 @@ public class CameraFocusControl : MonoBehaviour
 
         position = new Vector3(posX, posY, posZ); //convert to a Vector3 
 
-        transform.position = position;  //change the position of our focus control point
+        //change the position of our focus control point
+        transform.position = position;
 
-        transform.LookAt(anchorAround);  //shouldnt need to focus on anything, just rotate around anchor
+        //shouldnt need to focus on anything, just rotate around anchor
+        transform.LookAt(anchorAround);
     }
 
-    public void Reset() //public incase we ever need to reset the camera externally
+    //reset of all primary values, necessary in some cases when modifying cameraStates
+    public void Reset()
     {
         mouseX = StartOffsetRotationHorizontal;
         mouseY = StartOffsetRotationVertical;
