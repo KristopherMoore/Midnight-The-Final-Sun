@@ -57,6 +57,9 @@ public class Unit : MonoBehaviour {
                 transform.root.GetComponent<EnemyCharacterController>().enabled = false;
             if (transform.root.GetComponent<NavMeshAgent>() != null)
                 transform.root.GetComponent<NavMeshAgent>().enabled = false;
+
+            //destruct the asset, remove it completely after a set amount of time
+            Destroy(transform.root.gameObject, 5f);
         }
         else
             setHP(getMaxHP());

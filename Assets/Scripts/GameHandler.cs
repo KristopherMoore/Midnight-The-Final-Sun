@@ -22,6 +22,12 @@ public class GameHandler : MonoBehaviour {
         //if (GameMenu.Instance.getMenuStatus() == true) //if we are currently in a menu, remove control of character, by ending this update run
         //return;
 
+        //dev action, kill game
+        if (Input.GetKeyDown(KeyCode.BackQuote))
+        {
+            Application.Quit();
+        }
+
         //dev action
         if (Input.GetKeyDown(KeyCode.Escape))
         {

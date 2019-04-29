@@ -49,7 +49,7 @@ AvatarMask:
   - m_Path: Root/CamTargetParent/CamTarget
     m_Weight: 1
   - m_Path: Root/COM
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Root/COM/Pelvis
     m_Weight: 0
   - m_Path: Root/COM/Pelvis/LButtFat_skin
