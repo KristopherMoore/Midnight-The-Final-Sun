@@ -1,0 +1,265 @@
+fileFormatVersion: 2
+guid: b7d5c9502ce791f42b71b446ae374c80
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: B_Wepon_Case
+    100002: B_Wepon_Case0_L
+    100004: B_Wepon_Case0_R
+    100006: Head
+    100008: L_Calf
+    100010: L_Clavicle
+    100012: L_Finger0
+    100014: L_Finger01
+    100016: L_Finger02
+    100018: L_Finger1
+    100020: L_Finger11
+    100022: L_Finger12
+    100024: L_Finger2
+    100026: L_Finger21
+    100028: L_Finger22
+    100030: L_Foot
+    100032: L_Forearm
+    100034: L_ForeTwist
+    100036: L_Hand
+    100038: L_Po
+    100040: L_Shield
+    100042: L_Shoulderpad
+    100044: L_Thigh
+    100046: L_Toe0
+    100048: L_UpperArm
+    100050: L_Weapon
+    100052: L_Wepon_Case
+    100054: LCalfTwist
+    100056: //RootNode
+    100058: Lower_Root
+    100060: LUpArmTwist
+    100062: Master
+    100064: mesh0
+    100066: mesh1
+    100068: mesh2
+    100070: mesh3
+    100072: mesh4
+    100074: Neck
+    100076: Pelvis
+    100078: R_Calf
+    100080: R_Clavicle
+    100082: R_Finger0
+    100084: R_Finger01
+    100086: R_Finger02
+    100088: R_Finger1
+    100090: R_Finger11
+    100092: R_Finger12
+    100094: R_Finger2
+    100096: R_Finger21
+    100098: R_Finger22
+    100100: R_Foot
+    100102: R_Forearm
+    100104: R_ForeTwist
+    100106: R_Hand
+    100108: R_Po
+    100110: R_Shield
+    100112: R_Shoulderpad
+    100114: R_Thigh
+    100116: R_Toe0
+    100118: R_UpperArm
+    100120: R_Weapon
+    100122: R_Wepon_Case
+    100124: RCalfTwist
+    100126: root
+    100128: RUpArmTwist
+    100130: Spine
+    100132: Spine1
+    100134: Upper_Root
+    400000: B_Wepon_Case
+    400002: B_Wepon_Case0_L
+    400004: B_Wepon_Case0_R
+    400006: Head
+    400008: L_Calf
+    400010: L_Clavicle
+    400012: L_Finger0
+    400014: L_Finger01
+    400016: L_Finger02
+    400018: L_Finger1
+    400020: L_Finger11
+    400022: L_Finger12
+    400024: L_Finger2
+    400026: L_Finger21
+    400028: L_Finger22
+    400030: L_Foot
+    400032: L_Forearm
+    400034: L_ForeTwist
+    400036: L_Hand
+    400038: L_Po
+    400040: L_Shield
+    400042: L_Shoulderpad
+    400044: L_Thigh
+    400046: L_Toe0
+    400048: L_UpperArm
+    400050: L_Weapon
+    400052: L_Wepon_Case
+    400054: LCalfTwist
+    400056: //RootNode
+    400058: Lower_Root
+    400060: LUpArmTwist
+    400062: Master
+    400064: mesh0
+    400066: mesh1
+    400068: mesh2
+    400070: mesh3
+    400072: mesh4
+    400074: Neck
+    400076: Pelvis
+    400078: R_Calf
+    400080: R_Clavicle
+    400082: R_Finger0
+    400084: R_Finger01
+    400086: R_Finger02
+    400088: R_Finger1
+    400090: R_Finger11
+    400092: R_Finger12
+    400094: R_Finger2
+    400096: R_Finger21
+    400098: R_Finger22
+    400100: R_Foot
+    400102: R_Forearm
+    400104: R_ForeTwist
+    400106: R_Hand
+    400108: R_Po
+    400110: R_Shield
+    400112: R_Shoulderpad
+    400114: R_Thigh
+    400116: R_Toe0
+    400118: R_UpperArm
+    400120: R_Weapon
+    400122: R_Wepon_Case
+    400124: RCalfTwist
+    400126: root
+    400128: RUpArmTwist
+    400130: Spine
+    400132: Spine1
+    400134: Upper_Root
+    2100000: LG_F_9520_0
+    2100002: LG_F_9520_1
+    2100004: LG_F_9520_2
+    2100006: LG_F_9520_3
+    2100008: LG_F_9520_4
+    4300000: mesh0
+    4300002: mesh1
+    4300004: mesh2
+    4300006: mesh3
+    4300008: mesh4
+    9500000: //RootNode
+    13700000: mesh0
+    13700002: mesh1
+    13700004: mesh2
+    13700006: mesh3
+    13700008: mesh4
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LG_F_9520_0
+    second: {fileID: 2100000, guid: 2386116fac465c847a0045ef8d687447, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LG_F_9520_1
+    second: {fileID: 2100000, guid: 2386116fac465c847a0045ef8d687447, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LG_F_9520_2
+    second: {fileID: 2100000, guid: 2386116fac465c847a0045ef8d687447, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LG_F_9520_3
+    second: {fileID: 2100000, guid: 2386116fac465c847a0045ef8d687447, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LG_F_9520_4
+    second: {fileID: 2100000, guid: 2386116fac465c847a0045ef8d687447, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
