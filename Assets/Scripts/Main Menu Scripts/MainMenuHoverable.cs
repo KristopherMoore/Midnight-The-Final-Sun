@@ -3,9 +3,9 @@
  * @file MainMenuHoverable.cs
  *
  *
- * @game-version 0.71
- *          Kristopher Moore (13 May 2019)
- *          Initial Build of MainMenuHoverable class
+ * @game-version 0.72
+ *          Kristopher Moore (14 May 2019)
+ *          Modified to allow click and data send to MainMenuSelection
  *          
  *          Responsible for the scripting actions of the character hover,
  *          the player will hover these colliders on the UI, and this will
@@ -17,12 +17,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class MainMenuHoverable : MonoBehaviour {
 
     string goName;
     Image image;
     EventTrigger eventTrigger;
+    GameObject inputField;
 
     void Awake()
     {
@@ -32,6 +34,9 @@ public class MainMenuHoverable : MonoBehaviour {
         //get image of the Clickable running this script, and its event trigger
         image = this.transform.GetComponent<Image>();
         eventTrigger = this.transform.GetComponent<EventTrigger>();
+
+        //get our InputField
+        inputField = GameObject.Find("InputField");
 
         //create our PointerEnter trigger, establish what it should call, and add it to the triggers
         EventTrigger.Entry entry = new EventTrigger.Entry();
@@ -55,7 +60,11 @@ public class MainMenuHoverable : MonoBehaviour {
 
     public void onPointerClickDelegate(PointerEventData data)
     {
-        
+        MainMenuSelection.nameSelection = inputField.transform.Find("Text").GetComponent<Text>().text;
+        MainMenuSelection.modeSelection = "NEW GAME";
+
+        //start game by loading the scene.
+        StartCoroutine(LoadAsyncScene());
     }
 
     public void onPointerEnterDelegate(PointerEventData data)
@@ -72,5 +81,15 @@ public class MainMenuHoverable : MonoBehaviour {
 
         //remove hue from the item, as it is no longer being hovered
         image.color = Color.white;
+    }
+
+    //allow us to load the scene
+    IEnumerator LoadAsyncScene()
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("TestingLevelNew");
+        while (asyncLoad.isDone == false)
+        {
+            yield return null;
+        }
     }
 }

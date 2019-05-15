@@ -3,9 +3,9 @@
  * @file MainMenu.cs
  *
  *
- * @game-version 0.71 
- *          Kristopher Moore (13 May 2019)
- *          Initial Build of MainMenu class
+ * @game-version 0.72
+ *          Kristopher Moore (14 May 2019)
+ *          Modified to account for the MainMenuSelection additions, sets based on selected option
  *          
  *          Responsible as a base for the MenuClickables Scripts, allows those objects to call into functions
  *          from their own instance.
@@ -30,11 +30,18 @@ public class MainMenu : MonoBehaviour
 
         MainButtonsPanel = HelperK.FindSearchAllChildren(this.transform, "MainButtonsPanel").gameObject;
         ClassButtonsPanel = HelperK.FindSearchAllChildren(this.transform, "ClassButtonsPanel").gameObject;
+
+        ClassButtonsPanel.SetActive(false);
+        MainButtonsPanel.SetActive(true);
     }
 
     //Menu Clickables will send this click actions with their processName to be parsed here
     public void MenuClickable(string selection, string startingClass)
     {
+        //ensure our selection is set to the static object, to be read from new game state
+        MainMenuSelection.modeSelection = selection;
+        MainMenuSelection.modeSelection = startingClass;
+
         //determine which action to take based on selection Code.
         switch (selection)
         {

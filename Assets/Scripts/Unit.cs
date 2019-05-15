@@ -1,9 +1,21 @@
-﻿using System.Collections;
+﻿//Program Information///////////////////////////////////////////////////////////
+/*
+ * @file Unit.cs
+ *
+ *
+ * @game-version 0.72 
+ *          Kristopher Moore (14 May 2019)
+ *          Documentation changes
+ *          
+ *          This class will serve as a base for all unit types in the game. Handling health, stamina, life state, and their rigidbody
+ *          
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-//This class will serve as a base for all unit types in the game. Handling health, stamina, life state, and their rigidbody
 public class Unit : MonoBehaviour {
 
     private float health;

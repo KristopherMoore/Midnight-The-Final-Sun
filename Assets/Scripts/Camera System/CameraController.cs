@@ -1,19 +1,32 @@
-﻿using System.Collections;
+﻿//Program Information///////////////////////////////////////////////////////////
+/*
+ * @file CameraController.cs
+ *
+ *
+ * @game-version 0.72 
+ *          Kristopher Moore (14 May 2019)
+ *          Modifications to Player Motor for interaction with 3rd person changes
+ *          
+ *          Camera class that handles functionality such as the camera, its anchor pivot, its orientation to the player, 
+ *          its focus target, and occlusion checks and fixes.
+ *          Also Allows for switching between 3rd and 1st Person Camera States
+ *          
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//Camera class that handles functionality such as the camera, its anchor pivot, its orientation to the player, its focus target, and occlusion checks and fixes.
-//Also Allows for switching between 3rd and 1st Person Camera States
 public class CameraController : MonoBehaviour
 {
 
     public static CameraController Instance;
 
     //IMPORTANT, these values control where the anchor starts in ragard to the player, rotation and distance
-    private float StartOffsetRotationHorizontal = -25;  //positive shifts the camera the the "left of the player" starting orientation
+    private float StartOffsetRotationHorizontal = 0f;  //positive shifts the camera the the "left of the player" starting orientation
     private float StartOffsetRotationVertical = 0f;  //negative shifts the camera to the "bottom of the player" (under) starting orientation 
                                                      //NOTE: keep this zero, and modify the body anchor points for Vertical offset, this value will unalign the camera / focus point degree rotations
-    private float StartOffsetDistance = 2f;        //negative shifts the distance away from the player in front fromt he starting position.
+    private float StartOffsetDistance = 3f;        //negative shifts the distance away from the player in front fromt he starting position.
 
     //anchor points transforms.
     public Transform cameraAnchorAround;
@@ -21,16 +34,16 @@ public class CameraController : MonoBehaviour
     public Transform cameraAnchorHead;
     public Transform cameraAnchorBody;
 
-    public float Distance = 2f;
-    public float DistanceMin = 1f;
-    public float DistanceMax = 25f;
-    public float DistanceSmooth = 0.05f;
-    public float DistanceResumeSmooth = 1f;
+    private float Distance = 2f;
+    private float DistanceMin = 1f;
+    private float DistanceMax = 25f;
+    private float DistanceSmooth = 0.05f;
+    private float DistanceResumeSmooth = 1f;
     public float X_MouseSensitivity = 5f;
     public float Y_MouseSensitivity = 5f;
     public float MouseWheelSensitivity = 5f;
-    public float X_Smooth = 0.05f;
-    public float Y_Smooth = 0.05f;
+    public float X_Smooth = 0.15f;
+    public float Y_Smooth = 0.15f;
 
     //IMPORTANT, to have the camera focus point camera stay aligned they MUST have the same limit. AND it must be aligned with The Camera Focus Control's
     private float Y_MinLimit = -80f;   //for the camera focus, this limits how high upwards we can aim (towards the sky)  the higher negatives = higher aim
@@ -52,7 +65,7 @@ public class CameraController : MonoBehaviour
     private float distanceSmooth = 0f;
     private float preOccludedDistance = 0;
 
-    private Vector3 thirdPersonCameraOffset = new Vector3(1f, 0f, -1f);
+    private float smoothSpeed = 5;
 
     //values for the cameraZoom
     private float zoomSpeed = 0.1f;

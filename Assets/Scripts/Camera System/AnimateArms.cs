@@ -33,6 +33,9 @@ public class AnimateArms : MonoBehaviour
     //so we can reset our animation states
     public void resetAllAnimations()
     {
+        if (!animator)
+            animator = transform.GetComponent<Animator>();
+ 
         animator.SetBool("isFired", false);
         animator.SetBool("isIdling", false);
         animator.SetBool("isJogging", false);

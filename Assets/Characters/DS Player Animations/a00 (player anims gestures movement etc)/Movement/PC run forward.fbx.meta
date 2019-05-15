@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: adb6a18ef75c0d8469105fdd1fb36538
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     100002: B_Wepon_Case
@@ -129,7 +129,7 @@ ModelImporter:
     400120: Spine
     400122: Spine1
     400124: Upper_Root
-    7400000: Running
+    7400000: DS sprint
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -160,7 +160,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Running
+      name: DS sprint
       takeName: Noesis Frames
       firstFrame: 0
       lastFrame: 17
@@ -210,6 +210,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0

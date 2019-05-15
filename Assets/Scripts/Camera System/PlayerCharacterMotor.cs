@@ -1,16 +1,24 @@
-﻿using System.Collections;
+﻿//Program Information///////////////////////////////////////////////////////////
+/*
+ * @file PlayerCharacterMotor.cs
+ *
+ *
+ * @game-version 0.72 
+ *          Kristopher Moore (14 May 2019)
+ *          Modifications to Player Motor for interaction with 3rd person changes
+ *          
+ *          Class responsible for handling the Motion behaviour of our player character. 
+ *          Moving in world space, calculating vertical positional offsets (jumping, falling, gliding)
+ *          
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//class responsible for handling the Motion behaviour of our player character. Moving in world space, calculating vertical positional offsets (jumping, falling, gliding)
 public class PlayerCharacterMotor : MonoBehaviour
 {
     public static PlayerCharacterMotor Instance; //hold reference to instance of itself  
 
-    private float WalkSpeed = 1.5f;
-    private float JogSpeed = 2.5f;
-    private float RunSpeed = 5f;
-    private float SneakSpeed = 3f;
     public float SlideSpeed = 3f;
     public float jumpSpeed = 8f;
     public float Gravity = 21f;
@@ -23,6 +31,7 @@ public class PlayerCharacterMotor : MonoBehaviour
     public float verticalVelocity = 0;
 
     public GameObject cameraFocusPoint;
+    private float smoothSpeed = 10;
 
     public float smoothTime = 0.3f;
     private float velocity = 0.1f;
@@ -41,14 +50,38 @@ public class PlayerCharacterMotor : MonoBehaviour
     //Process our Motion based on updates performed by the PlayerCharacterController
     void ProcessMotion()
     {
-                //TO BE REMOVED no longer useful for our style movement, could be useful when doing lock on system
-                //Transform MoveVector to WorldSpace relative to our characters location
-                //MoveVector = transform.TransformDirection(MoveVector);
-
-        //Modify MoveVector relative to our cameras rotation
+        //Modify MoveVector relative to our CAMERAS ROTATION // MOTION should ALWAYS be relative to camera.
         Vector3 cameraDirection = Camera.main.transform.TransformDirection(MoveVector.x, MoveVector.y, MoveVector.z);
         cameraDirection.y = 0.0f;
         MoveVector = cameraDirection;
+
+        //apply different MODEL ROTATION qualities based on whether we are aiming.
+        if (PlayerCharacterController.Instance.isAiming || PlayerCharacterController.Instance.is1stPersonCamera)
+        {
+            //rotate the player model along with the camera
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, Camera.main.transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+        }
+        else
+        {
+            float rotationAngle = Vector3.Angle(Vector3.forward, MoveVector);
+            if (MoveVector.x < 0)
+                rotationAngle = -rotationAngle;
+
+            if (MoveVector.x != 0)
+            {
+                Quaternion targetRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, rotationAngle, transform.rotation.eulerAngles.x);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothSpeed * Time.deltaTime);
+            }
+            
+            //if (MoveVector.z < 0)
+            //rotationAngle = -rotationAngle;
+
+            //Transform MoveVector to WorldSpace relative to our CHARACTERS LOCATION
+            //MoveVector = transform.TransformDirection(MoveVector);
+
+            //rotate the player model along with this movement
+
+        }
 
         //Normalize MoveVector, which is now relative to cam rotation
         MoveVector = Vector3.Normalize(MoveVector);
@@ -133,16 +166,11 @@ public class PlayerCharacterMotor : MonoBehaviour
     //handles the modifications to movementSpeed based on our current movement state (Walking, Running, Sneaking, etc)
     float MoveSpeed()
     {
-        float moveSpeed = JogSpeed;
+        //TESTING move speed based on axis
+        float moveSpeed = Mathf.Max(Mathf.Abs(PlayerCharacterController.Instance.xAxis), Mathf.Abs(PlayerCharacterController.Instance.yAxis)) * 7;
 
-        if (PlayerCharacterController.Instance.isWalking)
-            moveSpeed = WalkSpeed;
-      
         if (PlayerCharacterController.Instance.isRunning)
-            moveSpeed = RunSpeed;
-
-        if (PlayerCharacterController.Instance.isSneaking)
-            moveSpeed = SneakSpeed;
+            moveSpeed *= 1.5f;
 
         return moveSpeed;
     }

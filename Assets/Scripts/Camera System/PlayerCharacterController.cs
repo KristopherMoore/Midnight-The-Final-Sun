@@ -1,14 +1,23 @@
-﻿using System.Collections;
+﻿//Program Information///////////////////////////////////////////////////////////
+/*
+ * @file PlayerCharacterController.cs
+ *
+ *
+ * @game-version 0.72 
+ *          Kristopher Moore (14 May 2019)
+ *          Modifications to Player Controller to support Input Handler
+ *          
+ *          The PlayerCharacterController is responsible for key functionalities, it serves as a base for a players interactions with their character. 
+ *          It validates player inputs, and sends off any information needed by the Player Motor and the Animation controllers.
+ *          
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//The PlayerCharacterController is responsible for key functionalities, it serves as a base for a players interactions with their character. It validates player inputs,
-//and sends off any information needed by the Player Motor and the Animation controllers.
 public class PlayerCharacterController : MonoBehaviour
 {
-    //IMPORTANT NOTE: I have offloaded redundancy into this Controller, primarily because the Animation scripts were very redundant in state checking
-    //since this controller already has to check these states we can drastically reduce overhead by simply adding in statement load. Furthermore,
-    //this controller already has exit conditions for optimization, so that is expontential in our overall statement execution reduction.
     public static CharacterController CharacterController;
     public static PlayerCharacterController Instance; //hold reference to current instance of itself
 
@@ -45,9 +54,13 @@ public class PlayerCharacterController : MonoBehaviour
     public bool isReloading = false;
     private bool flashLightOn = true;
 
+    public float xAxis;
+    public float yAxis;
+
     //cameraState 1st Person, 0 is 3rd Person, 1 is 1st.   //Also need to grab Transform of models, so we can hide/unhide them
-    public bool is1stPersonCamera = false;
+    public bool is1stPersonCamera = true;
     private Transform firstPersonModel;
+    private Transform firstPersonArms;
     private Transform thirdPersonModel;
 
     //cameraAnchorPoint, used for moving the camera during crouch, etc.
@@ -80,6 +93,7 @@ public class PlayerCharacterController : MonoBehaviour
         //grab the player models for 1st / 3rd person
         //TODO: Update this to work within all player model status, check model for Player Instance. For now its just testing code
         firstPersonModel = HelperK.FindSearchAllChildren(this.transform, "1stPerson");
+        firstPersonArms = GameObject.Find("1stPersonArms").transform;
         thirdPersonModel = HelperK.FindSearchAllChildren(this.transform, "3rdPerson");
         changeCameraState();
 
@@ -127,8 +141,8 @@ public class PlayerCharacterController : MonoBehaviour
         PlayerCharacterMotor.Instance.MoveVector = Vector3.zero; //recalcuate, prevents it from being additive. Basically restart on every update
 
         //ask the Input manager for our Horizontal / vertical inputs. (PC this is WASD, Controller this is Left Stick)
-        float xAxis = Input.GetAxis("Horizontal");
-        float yAxis = Input.GetAxis("Vertical");
+        xAxis = Input.GetAxis("Horizontal");
+        yAxis = Input.GetAxis("Vertical");
 
         
         //check if input exceeds the deadZone (check for a minimal amount of input before moving)
@@ -144,10 +158,8 @@ public class PlayerCharacterController : MonoBehaviour
         }
 
         //Since we are not animation locked, animate our body based on X and Y Axes
-        if(AnimateBodyParts.Instance && is1stPersonCamera)
+        if (AnimateBodyParts.Instance && is1stPersonCamera)
             AnimateBodyParts.Instance.setMotionAxes(xAxis, yAxis);
-        if(AnimateDsBody.Instance && !is1stPersonCamera)
-            AnimateDsBody.Instance.setMotionAxes(xAxis, yAxis);
 
     }
 
@@ -162,10 +174,10 @@ public class PlayerCharacterController : MonoBehaviour
         playerAnimationState = animationState.Idling;
 
         //movement checks for the animators, always check these first then other action inputs.
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        if (isMoving)
         {
             playerAnimationState = animationState.Jogging;
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (InputHandler.Instance.checkAction(InputHandler.actions.RUN))
             {
                 //cant run if we are sneaking, so check that and proceed accordingly
                 if (isSneaking == false)
@@ -211,19 +223,13 @@ public class PlayerCharacterController : MonoBehaviour
             cameraAnchorPoint.localPosition = Vector3.Lerp(cameraAnchorPoint.localPosition, standCamOffset, smoothSpeed * Time.deltaTime);
 
         //check for aiming
-        if (Input.GetMouseButton(1))
-        {
+        if (InputHandler.Instance.checkAction(InputHandler.actions.AIM))
             isAiming = true;
-        }
-
-        //on frame aiming has stopped
-        if(Input.GetMouseButtonUp(1))
-        {
+        else
             isAiming = false;
-        }
 
         //reloading action
-        if (Input.GetKey(KeyCode.R))
+        if (InputHandler.Instance.checkAction(InputHandler.actions.ROLL))
         {
             //if were are not currently reloading, do not use negation here, because we send off coroutines, hard checks necessary
             if (!isReloading)
@@ -241,7 +247,7 @@ public class PlayerCharacterController : MonoBehaviour
         }
 
         //Weapon fire action, with left click
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (InputHandler.Instance.checkAction(InputHandler.actions.LIGHTATTACK))
         {
             //run the FireWeapon coroutine, if we arent currently in a isFiring state. or reloading
             if(!isFiring && !isReloading)
@@ -256,14 +262,14 @@ public class PlayerCharacterController : MonoBehaviour
             flashlight.setFlashlight(flashLightOn); 
         }
 
-        //OPEN KEY, E command
-        if (Input.GetKey(KeyCode.E))
+        //TODO: Use item command
+        if (InputHandler.Instance.checkAction(InputHandler.actions.USEITEM))
         {
 
         }
 
         //change camera state, If 1Person -> 3Person, else 3P -> 1P
-        if(Input.GetKeyDown(KeyCode.U))
+        if(InputHandler.Instance.checkAction(InputHandler.actions.CHANGECAM))
         {
             changeCameraState();
         }
@@ -280,7 +286,7 @@ public class PlayerCharacterController : MonoBehaviour
         }
 
         //jump action
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (InputHandler.Instance.checkAction(InputHandler.actions.JUMP))
         {
             //if we are gliding, another space will cancel the glide
             if(isGliding)
@@ -319,9 +325,12 @@ public class PlayerCharacterController : MonoBehaviour
             return;
 
         //reset Animations
-        AnimateArms.Instance.resetAllAnimations();
-        AnimateBodyParts.Instance.resetAllAnimations();
-        AnimateWeapon.Instance.resetAllAnimations();
+        if(AnimateArms.Instance)
+            AnimateArms.Instance.resetAllAnimations();
+        if(AnimateBodyParts.Instance)
+            AnimateBodyParts.Instance.resetAllAnimations();
+        if(AnimateWeapon.Instance)
+            AnimateWeapon.Instance.resetAllAnimations();
 
         //use switch conditional on our animation state, and set our relevant animation controller's values
         switch (playerAnimationState)
@@ -371,6 +380,7 @@ public class PlayerCharacterController : MonoBehaviour
 
         //adjust model's visibility as necessary, using inverse logic for thirdPersonModel. Cleaner code, doesnt need conditional checks
         firstPersonModel.gameObject.SetActive(is1stPersonCamera);
+        firstPersonArms.gameObject.SetActive(is1stPersonCamera);
         thirdPersonModel.gameObject.SetActive(!is1stPersonCamera);
     }
 

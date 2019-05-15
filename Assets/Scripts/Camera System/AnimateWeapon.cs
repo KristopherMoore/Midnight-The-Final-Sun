@@ -42,6 +42,8 @@ public class AnimateWeapon : MonoBehaviour {
 
     public void resetAllAnimations()
     {
+        if (!animator)
+            animator = transform.GetComponent<Animator>();
         animator.SetBool("isFired", false);
         animator.SetBool("isReloading", false);
     }

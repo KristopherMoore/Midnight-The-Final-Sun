@@ -1,9 +1,23 @@
-﻿using System.Collections;
+﻿//Program Information///////////////////////////////////////////////////////////
+/*
+ * @file HelperK.cs
+ *
+ *
+ * @game-version 0.72 
+ *          Kristopher Moore (14 May 2019)
+ *          Documentation updates 
+ *          
+ *          Class responsible for holding Helper functions for various actions across multiple scripts. 
+ *          This is important for very seperate functional class to have access
+ *          to things like Finding an object in children, removing children, appending strings, etc.
+ *          
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//Class responsible for holding Helper functions for various actions across multiple scripts. This is important for very seperate functional class to have access
-//to things like Finding an object in children, removing children, appending strings, etc.
+
 public static class HelperK
 {
 

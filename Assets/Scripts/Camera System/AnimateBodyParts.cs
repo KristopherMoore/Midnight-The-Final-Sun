@@ -60,6 +60,9 @@ public class AnimateBodyParts : MonoBehaviour
 
     public void resetAllAnimations()
     {
+        if (!animator)
+            animator = transform.GetComponent<Animator>();
+
         //NOTE: do NOT reset our MotionAxes here, it is handled by a seperate call and never needs to be overriden.
         animator.SetBool("isSneaking", false);
         animator.SetBool("isJumping", false);

@@ -1,28 +1,38 @@
-﻿using System;
+﻿//Program Information///////////////////////////////////////////////////////////
+/*
+ * @file InputHandler.cs
+ *
+ *
+ * @game-version 0.72 
+ *          Kristopher Moore (14 May 2019)
+ *          Modifications to support controller / keyboard input with arrays / index enumerator ACTIOn
+ *          
+ *          The InputHandler class will be responsible for checking for user inputs and storing them, in addition it will be flexible
+ *          to user modification. The only exceptions to this will be the Horizontal and Vertical Axis which will be handled 
+ *          seperately within their respective classes. This handler will manage the enumarations of states, and be placed in states
+ *          given the respective bind.
+ *
+ *          NOTE: this script is set to execute in the highest priority since it deals with player input managing. -100 behind Default script timings
+ *          
+ */
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class InputHandler : MonoBehaviour {
 
-    //The InputHandler class will be responsible for checking for user inputs and storing them, in addition it will be flexible
-    //to user modification. The only exceptions to this will be the Horizontal and Vertical Axis which will be handled 
-    //seperately within their respective classes. This handler will manage the enumarations of states, and be placed in states
-    //given the respective bind.
-
-    //Note this script is set to execute in the highest priority since it deals with player input managing. -100 behind Default 
-    //script timings
-
     public static InputHandler Instance;
 
     private static int maxKeyBinds = 100;
-    protected enum actions
+    public enum actions
     {
-        jump, run, walk, aim, shoot
+        AIM, ROLL, RUN, JUMP, LIGHTATTACK, HEAVYATTACK, USEITEM, CHANGECAM
     }
 
     private KeyCode[] keybinds;
-    private KeyCode[] altKeybinds;
+    private KeyCode[] controllerbinds;
 
     //mouse input variables
     private bool cursorMoved;
@@ -38,29 +48,62 @@ public class InputHandler : MonoBehaviour {
         Instance = this;
 
         //default keybinds
-        keybinds = new KeyCode[maxKeyBinds];
-        keybinds[0] = KeyCode.Space;
-        keybinds[1] = KeyCode.LeftShift;
-        keybinds[2] = KeyCode.Z;
-        keybinds[3] = KeyCode.Mouse1;
-        keybinds[4] = KeyCode.Mouse0;
+        keybinds = new KeyCode[(int)actions.CHANGECAM + 1];
+        keybinds[(int)actions.AIM] = KeyCode.F;
+        keybinds[(int)actions.ROLL] = KeyCode.R;
+        keybinds[(int)actions.RUN] = KeyCode.LeftShift;
+        keybinds[(int)actions.JUMP] = KeyCode.Space;
+        keybinds[(int)actions.LIGHTATTACK] = KeyCode.Mouse0;
+        keybinds[(int)actions.HEAVYATTACK] = KeyCode.Mouse1;
+        keybinds[(int)actions.USEITEM] = KeyCode.E;
+        keybinds[(int)actions.CHANGECAM] = KeyCode.U;
 
         //default altKeybinds
-        altKeybinds = new KeyCode[maxKeyBinds];
-        altKeybinds[0] = KeyCode.Joystick1Button3;
-        altKeybinds[1] = KeyCode.Joystick1Button1;
-        altKeybinds[2] = KeyCode.Z; //unneeded for controller
-        altKeybinds[3] = KeyCode.Ampersand; //This will need to be set to true for axis input of the 3rd axis, so when negative numbers on 3rd axis happen trigger this
-        altKeybinds[4] = KeyCode.At; //same as above but for right trigger. So positive towrds 1 on 3rd axis
+        controllerbinds = new KeyCode[(int)actions.CHANGECAM + 1];
+        controllerbinds[(int)actions.AIM] = KeyCode.F; //NOTE: Left trigger is an axis, so if this shows we will check for it in CheckActions
+        controllerbinds[(int)actions.ROLL] = KeyCode.JoystickButton1;
+        controllerbinds[(int)actions.RUN] = KeyCode.JoystickButton8;
+        controllerbinds[(int)actions.JUMP] = KeyCode.JoystickButton0;
+        controllerbinds[(int)actions.LIGHTATTACK] = KeyCode.JoystickButton5;
+        controllerbinds[(int)actions.HEAVYATTACK] = KeyCode.Mouse1; //NOTE: Right trigger is an axis, so if this shows we will check for it in CheckActions
+        controllerbinds[(int)actions.USEITEM] = KeyCode.JoystickButton2;
+        controllerbinds[(int)actions.CHANGECAM] = KeyCode.JoystickButton6;
 
         //testingcode
-        setNewBind(actions.aim);
-    }
-	
-	// Update is called once per frame
-	void Update ()
-    {
+        setNewBind(actions.AIM);
+
         getPlayerInput();
+    }
+
+    //allow exterior methods to check a desired action, based on an actions code.
+    //returns relevant input data based on the corresponding KeyCodes arrays.
+    public bool checkAction(actions action)
+    {
+        //handle specific action types that will have modifications. AIM / HEAVY, etc. That need Axis data
+        if (action == actions.AIM)
+        {
+            //specifically GetKey to see if it is HELD down
+            if (Input.GetKey(keybinds[(int)action]) || Input.GetAxis("LeftTrigger") < -0.1f)
+                return true;
+        }
+        else if (action == actions.HEAVYATTACK)
+        {
+            //specifically GetKey to see if it is HELD down
+            if (Input.GetKey(keybinds[(int)action]) || Input.GetAxis("RightTrigger") < -0.1f)
+                return true;
+        }
+        else if(action == actions.RUN)
+        {
+            //specifically GetKey to see if it is HELD down
+            if (Input.GetKey(keybinds[(int)action]) || Input.GetKey(controllerbinds[(int)action]))
+                return true;
+        }
+
+        else if(Input.GetKeyDown(keybinds[(int)action]) || Input.GetKeyDown(controllerbinds[(int)action]))
+            return true;
+
+        //in any case not passing, return false. Removes redundant code.
+        return false;
     }
 
     //method for handling player input and storing the values for 
