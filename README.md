@@ -14,10 +14,25 @@ This project is intended to explore the Unity Engine and Programming within it. 
 
 ## Game / Source Code Details
 
+### MAIN MENU
 + Upon startup you will be greeted by the Main Menu, from there you can Select one of 4 options:
 + If new game is chosen, you will be given a list of classes to pick and be asked to enter a character name.
 
-![SWITCH1 PNG](images/clip1.gif "Switch Example 1")
+![SWITCH1 GIF](images/clip1.gif "Switch Example 1")
+![SWITCH CODE PNG](images/code1.PNG "Switch Code")
+
+### PLAYER MOTOR
++ Motion is tracked as a movement vector and appended to by the inputs of the Horizontal / Vertical Axis, X/Y. This motion is supported with KBAM and Controller inputs.
+
+![MOTION GIF](images/clip2.gif "Motion Example")
+![MOTION CODE PNG](images/code2.PNG "Motion Code")
+
+### CAMERA OCCLUSION
++ Camera Occlusion is checked when in Third Person mode. If there are objects other than the Player or Enemy Units, the occlusion system checks if it can make a moderate jump and not be occluded. If this check does not pass after maxOcclusion checks then it goes in quickly as the camera is very occluded. Once the camera is no longer occluded it returns to previous positioning
+
+![OCCLUSION GIF](images/clip3.gif "Occlusion Example")
+![OCCLUSION CODE PNG](images/code3.PNG "Occlusion Code")
+![OCCLUSION CODE2 PNG](images/code4.PNG "Occlusion Code2")
 
 
 
