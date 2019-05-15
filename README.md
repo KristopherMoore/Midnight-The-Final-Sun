@@ -12,7 +12,7 @@ This project is intended to explore the Unity Engine and Programming within it. 
 * Currently only supporting Windows, due to active development. Will support Windows, Mac, and Linux systems in future.
 
 
-## Game / Source Code Details
+## Game Clips / Source Code Details
 
 ### MAIN MENU
 + Upon startup you will be greeted by the Main Menu, from there you can Select one of 4 options:
@@ -34,6 +34,14 @@ This project is intended to explore the Unity Engine and Programming within it. 
 ![OCCLUSION CODE PNG](images/code3.PNG "Occlusion Code")
 ![OCCLUSION CODE2 PNG](images/code4.PNG "Occlusion Code2")
 
+### ENEMY AI
++ Inherits from the Unit class like the Player and all other units
++ Enemy AI is built with the Unity NavMesh system and NavMeshAgents, for now I have built a simple 'ZOMBIE' style ai that has an aggro radius and field of view. Once within the FOV (Angle between forward vector and vector to Player), the enemy will lock onto the player and start chasing to attack. Enemies can be killed (Health reaches 0) and once killed their Rigidbody will activate so their bones can ragdoll.
+
+![ENEMY GIF](images/clip5.gif "Enemy Example")
+![ENEMY CODE PNG](images/code5.PNG "Enemy Code")
+![ENEMY2 GIF](images/clip6.gif "Enemy Example2")
+![ENEMY CODE2 PNG](images/code6.PNG "Enemy Code2")
 
 
 ## Roadmap
