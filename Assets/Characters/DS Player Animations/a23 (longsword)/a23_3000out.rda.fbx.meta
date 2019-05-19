@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 1de9c0fcd0af8db48869f0dfd634d55c
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     100002: B_Wepon_Case
@@ -129,7 +129,7 @@ ModelImporter:
     400120: Spine
     400122: Spine1
     400124: Upper_Root
-    7400000: Longsword L1
+    7400000: DS sword R1-1
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -160,7 +160,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Longsword L1
+      name: DS sword R1-1
       takeName: Noesis Frames
       firstFrame: 0
       lastFrame: 75
@@ -210,6 +210,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0

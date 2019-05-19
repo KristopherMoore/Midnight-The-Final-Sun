@@ -3,9 +3,9 @@
  * @file GameHandler.cs
  *
  *
- * @game-version 0.72 
- *          Kristopher Moore (14 May 2019)
- *          Modified to handle static MenuSelection info 
+ * @game-version 0.75 
+ *          Kristopher Moore (17 May 2019)
+ *          Modified for reimplementation of Game Menu
  *          
  *          Responsible as a base for the handling of game critical actions. Will retrieve
  *          static information passed from the Main Menu (such as when a new character is created)
@@ -23,6 +23,7 @@ public class GameHandler : MonoBehaviour {
     //Public itemMasterList, so other methods can utilize the single instance of the MasterList
     public static ItemsMasterList itemsMasterList = new ItemsMasterList();
 
+    //Public fileHandler instance, for same reason
     public static FileHandler fileHandler = new FileHandler();
 
     private Player player;
@@ -68,9 +69,6 @@ public class GameHandler : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        //TODO: TEMP REMOVE OF GAME MENU LOCK
-        //if (GameMenu.Instance.getMenuStatus() == true) //if we are currently in a menu, remove control of character, by ending this update run
-        //return;
 
         //dev action, kill game
         if (Input.GetKeyDown(KeyCode.BackQuote))
@@ -79,22 +77,12 @@ public class GameHandler : MonoBehaviour {
         }
 
         //dev action
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (InputHandler.Instance.checkAction(InputHandler.actions.MENU) )
         {
-            //toggleCursor();
-            //GameMenu.Instance.changeMenuStatus();
-
-
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-
-            //ensure that the player cursor can be relocked.
             toggleCursor();
-        }
+            GameMenu.Instance.changeMenuStatus();
 
-        //testing for controller input
-        if (Input.GetKeyDown(KeyCode.Joystick1Button0))
-            Debug.Log("Controller input");
+        }
 
 	}
 

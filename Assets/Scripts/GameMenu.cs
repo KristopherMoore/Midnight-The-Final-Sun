@@ -1,4 +1,18 @@
-﻿using System.Collections;
+﻿//Program Information///////////////////////////////////////////////////////////
+/*
+ * @file GameMenu.cs
+ *
+ *
+ * @game-version 0.75 
+ *          Kristopher Moore (17 May 2019)
+ *          Modifications to reimplement menu system
+ *          
+ *          The Game Menu class is responsible for handling states relevant to the game menu states,
+ *          Allowing for functions to modify currently shown panels, and handling clickable states
+ *          
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -53,6 +67,7 @@ public class GameMenu: MonoBehaviour {
     //when called by the GameHandler, this will turn the menu ui on and off
     public void changeMenuStatus()
     {
+        Debug.Log(status);
         //invert our current status, and set the gameObjects active state to match
         status = !status;
         this.gameObject.SetActive(status);
