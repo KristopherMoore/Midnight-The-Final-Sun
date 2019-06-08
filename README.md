@@ -4,7 +4,7 @@ Version/Build: 0.72
 This project is intended to explore the Unity Engine and Programming within it. I am utilizing Assets and animations that I have unpacked from Fallout 4 and Dark Souls Prepare to Die edition. Midnight, The Final Sun is purely for educational purposes.
 
 **Many features are still being implemented. More work done everyday! See roadmap at the bottom of this Readme**
-**Newest Feature: Player stance swapping and attacks. See "Player Attacks" below.
+**Newest Feature: Player stance swapping and attacks. See "Player Attacks" below.**
 
 
 ## Installation
@@ -44,7 +44,7 @@ This project is intended to explore the Unity Engine and Programming within it. 
 ![ENEMY2 GIF](images/clip6.gif "Enemy Example2")
 ![ENEMY CODE2 PNG](images/code6.PNG "Enemy Code2")
 
-##PLAYER ATTACKS / STANCE SWAP
+### PLAYER ATTACKS / STANCE SWAP
 + Attacks are tracked as a set of attack chains. (Light and Heavy). Upon valid input during states of none animation/attack mutex locks, co-routines begin to track attack states, and the animation controller queues anims accordingly
 + Players are allowed to change their stance (1hand / 2handed) with their current weapon. Their stance modifies their animations and attacks, to fit with their weapon/stance
 
