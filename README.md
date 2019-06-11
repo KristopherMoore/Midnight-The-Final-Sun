@@ -1,9 +1,9 @@
 # Midnight-The-Final-Sun
-Version/Build: 0.72
+Version/Build: 0.81
 
 This project is intended to explore the Unity Engine and Programming within it. I am utilizing Assets and animations that I have unpacked from Fallout 4 and Dark Souls Prepare to Die edition. Midnight, The Final Sun is purely for educational purposes.
 
-**Many features are still being implemented. More work done everyday! See roadmap at the bottom of this Readme**
+**Many features are still being implemented. See roadmap at the bottom of this Readme**
 **Newest Feature: Player stance swapping and attacks. See "Player Attacks" below.**
 
 
